@@ -5,12 +5,12 @@ class BaseConnection(ABC):
     """
     basic interface for other connections
     """
+
     def __init__(self):
         self.device = None
-        self.is_connected = False
 
     @abstractmethod
-    def connect(self, **kwargs):
+    def connect(self, **kwargs) -> bool:
         ...
 
     @abstractmethod
@@ -21,10 +21,18 @@ class BaseConnection(ABC):
     def receive(self) -> bytes:
         ...
 
-    def close(self):
-        if self.device:
-            self.device.close()
+    @abstractmethod
+    def receive_message(self) -> str:
+        ...
+
+    @property
+    def is_connected(self):
+        return self.device is not None
+
+    def disconnect(self):
+        if self.is_connected:
+            self.device.disconnect()
         self.device = None
 
     def __del__(self):
-        self.close()
+        self.disconnect()
