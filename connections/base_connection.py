@@ -10,7 +10,7 @@ class BaseConnection(ABC):
         self.device = None
 
     @abstractmethod
-    def connect(self, **kwargs) -> bool:
+    def connect(self, device: str) -> bool:
         ...
 
     @abstractmethod

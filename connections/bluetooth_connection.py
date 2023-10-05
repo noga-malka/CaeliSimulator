@@ -21,12 +21,17 @@ class BluetoothConnection(BaseConnection):
         """
         return {device_name: mac for (mac, device_name) in bluetooth.discover_devices(lookup_names=True)}
 
-    def connect(self, mac_address: str, **kwargs) -> bool:
+    def connect(self, device: str) -> bool:
+        """
+        connect the given device
+        :param device: mac address of the device to connect to
+        :return: True if the connection was successful, else False
+        """
         self.disconnect()  # in case a previous connection exists
 
         try:
             self._received_data_buffer = BluetoothConsts.NO_DATA_RECEIVED
-            self.device = self._connect_device(mac_address)
+            self.device = self._connect_device(device)
 
         except OSError:
             return False
@@ -60,7 +65,7 @@ class BluetoothConnection(BaseConnection):
         while BluetoothConsts.LINE_SEPARATOR not in self._received_data_buffer:
             data = self.receive()
             if data == BluetoothConsts.NO_DATA_RECEIVED:
-                raise DeviceDisconnectedException(BluetoothConsts.DEVICE_TYPE)
+                raise DeviceDisconnectedException(self.__class__.__name__)
             self._received_data_buffer += data
 
     def receive_message(self) -> str:
@@ -68,4 +73,5 @@ class BluetoothConnection(BaseConnection):
         line_end_index = self._received_data_buffer.find(BluetoothConsts.LINE_SEPARATOR)
         # separate self._received_data_buffer into the message we want to return and the extra data for the next message
         message, self._received_data_buffer = self._received_data_buffer.split(line_end_index, 1)
+        # decode bytes message to string
         return message.decode()
