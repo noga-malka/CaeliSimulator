@@ -28,7 +28,6 @@ class SerialConnection(BaseConnection):
     def receive_message(self) -> str:
         try:
             if self.device.inWaiting():
-                # decode bytes to string and remove access spaces
                 return self.receive().decode().strip()
         except (serial.SerialException, AttributeError):
             raise DeviceDisconnectedException(self.__class__.__name__)
