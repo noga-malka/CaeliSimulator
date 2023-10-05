@@ -4,6 +4,7 @@ from dash import Dash
 app = Dash(__name__,
            external_stylesheets=[dash_bootstrap_components.themes.DARKLY],
            suppress_callback_exceptions=True,
+           use_pages=True,
            title='Caeli')
 
 if __name__ == '__main__':
