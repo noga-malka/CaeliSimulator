@@ -12,8 +12,9 @@ create_new_profile_button = dash_bootstrap_components.Button(plus_icon,
 
 @callback(
     Output(ProfileForm.ID, 'is_open'),
-    Input(ProfileForm.CREATE_NEW_BUTTON, 'n_clicks'),
     State(ProfileForm.ID, 'is_open'),
+    Input(ProfileForm.CREATE_NEW_BUTTON, 'n_clicks'),
+    Input(ProfileForm.ADD_BUTTON, 'n_clicks'),
     prevent_initial_call=True)
-def toggle_modal(button_clicked: int, is_open: bool):
+def toggle_modal(is_open: bool, *buttons_clicked):
     return not is_open
