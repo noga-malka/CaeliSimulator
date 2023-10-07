@@ -11,3 +11,7 @@ class ProfileForm:
         EXSPIRIUM_HOLD_TIME = 'expirium_hold_input'
         TIDAL_VOLUME = 'tidal_volume'
         TIME_SPAN = 'time_span'
+
+
+class Placeholder:
+    ID = 'placeholder'
