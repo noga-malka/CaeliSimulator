@@ -7,10 +7,18 @@ from database.test_case_manager import TestCaseManager
 
 
 class DatabaseManager:
-    def __init__(self):
-        self.saved_database = self.load()
-        self.test_case_manager: TestCaseManager = self.get_test_case_manager()
-        self.profile_manager: ProfileManager = self.get_profile_manager()
+    _instance = None
+
+    def __new__(cls):
+        """
+        convert DatabaseManager into a singleton class
+        """
+        if cls._instance is None:
+            cls._instance = super(DatabaseManager, cls).__new__(cls)
+            cls._instance.saved_database = cls._instance.load()
+            cls._instance.test_case_manager = cls._instance.get_test_case_manager()
+            cls._instance.profile_manager = cls._instance.get_profile_manager()
+        return cls._instance
 
     def get_test_case_manager(self) -> TestCaseManager:
         if self.saved_database is not None:
