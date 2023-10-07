@@ -1,4 +1,5 @@
 BLUETOOTH = 'ic:round-bluetooth'
 SERIAL = 'ph:usb-fill'
-ADD_PROFILE = 'carbon:user-profile'
-SYNC_PROFILES = 'ic:round-sync'
+MANAGE_PROFILES = 'carbon:user-profile'
+MANAGE_TEST_CASES = 'fluent-mdl2:test-case'
+RUN_SIMULATOR = 'carbon:play-filled'

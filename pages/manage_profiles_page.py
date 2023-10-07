@@ -7,12 +7,12 @@ from components.navigation_bar import navigation_bar
 from components.placeholder import placeholder
 from components.profile_grid import profiles_grid
 from components.title import title
-from pages.consts import PageRoutes
+from pages.consts import PageRoutes, PageTitles
 
 dash.register_page(
     __name__,
-    path=PageRoutes.ADD_PROFILE,
-    title='Add Profile'
+    path=PageRoutes.MANAGE_PROFILES,
+    title=PageTitles.MANAGE_PROFILES
 )
 
 layout = html.Div([

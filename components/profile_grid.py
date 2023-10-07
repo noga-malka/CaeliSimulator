@@ -32,8 +32,8 @@ def generate_profile_details(profile: Profile):
                                      profile.expirium_time),
         generate_profile_single_stat(profile.name, [breath_icon, hold_icon], 'Expirium Hold Time[ms]',
                                      profile.expirium_hold_time),
-        generate_profile_single_stat(profile.name, [lungs_icon], 'Tidal Volume', profile.tidal_volume),
-        generate_profile_single_stat(profile.name, [time_icon], 'Profile Run Time', profile.time_span),
+        generate_profile_single_stat(profile.name, [lungs_icon], 'Tidal Volume[liter]', profile.tidal_volume),
+        generate_profile_single_stat(profile.name, [time_icon], 'Profile Run Time[seconds]', profile.time_span),
     ]
 
 

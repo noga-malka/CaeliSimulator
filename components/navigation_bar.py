@@ -3,7 +3,7 @@ from dash import html
 from dash_iconify import DashIconify
 
 from assets import icons
-from pages.consts import PageRoutes
+from pages.consts import PageRoutes, PageTitles
 
 
 def create_navigation_link(icon_name: str, title: str, navigation_link: str):
@@ -13,8 +13,9 @@ def create_navigation_link(icon_name: str, title: str, navigation_link: str):
 
 
 navigation_bar = dash_bootstrap_components.Nav([
-    create_navigation_link(icons.BLUETOOTH, 'Connect to Bluetooth', PageRoutes.BLUETOOTH),
-    create_navigation_link(icons.SERIAL, 'Connect to Serial', PageRoutes.SERIAL),
-    create_navigation_link(icons.ADD_PROFILE, 'Add Profile', PageRoutes.ADD_PROFILE),
-    create_navigation_link(icons.SYNC_PROFILES, 'Sync Profiles to Simulator', PageRoutes.SYNC_PROFILES),
+    create_navigation_link(icons.BLUETOOTH, PageTitles.BLUETOOTH, PageRoutes.BLUETOOTH),
+    create_navigation_link(icons.SERIAL, PageTitles.SERIAL, PageRoutes.SERIAL),
+    create_navigation_link(icons.MANAGE_PROFILES, PageTitles.MANAGE_PROFILES, PageRoutes.MANAGE_PROFILES),
+    create_navigation_link(icons.MANAGE_TEST_CASES, PageTitles.MANAGE_TEST_CASES, PageRoutes.MANAGE_TEST_CASES),
+    create_navigation_link(icons.RUN_SIMULATOR, PageTitles.RUN_SIMULATOR, PageRoutes.RUN_SIMULATOR),
 ], vertical=True, pills=True, className='sidebar')
