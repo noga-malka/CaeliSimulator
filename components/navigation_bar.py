@@ -7,7 +7,7 @@ from pages.consts import PageRoutes
 
 
 def create_navigation_link(icon_name: str, title: str, navigation_link: str):
-    icon = DashIconify(icon=icon_name, width=40, style={'margin-right': '8px'})
+    icon = DashIconify(icon=icon_name, width=45, style={'margin-right': '8px'})
     link_content = html.Div([icon, html.Div(title)], style={'display': 'inline-flex'})
     return dash_bootstrap_components.NavLink(link_content, href=navigation_link)
 
