@@ -1,5 +1,6 @@
 import dash_bootstrap_components
 from dash import html, dcc, callback, Output, Input, State
+from dash.exceptions import PreventUpdate
 from dash_iconify import DashIconify
 
 from assets.icons import RIGHT_ARROW
@@ -47,6 +48,8 @@ def get_already_selected_profiles(selected_profiles_children: dict):
           Input(TestCaseForm.Inputs.PROFILE_LIST, 'value'),
           prevent_initial_call=True)
 def update_selected_profiles(already_selected: list, profile_to_add: str):
+    if not profile_to_add:
+        raise PreventUpdate
     arrow_icon = DashIconify(icon=RIGHT_ARROW, width=25)
     new_badge = dash_bootstrap_components.Badge(profile_to_add, color='green', pill=True, style={'font-size': '15px'})
     if already_selected:
