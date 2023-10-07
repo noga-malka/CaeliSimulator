@@ -1,5 +1,6 @@
 from dataclasses import dataclass
-from profile import Profile
+
+from models.profile import Profile
 
 
 @dataclass
