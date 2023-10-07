@@ -9,8 +9,8 @@ from pages.consts import PageRoutes
 
 dash.register_page(
     __name__,
-    path=PageRoutes.CONNECT,
-    title='Connection'
+    path=PageRoutes.ADD_PROFILE,
+    title='Add Profile'
 )
 
 layout = html.Div([

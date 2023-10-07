@@ -1,3 +1,4 @@
-from dash_iconify import DashIconify
-
-CONNECT = DashIconify(icon='fluent:plug-connected-20-filled', width=30)
+BLUETOOTH = 'ic:round-bluetooth'
+SERIAL = 'ph:usb-fill'
+ADD_PROFILE = 'carbon:user-profile'
+SYNC_PROFILES = 'ic:round-sync'
