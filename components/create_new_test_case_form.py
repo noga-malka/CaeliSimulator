@@ -4,7 +4,7 @@ from dash_iconify import DashIconify
 
 from assets.icons import RIGHT_ARROW
 from components.consts import TestCaseForm
-from components.input_card import build_string_input_card_component
+from components.input_card import build_string_input_card
 from database.database_manager import DatabaseManager
 
 
@@ -25,7 +25,7 @@ add_test_case_form = html.Div([
     dash_bootstrap_components.Modal([
         dash_bootstrap_components.ModalHeader(html.H3('Add Test Case')),
         dash_bootstrap_components.ModalBody([
-            build_string_input_card_component('Test Case Name', TestCaseForm.Inputs.TEST_CASE_NAME),
+            build_string_input_card('Test Case Name', TestCaseForm.Inputs.TEST_CASE_NAME),
             build_profile_dropdown(),
             dash_bootstrap_components.Button('Save', TestCaseForm.ADD_BUTTON)
         ], style={'align-items': 'center', 'flex-direction': 'column'}, className='flex')]
