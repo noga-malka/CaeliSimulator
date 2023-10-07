@@ -15,3 +15,7 @@ class ProfileForm:
 
 class Placeholder:
     ID = 'placeholder'
+
+
+class ProfileGrid:
+    ID = 'profile_grid'

@@ -29,7 +29,7 @@ add_profile_form = html.Div([
             dash_bootstrap_components.Button('Add Profile', ProfileForm.ADD_BUTTON)
         ], style={'align-items': 'center', 'flex-direction': 'column'}, className='flex')]
         , id=ProfileForm.ID)
-], style={'width': '100%'})
+])
 
 
 @callback(Output(Placeholder.ID, 'children'),

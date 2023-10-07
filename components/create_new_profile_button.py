@@ -1,13 +1,11 @@
-import dash_bootstrap_components
-from dash import callback, Output, Input, State
+from dash import callback, Output, Input, State, html
 from dash_iconify import DashIconify
 
 from components.consts import ProfileForm
 
-plus_icon = DashIconify(icon='typcn:plus', width=45, id=ProfileForm.CREATE_NEW_BUTTON)
-create_new_profile_button = dash_bootstrap_components.Button(plus_icon,
-                                                             ProfileForm.CREATE_NEW_BUTTON,
-                                                             style={'height': 'fit-content', 'border-radius': '100%'})
+plus_icon = DashIconify(icon='subway:add', width=45, id=ProfileForm.CREATE_NEW_BUTTON, color='green')
+create_new_profile_button = html.Div(plus_icon, id=ProfileForm.CREATE_NEW_BUTTON,
+                                     style={'height': 'fit-content', 'border-radius': '100%'})
 
 
 @callback(
