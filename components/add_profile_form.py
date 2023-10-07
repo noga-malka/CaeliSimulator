@@ -18,6 +18,6 @@ add_profile_form = html.Div([
             build_input_card_component('Set Tidal Volume', ProfileForm.Inputs.TIDAL_VOLUME, 0, 100),
             build_input_card_component('Set Profile Time Span', ProfileForm.Inputs.TIME_SPAN, 0, 100),
         ], className='flex'),
-        dash_bootstrap_components.Button('Submit Profile', ProfileForm.SUBMIT_BUTTON)
+        dash_bootstrap_components.Button('Add Profile', ProfileForm.ADD_PROFILE_BUTTON)
     ], style={'align-items': 'center', 'flex-direction': 'column'}, className='flex')
 ], style={'width': '100%'})

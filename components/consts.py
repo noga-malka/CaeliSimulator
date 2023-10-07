@@ -7,4 +7,4 @@ class ProfileForm:
         TIDAL_VOLUME = 'tidal_volume'
         TIME_SPAN = 'time_span'
 
-    SUBMIT_BUTTON = 'submit_profile'
+    ADD_PROFILE_BUTTON = 'add_profile'

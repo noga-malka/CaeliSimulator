@@ -1,4 +1,5 @@
 import serial
+from serial.tools import list_ports
 
 from connections.base_connection import BaseConnection
 from connections.consts import UartConsts
@@ -6,6 +7,16 @@ from connections.device_disconnected_exception import DeviceDisconnectedExceptio
 
 
 class SerialConnection(BaseConnection):
+    def __init__(self):
+        super().__init__()
+        self.discovered_devices = self.discover()
+
+    @staticmethod
+    def discover():
+        connected_usb_ports = filter(lambda port: "USB" in port[2], list_ports.comports())
+        comport_names = [comport[0] for comport in connected_usb_ports]
+        return comport_names
+
     def connect(self, device: str):
         """
         connect the given device
