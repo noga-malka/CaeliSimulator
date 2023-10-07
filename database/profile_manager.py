@@ -4,7 +4,8 @@ from models.profile import Profile
 
 
 class ProfileManager(Manager):
-    def __init__(self):
+    def __init__(self, save_function: callable):
+        super().__init__(save_function)
         self.profiles: dict[str, Profile] = {}  # {name: Profile object}
 
     def _does_profile_exist(self, profile_name: str):
@@ -19,9 +20,13 @@ class ProfileManager(Manager):
     def add(self, profile: Profile):
         if self._does_profile_exist(profile.name):
             raise NameAlreadyExistsException(profile.name)
+
         self.profiles[profile.name] = profile
+        self.save_function()
 
     def remove(self, profile: Profile):
         if not self._does_profile_exist(profile.name):
             raise NameAlreadyExistsException(profile.name)
+
         self.profiles.pop(profile.name)
+        self.save_function()

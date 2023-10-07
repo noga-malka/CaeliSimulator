@@ -1,6 +1,9 @@
 import dash_bootstrap_components
 from dash import Dash
 
+from database.database_manager import DatabaseManager
+
+database_manager = DatabaseManager()
 app = Dash(__name__,
            external_stylesheets=[dash_bootstrap_components.themes.DARKLY],
            suppress_callback_exceptions=True,

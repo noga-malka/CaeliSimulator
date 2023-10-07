@@ -4,7 +4,8 @@ from models.test_case import TestCase
 
 
 class TestCaseManager(Manager):
-    def __init__(self):
+    def __init__(self, save_function: callable):
+        super().__init__(save_function)
         self.test_cases: dict[str, TestCase] = {}  # {name: TestCase object}
 
     def _does_test_case_exist(self, test_case_name: str):
@@ -21,9 +22,11 @@ class TestCaseManager(Manager):
             raise NameAlreadyExistsException(test_case.name)
 
         self.test_cases[test_case.name] = test_case
+        self.save_function()
 
     def remove(self, test_case: TestCase):
         if not self._does_test_case_exist(test_case.name):
             raise NameAlreadyExistsException(test_case.name)
 
         self.test_cases.pop(test_case.name)
+        self.save_function()

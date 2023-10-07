@@ -1,11 +1,14 @@
 import os.path
 import pickle
 
+from singleton_decorator import singleton
+
 from database.consts import FileNames
 from database.profile_manager import ProfileManager
 from database.test_case_manager import TestCaseManager
 
 
+@singleton
 class DatabaseManager:
     def __init__(self):
         self.saved_database = self.load()
@@ -15,12 +18,12 @@ class DatabaseManager:
     def get_test_case_manager(self):
         if self.saved_database is not None:
             return self.saved_database.test_case_manager
-        return TestCaseManager()
+        return TestCaseManager(self.save)
 
     def get_profile_manager(self):
         if self.saved_database is not None:
             return self.saved_database.profile_manager
-        return ProfileManager()
+        return ProfileManager(self.save)
 
     def save(self):
         self._pickle_database(FileNames.DATABASE)
