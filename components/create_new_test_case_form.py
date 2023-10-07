@@ -4,9 +4,10 @@ from dash.exceptions import PreventUpdate
 from dash_iconify import DashIconify
 
 from assets.icons import RIGHT_ARROW
-from components.consts import TestCaseForm
+from components.consts import TestCaseForm, Placeholder
 from components.input_card import build_string_input_card
 from database.database_manager import DatabaseManager
+from models.test_case import TestCase
 
 
 def build_profile_dropdown():
@@ -15,7 +16,7 @@ def build_profile_dropdown():
         html.Label('Select Profiles'),
         html.Hr(),
         html.Div([
-            dcc.Dropdown(options, id=TestCaseForm.Inputs.PROFILE_LIST, searchable=True, style={'width': '230px'}),
+            dcc.Dropdown(options, id=TestCaseForm.Inputs.PROFILE_DROPDOWN, searchable=True, style={'width': '230px'}),
             html.Div([], id=TestCaseForm.SELECTED_PROFILES, style={'margin-top': '10px', 'justify-content': 'center'},
                      className='flex')
         ], style={'justify-content': 'center', 'align-items': 'center', 'flex-direction': 'column'}, className='flex')
@@ -45,7 +46,7 @@ def get_already_selected_profiles(selected_profiles_children: dict):
 
 @callback(Output(TestCaseForm.SELECTED_PROFILES, 'children'),
           State(TestCaseForm.SELECTED_PROFILES, 'children'),
-          Input(TestCaseForm.Inputs.PROFILE_LIST, 'value'),
+          Input(TestCaseForm.Inputs.PROFILE_DROPDOWN, 'value'),
           prevent_initial_call=True)
 def update_selected_profiles(already_selected: list, profile_to_add: str):
     if not profile_to_add:
@@ -55,3 +56,23 @@ def update_selected_profiles(already_selected: list, profile_to_add: str):
     if already_selected:
         return already_selected + [arrow_icon, new_badge]
     return [new_badge]
+
+
+def extract_profile_names(selected_profiles_children: list) -> list:
+    profile_names = list()
+    for component in selected_profiles_children:
+        profile_name = component.get('props', {}).get('children')
+        if profile_name:
+            profile_names.append(profile_name)
+    return profile_names
+
+
+@callback(Output(Placeholder.ID, 'n_clicks'),
+          State(TestCaseForm.Inputs.TEST_CASE_NAME, 'value'),
+          State(TestCaseForm.SELECTED_PROFILES, 'children'),
+          Input(TestCaseForm.ADD_BUTTON, 'n_clicks'),
+          prevent_initial_call=True)
+def add_test_case(test_case_name: str, selected_profiles_children: list, button_clicked: int):
+    profile_names = extract_profile_names(selected_profiles_children)
+    new_test_case = TestCase(name=test_case_name, profile_names=profile_names)
+    DatabaseManager().test_case_manager.add(new_test_case)

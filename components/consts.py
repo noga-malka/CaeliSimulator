@@ -32,4 +32,4 @@ class TestCaseForm:
 
     class Inputs:
         TEST_CASE_NAME = 'test_case_name'
-        PROFILE_LIST = 'profile_list'
+        PROFILE_DROPDOWN = 'profile_dropdown'
