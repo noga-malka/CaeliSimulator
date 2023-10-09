@@ -1,12 +1,9 @@
-from dash import callback, Output, Input, State, html
-from dash_iconify import DashIconify
+from dash import callback, Output, Input, State
 
-from components.profile_components.consts import ProfileForm
+from components.add_button import create_add_button
 from components.test_case_components.consts import TestCaseForm
 
-plus_icon = DashIconify(icon='subway:add', width=45, id=TestCaseForm.CREATE_NEW_BUTTON, color='green')
-create_new_test_case_button = html.Div(plus_icon, id=TestCaseForm.CREATE_NEW_BUTTON,
-                                       style={'height': 'fit-content', 'border-radius': '100%'})
+create_new_test_case_button = create_add_button(button_id=TestCaseForm.CREATE_NEW_BUTTON)
 
 
 @callback(
