@@ -5,7 +5,7 @@ from database.database_manager import DatabaseManager
 
 database_manager = DatabaseManager()
 app = Dash(__name__,
-           external_stylesheets=[dash_bootstrap_components.themes.CYBORG],
+           external_stylesheets=[dash_bootstrap_components.themes.FLATLY],
            suppress_callback_exceptions=True,
            use_pages=True,
            title='Caeli')
