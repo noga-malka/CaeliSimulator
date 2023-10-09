@@ -4,7 +4,7 @@ from dash.exceptions import PreventUpdate
 
 from assets.icons import TestCaseIcons
 from components.consts import Placeholder
-from components.input_card import build_string_input_card
+from components.input_card import build_string_input_card, create_card
 from components.modal import create_modal
 from components.test_case_components.consts import TestCaseForm
 from database.database_manager import DatabaseManager
@@ -13,15 +13,12 @@ from models.test_case import TestCase
 
 def build_profile_dropdown():
     options = [profile_name for profile_name in DatabaseManager().profile_manager.profiles]
-    return html.Div([
-        html.Label('Select Profiles'),
-        html.Hr(),
-        html.Div([
-            dcc.Dropdown(options, id=TestCaseForm.Inputs.PROFILE_DROPDOWN, searchable=True, style={'width': '230px'}),
-            html.Div([], id=TestCaseForm.SELECTED_PROFILES, style={'margin-top': '10px', 'justify-content': 'center'},
-                     className='flex')
-        ], style={'justify-content': 'center', 'align-items': 'center', 'flex-direction': 'column'}, className='flex')
-    ], style={'padding': '10px', 'margin': '5px', 'height': 'fit-content'})
+    return create_card('Select Profiles', [
+        dcc.Dropdown(options, id=TestCaseForm.Inputs.PROFILE_DROPDOWN, searchable=True, style={'width': '230px'}),
+        html.Div([], id=TestCaseForm.SELECTED_PROFILES,
+                 style={'margin-top': '10px', 'justify-content': 'center'},
+                 className='flex')
+    ])
 
 
 add_test_case_form = create_modal('Add Test Case', TestCaseForm.ID, [
