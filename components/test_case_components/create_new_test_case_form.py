@@ -32,7 +32,7 @@ add_test_case_form = html.Div([
             build_profile_dropdown(),
             dash_bootstrap_components.Button('Save', TestCaseForm.ADD_BUTTON)
         ], style={'align-items': 'center', 'flex-direction': 'column'}, className='flex')]
-        , id=TestCaseForm.ID, is_open=True)
+        , id=TestCaseForm.ID)
 ])
 
 
