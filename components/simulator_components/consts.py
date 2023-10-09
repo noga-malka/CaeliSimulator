@@ -14,3 +14,10 @@ class ButtonIds:
 class ButtonGroupIds:
     SETUP_SIMULATOR = 'setup_simulator'
     SIMULATOR_CONTROLS = 'simulator_controls'
+
+
+class BluetoothModal:
+    ID = 'bluetooth_modal'
+    DEVICE_DROPDOWN = 'bluetooth_device_dropdown'
+    SYNC_DEVICES = 'sync_bluetooth_devices'
+    CONNECT_DEVICE = 'connect_bluetooth_device'

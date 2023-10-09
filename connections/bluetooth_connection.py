@@ -11,7 +11,6 @@ class BluetoothConnection(BaseConnection):
     def initiate(self):
         self.device = None
         self._received_data_buffer = BluetoothConsts.NO_DATA_RECEIVED
-        self.discover()
 
     def discover(self):
         """

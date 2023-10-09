@@ -10,7 +10,6 @@ class SerialConnection(BaseConnection):
 
     def initiate(self):
         self.device = None
-        self.discover()
 
     def discover(self):
         connected_usb_ports = filter(lambda port: "USB" in port[2], list_ports.comports())
