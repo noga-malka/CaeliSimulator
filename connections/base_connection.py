@@ -1,13 +1,12 @@
 from abc import ABC, abstractmethod
 
+from singleton import Singleton
 
-class BaseConnection(ABC):
+
+class BaseConnection(Singleton, ABC):
     """
     basic interface for other connections
     """
-
-    def __init__(self):
-        self.device = None
 
     @abstractmethod
     def connect(self, device: str) -> bool:

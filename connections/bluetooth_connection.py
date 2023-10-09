@@ -8,18 +8,18 @@ from connections.device_disconnected_exception import DeviceDisconnectedExceptio
 
 
 class BluetoothConnection(BaseConnection):
-    def __init__(self):
+    def initiate(self):
+        self.device = None
         self._received_data_buffer = BluetoothConsts.NO_DATA_RECEIVED
-        self.discovered_devices = self.discover()
-        super(BluetoothConnection, self).__init__()
+        self.discover()
 
-    @staticmethod
-    def discover() -> dict:
+    def discover(self):
         """
         discover all near bluetooth devices
         :return: { device name:str , mac:str}
         """
-        return {device_name: mac for (mac, device_name) in bluetooth.discover_devices(lookup_names=True)}
+        devices = {device_name: mac for (mac, device_name) in bluetooth.discover_devices(lookup_names=True)}
+        self.discovered_devices = devices
 
     def connect(self, device: str) -> bool:
         """

@@ -7,15 +7,15 @@ from connections.device_disconnected_exception import DeviceDisconnectedExceptio
 
 
 class SerialConnection(BaseConnection):
-    def __init__(self):
-        super().__init__()
-        self.discovered_devices = self.discover()
 
-    @staticmethod
-    def discover():
+    def initiate(self):
+        self.device = None
+        self.discover()
+
+    def discover(self):
         connected_usb_ports = filter(lambda port: "USB" in port[2], list_ports.comports())
         comport_names = [comport[0] for comport in connected_usb_ports]
-        return comport_names
+        self.discovered_devices = comport_names
 
     def connect(self, device: str):
         """
