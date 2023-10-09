@@ -4,21 +4,14 @@ import pickle
 from database.consts import FileNames
 from database.profile_manager import ProfileManager
 from database.test_case_manager import TestCaseManager
+from singleton import Singleton
 
 
-class DatabaseManager:
-    _instance = None
-
-    def __new__(cls):
-        """
-        convert DatabaseManager into a singleton class
-        """
-        if cls._instance is None:
-            cls._instance = super(DatabaseManager, cls).__new__(cls)
-            cls._instance.saved_database = cls._instance.load()
-            cls._instance.test_case_manager = cls._instance.get_test_case_manager()
-            cls._instance.profile_manager = cls._instance.get_profile_manager()
-        return cls._instance
+class DatabaseManager(Singleton):
+    def initiate(self):
+        self.saved_database = self.load()
+        self.test_case_manager = self.get_test_case_manager()
+        self.profile_manager = self.get_profile_manager()
 
     def get_test_case_manager(self) -> TestCaseManager:
         if self.saved_database is not None:
