@@ -2,7 +2,7 @@ import dash_bootstrap_components
 from dash import html, callback, Output, Input
 from dash_iconify import DashIconify
 
-from components.consts import ProfileGrid, ProfileForm
+from components.profile_components.consts import ProfileGrid, ProfileForm
 from database.database_manager import DatabaseManager
 from models.profile import Profile
 

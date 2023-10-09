@@ -4,8 +4,9 @@ from dash.exceptions import PreventUpdate
 from dash_iconify import DashIconify
 
 from assets.icons import RIGHT_ARROW
-from components.consts import TestCaseForm, Placeholder
+from components.consts import Placeholder
 from components.input_card import build_string_input_card
+from components.test_case_components.consts import TestCaseForm
 from database.database_manager import DatabaseManager
 from models.test_case import TestCase
 

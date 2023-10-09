@@ -1,8 +1,8 @@
 import dash
 from dash import html
 
-from components.create_new_test_case_form import add_test_case_form
-from components.test_case_grid import test_case_grid
+from components.test_case_components.create_new_test_case_form import add_test_case_form
+from components.test_case_components.test_case_grid import test_case_grid
 from pages.consts import PageRoutes, PageTitles
 from pages.default_page import generate_default_layout
 
