@@ -5,6 +5,7 @@ from dash.exceptions import PreventUpdate
 from assets.icons import TestCaseIcons
 from components.consts import Placeholder
 from components.input_card import build_string_input_card
+from components.modal import create_modal
 from components.test_case_components.consts import TestCaseForm
 from database.database_manager import DatabaseManager
 from models.test_case import TestCase
@@ -23,15 +24,11 @@ def build_profile_dropdown():
     ], style={'padding': '10px', 'margin': '5px', 'height': 'fit-content'})
 
 
-add_test_case_form = html.Div([
-    dash_bootstrap_components.Modal([
-        dash_bootstrap_components.ModalHeader(html.H3('Add Test Case')),
-        dash_bootstrap_components.ModalBody([
-            build_string_input_card('Test Case Name', TestCaseForm.Inputs.TEST_CASE_NAME),
-            build_profile_dropdown(),
-            dash_bootstrap_components.Button('Save', TestCaseForm.ADD_BUTTON)
-        ], style={'align-items': 'center', 'flex-direction': 'column'}, className='flex')]
-        , id=TestCaseForm.ID)
+add_test_case_form = create_modal('Add Test Case', TestCaseForm.ID, [
+    build_string_input_card('Test Case Name', TestCaseForm.Inputs.TEST_CASE_NAME),
+    build_profile_dropdown(),
+    dash_bootstrap_components.Button('Save', TestCaseForm.ADD_BUTTON)
+
 ])
 
 

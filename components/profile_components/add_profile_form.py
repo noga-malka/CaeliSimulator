@@ -2,34 +2,30 @@ import dash_bootstrap_components
 from dash import html, callback, Output, Input, State
 
 from components.consts import Placeholder
+from components.modal import create_modal
 from components.profile_components.consts import ProfileForm
 from components.input_card import build_number_input_card, build_string_input_card
 from database.database_manager import DatabaseManager
 
 from models.profile import Profile
 
-add_profile_form = html.Div([
-    dash_bootstrap_components.Modal([
-        dash_bootstrap_components.ModalHeader(html.H3('Add Profile')),
-        dash_bootstrap_components.ModalBody([
-            build_string_input_card('Profile Name', ProfileForm.Inputs.PROFILE_NAME),
-            html.Div([
-                build_number_input_card('Set Inspirium Time', ProfileForm.Inputs.INSPIRIUM_TIME, 0, 100),
-                build_number_input_card('Set Inspirium Hold Time', ProfileForm.Inputs.INSPIRIUM_HOLD_TIME, 0,
-                                        100),
-            ], className='flex'),
-            html.Div([
-                build_number_input_card('Set Expirium Time', ProfileForm.Inputs.EXPIRIUM_TIME, 0, 100),
-                build_number_input_card('Set Expirium Hold Time', ProfileForm.Inputs.EXSPIRIUM_HOLD_TIME, 0,
-                                        100),
-            ], className='flex'),
-            html.Div([
-                build_number_input_card('Set Tidal Volume', ProfileForm.Inputs.TIDAL_VOLUME, 0, 100),
-                build_number_input_card('Set Profile Time Span', ProfileForm.Inputs.TIME_SPAN, 0, 100),
-            ], className='flex'),
-            dash_bootstrap_components.Button('Save', ProfileForm.ADD_BUTTON)
-        ], style={'align-items': 'center', 'flex-direction': 'column'}, className='flex')]
-        , id=ProfileForm.ID)
+add_profile_form = create_modal('Add Profile', ProfileForm.ID, [
+    build_string_input_card('Profile Name', ProfileForm.Inputs.PROFILE_NAME),
+    html.Div([
+        build_number_input_card('Set Inspirium Time', ProfileForm.Inputs.INSPIRIUM_TIME, 0, 100),
+        build_number_input_card('Set Inspirium Hold Time', ProfileForm.Inputs.INSPIRIUM_HOLD_TIME, 0,
+                                100),
+    ], className='flex'),
+    html.Div([
+        build_number_input_card('Set Expirium Time', ProfileForm.Inputs.EXPIRIUM_TIME, 0, 100),
+        build_number_input_card('Set Expirium Hold Time', ProfileForm.Inputs.EXSPIRIUM_HOLD_TIME, 0,
+                                100),
+    ], className='flex'),
+    html.Div([
+        build_number_input_card('Set Tidal Volume', ProfileForm.Inputs.TIDAL_VOLUME, 0, 100),
+        build_number_input_card('Set Profile Time Span', ProfileForm.Inputs.TIME_SPAN, 0, 100),
+    ], className='flex'),
+    dash_bootstrap_components.Button('Save', ProfileForm.ADD_BUTTON)
 ])
 
 
