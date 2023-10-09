@@ -3,7 +3,7 @@ from dash import html, callback, Input, Output
 from dash_iconify import DashIconify
 
 from assets import icons
-from assets.icons import SmallIcons
+from assets.icons import TestCaseIcons
 from components.test_case_components.consts import TestCaseGrid, TestCaseForm
 from database.database_manager import DatabaseManager
 from models.test_case import TestCase
@@ -13,7 +13,7 @@ def generate_test_case_details(test_case: TestCase):
     profiles_flow = list()
     for profile_name in test_case.profile_names:
         profiles_flow += [
-            SmallIcons.DOWN_ARROW,
+            TestCaseIcons.DOWN_ARROW,
             dash_bootstrap_components.Badge(profile_name, pill=True, style={'margin': '5px'})
         ]
     return profiles_flow

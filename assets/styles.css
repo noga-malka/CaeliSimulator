@@ -7,3 +7,10 @@ flex-direction: column;
 .flex{
  display: flex;
 }
+.control-buttons{
+border-radius: 0;
+padding: 12px;
+border-bottom: none;
+border-top: none;
+align-items: center;
+}

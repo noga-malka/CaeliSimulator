@@ -2,7 +2,7 @@ import dash_bootstrap_components
 from dash import html, callback, Output, Input
 from dash_iconify import DashIconify
 
-from assets.icons import MediumIcons
+from assets.icons import ProfileIcons
 from components.profile_components.consts import ProfileGrid, ProfileForm
 from database.database_manager import DatabaseManager
 from models.profile import Profile
@@ -18,16 +18,16 @@ def generate_profile_single_stat(profile_name: str, icons: list[DashIconify], st
 
 def generate_profile_details(profile: Profile):
     return [
-        generate_profile_single_stat(profile.name, [MediumIcons.BREATH, MediumIcons.RIGHT_BROKEN_ARROW],
+        generate_profile_single_stat(profile.name, [ProfileIcons.BREATH, ProfileIcons.RIGHT_BROKEN_ARROW],
                                      'Inspirium Time[ms]', profile.inspirium_time),
-        generate_profile_single_stat(profile.name, [MediumIcons.BREATH, MediumIcons.HOLD], 'Inspirium Hold Time[ms]',
+        generate_profile_single_stat(profile.name, [ProfileIcons.BREATH, ProfileIcons.HOLD], 'Inspirium Hold Time[ms]',
                                      profile.inspirium_hold_time),
-        generate_profile_single_stat(profile.name, [MediumIcons.BREATH, MediumIcons.LEFT_BROKEN_ARROW],
+        generate_profile_single_stat(profile.name, [ProfileIcons.BREATH, ProfileIcons.LEFT_BROKEN_ARROW],
                                      'Expirium Time[ms]', profile.expirium_time),
-        generate_profile_single_stat(profile.name, [MediumIcons.BREATH, MediumIcons.HOLD], 'Expirium Hold Time[ms]',
+        generate_profile_single_stat(profile.name, [ProfileIcons.BREATH, ProfileIcons.HOLD], 'Expirium Hold Time[ms]',
                                      profile.expirium_hold_time),
-        generate_profile_single_stat(profile.name, [MediumIcons.LUNGS], 'Tidal Volume[liter]', profile.tidal_volume),
-        generate_profile_single_stat(profile.name, [MediumIcons.TIME], 'Profile Run Time[seconds]', profile.time_span),
+        generate_profile_single_stat(profile.name, [ProfileIcons.LUNGS], 'Tidal Volume[liter]', profile.tidal_volume),
+        generate_profile_single_stat(profile.name, [ProfileIcons.TIME], 'Profile Run Time[seconds]', profile.time_span),
     ]
 
 
