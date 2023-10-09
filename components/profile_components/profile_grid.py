@@ -2,6 +2,7 @@ import dash_bootstrap_components
 from dash import html, callback, Output, Input
 from dash_iconify import DashIconify
 
+from assets.icons import MediumIcons
 from components.profile_components.consts import ProfileGrid, ProfileForm
 from database.database_manager import DatabaseManager
 from models.profile import Profile
@@ -16,24 +17,17 @@ def generate_profile_single_stat(profile_name: str, icons: list[DashIconify], st
 
 
 def generate_profile_details(profile: Profile):
-    breath_icon = DashIconify(icon='openmoji:wind-face', width=32, flip='horizontal')
-    arrow_right_icon = DashIconify(icon='solar:arrow-right-broken', width=32)
-    arrow_left_icon = DashIconify(icon='solar:arrow-left-broken', width=32)
-    hold_icon = DashIconify(icon='bi:pause', width=32)
-    lungs_icon = DashIconify(icon='healthicons:lungs-outline', width=32)
-    time_icon = DashIconify(icon='carbon:time', width=32)
-
     return [
-        generate_profile_single_stat(profile.name, [breath_icon, arrow_right_icon], 'Inspirium Time[ms]',
-                                     profile.inspirium_time),
-        generate_profile_single_stat(profile.name, [breath_icon, hold_icon], 'Inspirium Hold Time[ms]',
+        generate_profile_single_stat(profile.name, [MediumIcons.BREATH, MediumIcons.RIGHT_BROKEN_ARROW],
+                                     'Inspirium Time[ms]', profile.inspirium_time),
+        generate_profile_single_stat(profile.name, [MediumIcons.BREATH, MediumIcons.HOLD], 'Inspirium Hold Time[ms]',
                                      profile.inspirium_hold_time),
-        generate_profile_single_stat(profile.name, [breath_icon, arrow_left_icon], 'Expirium Time[ms]',
-                                     profile.expirium_time),
-        generate_profile_single_stat(profile.name, [breath_icon, hold_icon], 'Expirium Hold Time[ms]',
+        generate_profile_single_stat(profile.name, [MediumIcons.BREATH, MediumIcons.LEFT_BROKEN_ARROW],
+                                     'Expirium Time[ms]', profile.expirium_time),
+        generate_profile_single_stat(profile.name, [MediumIcons.BREATH, MediumIcons.HOLD], 'Expirium Hold Time[ms]',
                                      profile.expirium_hold_time),
-        generate_profile_single_stat(profile.name, [lungs_icon], 'Tidal Volume[liter]', profile.tidal_volume),
-        generate_profile_single_stat(profile.name, [time_icon], 'Profile Run Time[seconds]', profile.time_span),
+        generate_profile_single_stat(profile.name, [MediumIcons.LUNGS], 'Tidal Volume[liter]', profile.tidal_volume),
+        generate_profile_single_stat(profile.name, [MediumIcons.TIME], 'Profile Run Time[seconds]', profile.time_span),
     ]
 
 
