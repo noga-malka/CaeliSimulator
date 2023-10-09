@@ -24,7 +24,7 @@ class ControlButtonIcons:
     SERIAL = create_icon('ph:usb-fill', width=32, style={'margin-right': '3px'})
     SELECT_TEST_CASE = create_icon('fluent-mdl2:test-case', width=32, style={'margin-right': '3px'})
     ON = create_icon('iconoir:on-tag', width=32, style={'margin-right': '3px'})
-    PLAY = create_icon('carbon:play-filled', width=32, style={'margin-right': '3px'})
+    RUN = create_icon('carbon:play-filled', width=32, style={'margin-right': '3px'})
     HOMING = create_icon('ant-design:home-filled', width=32, style={'margin-right': '3px'})
     PAUSE = create_icon('heroicons-outline:pause', width=32, style={'margin-right': '3px'})
     OFF = create_icon('iconoir:off-tag', width=32, style={'margin-right': '3px'})
