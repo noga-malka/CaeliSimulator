@@ -20,8 +20,8 @@ class ProfileIcons:
 
 
 class ControlButtonIcons:
-    BLUETOOTH = create_icon('ic:round-bluetooth', width=32, style={'margin-right': '3px'})
-    SERIAL = create_icon('ph:usb-fill', width=32, style={'margin-right': '3px'})
+    CONNECT_TO_SIMULATOR = create_icon('wpf:connected', width=32, style={'margin-right': '3px'})
+    DISCONNECT_FROM_SIMULATOR = create_icon('wpf:disconnected', width=32, style={'margin-right': '3px'})
     SELECT_TEST_CASE = create_icon('fluent-mdl2:test-case', width=32, style={'margin-right': '3px'})
     ON = create_icon('iconoir:on-tag', width=32, style={'margin-right': '3px'})
     RUN = create_icon('carbon:play-filled', width=32, style={'margin-right': '3px'})
