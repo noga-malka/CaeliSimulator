@@ -1,3 +1,7 @@
+class Connection:
+    STATUS_BAR = 'connection_status_bar'
+
+
 class ButtonIds:
     BLUETOOTH = 'open_bluetooth_modal'
     SERIAL = 'open_serial_modal'

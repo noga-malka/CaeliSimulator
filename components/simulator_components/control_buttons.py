@@ -4,11 +4,12 @@ from dash_iconify import DashIconify
 
 from assets.icons import ControlButtonIcons
 from components.simulator_components.bluetooth_connection_form import bluetooth_modal
-from components.simulator_components.consts import ButtonIds, ButtonGroupIds
+from components.simulator_components.consts import ButtonIds, ButtonGroupIds, Connection
 from components.simulator_components.create_bluetooth_connection_button import bluetooth_modal_button
 from components.simulator_components.utilities import create_control_button
 
 control_buttons = html.Div([
+    html.Div('', className='connection-status', id=Connection.STATUS_BAR),
     dash_bootstrap_components.ButtonGroup([
         bluetooth_modal_button,
         create_control_button('Connect To Serial', ButtonIds.SERIAL, ControlButtonIcons.SERIAL),
