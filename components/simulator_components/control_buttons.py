@@ -4,6 +4,7 @@ from dash import html, callback, Output, State, Input
 from assets.icons import ControlButtonIcons
 from cnc.cnc import Cnc
 from components.consts import Placeholder
+from components.simulator_components.simulator_buttons import simulator_buttons
 from components.simulator_components.connection_form import connection_modal
 from components.simulator_components.consts import ButtonIds, ButtonGroupIds, ConnectionStatus, ConnectionModal
 from components.simulator_components.utilities import create_control_button
@@ -17,13 +18,7 @@ control_buttons = html.Div([
                               ControlButtonIcons.DISCONNECT_FROM_SIMULATOR),
         create_control_button('Select Test Case', ButtonIds.TEST_CASE, ControlButtonIcons.SELECT_TEST_CASE)
     ], id=ButtonGroupIds.SETUP_SIMULATOR),
-    dash_bootstrap_components.ButtonGroup([
-        create_control_button('On', ButtonIds.Simulator.ON, ControlButtonIcons.ON),
-        create_control_button('Run', ButtonIds.Simulator.RUN, ControlButtonIcons.RUN),
-        create_control_button('Homing', ButtonIds.Simulator.HOMING, ControlButtonIcons.HOMING),
-        create_control_button('Pause', ButtonIds.Simulator.PAUSE, ControlButtonIcons.PAUSE),
-        create_control_button('Off', ButtonIds.Simulator.OFF, ControlButtonIcons.OFF),
-    ], id=ButtonGroupIds.SIMULATOR_CONTROLS),
+    simulator_buttons,
     connection_modal,
 ], className='bg-secondary flex', style={'justify-content': 'center', 'flex-direction': 'column'})
 
