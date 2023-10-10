@@ -11,6 +11,7 @@ bluetooth_modal_button = create_control_button('Connect To Bluetooth', ButtonIds
 @callback(
     Output(BluetoothModal.ID, 'is_open'),
     State(BluetoothModal.ID, 'is_open'),
+    Input(BluetoothModal.CONNECT_DEVICE, 'n_clicks'),
     Input(ButtonIds.BLUETOOTH, 'n_clicks'),
     prevent_initial_call=True)
 def toggle_modal(is_open: bool, *buttons_clicked):

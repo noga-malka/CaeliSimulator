@@ -17,8 +17,7 @@ class BluetoothConnection(BaseConnection):
         discover all near bluetooth devices
         :return: { device name:str , mac:str}
         """
-        devices = {device_name: mac for (mac, device_name) in bluetooth.discover_devices(lookup_names=True)}
-        self.discovered_devices = devices
+        self.discovered_devices = dict(bluetooth.discover_devices(lookup_names=True))
 
     def connect(self, device: str) -> bool:
         """
