@@ -26,8 +26,12 @@ class SerialConnection(BaseConnection):
         try:
             self.device = serial.Serial(device, UartConsts.BAUDRATE, timeout=UartConsts.TIMEOUT)
         except serial.SerialException:
-            return False
-        return True
+            self.device = None
+
+    def disconnect(self):
+        if self.is_connected:
+            self.device.close()
+        self.device = None
 
     def send(self, data: bytes):
         self.device.write(data)

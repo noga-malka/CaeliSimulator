@@ -14,13 +14,16 @@ class DemoConnection(BaseConnection):
         """
         self.discovered_devices = {'test': 'test'}
 
-    def connect(self, device: str) -> bool:
+    def connect(self, device: str):
         """
         connect the given device
         :param device: mac address of the device to connect to
         :return: True if the connection was successful, else False
         """
-        return True
+        self.device = 'connected'
+
+    def disconnect(self):
+        self.device = None
 
     def send(self, data: bytes):
         print('Send: ', data)

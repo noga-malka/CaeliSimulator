@@ -19,7 +19,7 @@ class BluetoothConnection(BaseConnection):
         """
         self.discovered_devices = dict(bluetooth.discover_devices(lookup_names=True))
 
-    def connect(self, device: str) -> bool:
+    def connect(self, device: str):
         """
         connect the given device
         :param device: mac address of the device to connect to
@@ -32,9 +32,7 @@ class BluetoothConnection(BaseConnection):
             self.device = self._connect_device(device)
 
         except OSError:
-            return False
-
-        return True
+            self.device = None
 
     def _connect_device(self, mac_address: str) -> socket.socket:
         """
@@ -46,6 +44,11 @@ class BluetoothConnection(BaseConnection):
         new_device = socket.socket(socket.AF_BLUETOOTH, socket.SOCK_STREAM, socket.BTPROTO_RFCOMM)
         new_device.connect((self.discovered_devices.get(mac_address, ''), 1))
         return new_device
+
+    def disconnect(self):
+        if self.is_connected:
+            self.device.close()
+        self.device = None
 
     def send(self, data: bytes):
         self.device.send(data)

@@ -9,7 +9,7 @@ class BaseConnection(Singleton, ABC):
     """
 
     @abstractmethod
-    def connect(self, device: str) -> bool:
+    def connect(self, device: str):
         ...
 
     @abstractmethod
@@ -28,10 +28,9 @@ class BaseConnection(Singleton, ABC):
     def is_connected(self):
         return self.device is not None
 
+    @abstractmethod
     def disconnect(self):
-        if self.is_connected:
-            self.device.disconnect()
-        self.device = None
+        ...
 
     def __del__(self):
         self.disconnect()
