@@ -29,7 +29,7 @@ add_profile_form = create_modal('Add Profile', ProfileForm.ID, [
 ])
 
 
-@callback(Output(Placeholder.ID, 'children'),
+@callback(Output(Placeholder.ID, Placeholder.Fields.CHILDREN),
           State(ProfileForm.Inputs.PROFILE_NAME, 'value'),
           State(ProfileForm.Inputs.INSPIRIUM_TIME, 'value'),
           State(ProfileForm.Inputs.INSPIRIUM_HOLD_TIME, 'value'),

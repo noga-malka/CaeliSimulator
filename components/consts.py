@@ -2,15 +2,15 @@ class Placeholder:
     ID = 'placeholder'
 
     class Fields:
-        CHILDREN = 'children'
-        CLICKS = 'n_clicks'
-        CLICKS_TIMESTAMP = 'n_clicks_timestamp'
-        KEY = 'key'
+        CHILDREN = 'children'  # in use
+        CLICKS = 'n_clicks'  # in use
+        CLICKS_TIMESTAMP = 'n_clicks_timestamp'  # in use
+        KEY = 'key'  # in use
         ACCESS_KEY = 'accessKey'
-        CLASS_NAME = 'className'  # in use
+        CLASS_NAME = 'className'
         CONTENT_EDITABLE = 'contentEditable'
         CONTEXT_MENU = 'contextMenu'
-        DIR = 'dir'  # in use
+        DIR = 'dir'
         DRAGGABLE = 'draggable'
         HIDDEN = 'hidden'
         LANG = 'lang'

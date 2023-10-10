@@ -60,7 +60,7 @@ def extract_profile_names(selected_profiles_children: list) -> list:
     return profile_names
 
 
-@callback(Output(Placeholder.ID, 'n_clicks'),
+@callback(Output(Placeholder.ID, Placeholder.Fields.CLICKS),
           State(TestCaseForm.Inputs.TEST_CASE_NAME, 'value'),
           State(TestCaseForm.SELECTED_PROFILES, 'children'),
           Input(TestCaseForm.ADD_BUTTON, 'n_clicks'),

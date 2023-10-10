@@ -42,7 +42,7 @@ def sync_devices(connection_type: str, sync_button_clicked: int):
     return []
 
 
-@callback(Output(Placeholder.ID, Placeholder.Fields.CLASS_NAME),
+@callback(Output(Placeholder.ID, Placeholder.Fields.CLICKS_TIMESTAMP),
           State(ConnectionModal.DEVICE_DROPDOWN, 'value'),
           State(ConnectionModal.CONNECTION_TYPE_DROPDOWN, 'value'),
           Input(ConnectionModal.CONNECT_DEVICE, 'n_clicks'),
@@ -55,8 +55,8 @@ def connect_selected_device(device: str, connection_type: str, button_clicked: i
 
 
 @callback(Output(ConnectionStatus.ID, 'className'),
-          Input(Placeholder.ID, Placeholder.Fields.CLASS_NAME),
-          Input(Placeholder.ID, Placeholder.Fields.DIR),
+          Input(Placeholder.ID, Placeholder.Fields.CLICKS_TIMESTAMP),
+          Input(Placeholder.ID, Placeholder.Fields.KEY),
           prevent_initial_call=True)
 def connect_selected_device(*button_clicks: list[int]):
     class_name = 'connection-status'

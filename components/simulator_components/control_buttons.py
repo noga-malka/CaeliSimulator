@@ -38,7 +38,7 @@ def toggle_modal(is_open: bool, *buttons_clicked):
     return not is_open
 
 
-@callback(Output(Placeholder.ID, Placeholder.Fields.DIR),
+@callback(Output(Placeholder.ID, Placeholder.Fields.KEY),
           Input(ButtonIds.DISCONNECT_FROM_SIMULATOR, 'n_clicks'),
           prevent_initial_call=True)
 def connect_selected_device(disconnect_button: int):
