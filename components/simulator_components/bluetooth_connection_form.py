@@ -2,9 +2,11 @@ import dash_bootstrap_components
 from dash import callback, Output, State, Input
 from dash import dcc
 
+from cnc.cnc import Cnc
+from components.consts import Placeholder
 from components.input_card import create_card
 from components.modal import create_modal
-from components.simulator_components.consts import BluetoothModal, Connection
+from components.simulator_components.consts import BluetoothModal, ConnectionStatus
 from connections.bluetooth_connection import BluetoothConnection
 
 
@@ -32,10 +34,11 @@ def sync_bluetooth_devices(sync_button_clicked):
     return connection.discovered_devices
 
 
-@callback(Output(Connection.STATUS_BAR, 'className'),
+@callback(Output(Placeholder.ID, 'className'),
           State(BluetoothModal.DEVICE_DROPDOWN, 'value'),
           Input(BluetoothModal.CONNECT_DEVICE, 'n_clicks'),
           prevent_initial_call=True)
 def connect_selected_device(mac_address: str, button_clicked: int):
-    connection_status = BluetoothConnection().connect(mac_address)
-    return 'connection-status' + (' connected' if connection_status else '')
+    cnc = Cnc()
+    cnc.set_connection(BluetoothConnection())
+    cnc.connection.connect(mac_address)

@@ -1,5 +1,5 @@
-class Connection:
-    STATUS_BAR = 'connection_status_bar'
+class ConnectionStatus:
+    ID = 'connection_status_bar'
 
 
 class ButtonIds:
