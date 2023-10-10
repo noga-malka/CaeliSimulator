@@ -2,7 +2,7 @@ import dash_bootstrap_components
 from dash import html
 
 from assets.icons import ControlButtonIcons
-from components.simulator_components.connection_form import bluetooth_modal
+from components.simulator_components.connection_form import connection_modal
 from components.simulator_components.consts import ButtonIds, ButtonGroupIds, ConnectionStatus
 from components.simulator_components.create_connection_button import connect_to_simulator_modal_button
 from components.simulator_components.utilities import create_control_button
@@ -22,5 +22,5 @@ control_buttons = html.Div([
         create_control_button('Pause', ButtonIds.Simulator.PAUSE, ControlButtonIcons.PAUSE),
         create_control_button('Off', ButtonIds.Simulator.OFF, ControlButtonIcons.OFF),
     ], id=ButtonGroupIds.SIMULATOR_CONTROLS),
-    bluetooth_modal,
+    connection_modal,
 ], className='bg-secondary flex', style={'justify-content': 'center', 'flex-direction': 'column'})

@@ -22,6 +22,7 @@ class ButtonGroupIds:
 
 class ConnectionModal:
     ID = 'connection_modal'
+    CONNECTION_TYPE_DROPDOWN = 'connection_type_dropdown'
     DEVICE_DROPDOWN = 'device_dropdown'
     SYNC_DEVICES = 'sync_devices'
     CONNECT_DEVICE = 'connect_device'
