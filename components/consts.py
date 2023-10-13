@@ -6,8 +6,8 @@ class Placeholder:
         CLICKS = 'n_clicks'  # in use
         CLICKS_TIMESTAMP = 'n_clicks_timestamp'  # in use
         KEY = 'key'  # in use
-        ACCESS_KEY = 'accessKey'
-        CLASS_NAME = 'className'
+        ACCESS_KEY = 'accessKey'  # in use
+        CLASS_NAME = 'className'  # in use
         CONTENT_EDITABLE = 'contentEditable'
         CONTEXT_MENU = 'contextMenu'
         DIR = 'dir'

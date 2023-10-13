@@ -8,7 +8,7 @@ from models.test_case import TestCase
 
 
 class SyncTestCasePacket(BasePacket):
-    def __init__(self, command_type: Commands, test_case: TestCase):
+    def __init__(self, test_case: TestCase, command_type: Commands = Commands.SEND_TEST_CASE):
         super().__init__(command_type)
         self.test_case = test_case
 
@@ -27,7 +27,7 @@ class SyncTestCasePacket(BasePacket):
             profile.inspirium_hold_time,
             profile.expirium_time,
             profile.expirium_hold_time,
-            profile.tidal_volume * 1000,  # convert liter to milliliter
+            profile.tidal_volume,
             profile.time_span
         ]
         return b''.join([detail.to_bytes(2, sys.byteorder) for detail in ordered_details])

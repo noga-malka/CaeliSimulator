@@ -7,4 +7,4 @@ class Commands(Enum):
     RUN: bytes = b'\x41'
     PAUSE: bytes = b'\x42'
     HOMING: bytes = b'\x45'
-    SYNC_PROFILES: bytes = b'\x46'
+    SEND_TEST_CASE: bytes = b'\x46'
