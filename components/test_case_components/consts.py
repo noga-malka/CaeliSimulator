@@ -11,3 +11,4 @@ class TestCaseForm:
 
 class TestCaseGrid:
     ID = 'test_case_grid'
+    SEND_TEST_CASE_BUTTON = 'send_test_case_button'

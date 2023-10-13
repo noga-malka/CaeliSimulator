@@ -6,7 +6,6 @@ from cnc.cnc import Cnc
 from components.consts import Placeholder
 from components.simulator_components.connection_form import connection_modal
 from components.simulator_components.consts import ButtonIds, ButtonGroupIds, ConnectionStatus, ConnectionModal
-from components.simulator_components.select_test_case_form import test_case_modal
 from components.simulator_components.utilities import create_control_button
 from utilities import validate_arguments
 
@@ -17,9 +16,7 @@ control_buttons = html.Div([
                               ControlButtonIcons.CONNECT_TO_SIMULATOR),
         create_control_button('Disconnect From Simulator', ButtonIds.DISCONNECT_FROM_SIMULATOR,
                               ControlButtonIcons.DISCONNECT_FROM_SIMULATOR),
-        create_control_button('Select Test Case', ButtonIds.TEST_CASE, ControlButtonIcons.SELECT_TEST_CASE)
     ], id=ButtonGroupIds.SETUP_SIMULATOR),
-    test_case_modal,
     connection_modal,
 ], className='bg-secondary flex', style={'justify-content': 'center', 'flex-direction': 'column'})
 

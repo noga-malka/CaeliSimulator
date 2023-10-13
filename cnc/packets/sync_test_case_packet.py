@@ -32,3 +32,7 @@ class SyncTestCasePacket(BasePacket):
             profile.time_span
         ]
         return b''.join([int_to_bytes(detail) for detail in ordered_details])
+
+    def __str__(self):
+        formatted_test_case = f', {self.test_case.__class__.__name__}: {self.test_case.name}'
+        return super(SyncTestCasePacket, self).__str__() + formatted_test_case
