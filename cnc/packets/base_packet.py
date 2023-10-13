@@ -12,4 +12,4 @@ class BasePacket(ABC):
         ...
 
     def __str__(self):
-        return f'Command {self.command_type.name}: {self.command_type.value}'
+        return f'{self.__class__.__name__} {self.command_type}'
