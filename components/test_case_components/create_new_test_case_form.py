@@ -6,15 +6,15 @@ from assets.icons import TestCaseIcons
 from components.consts import Placeholder
 from components.input_card import build_string_input_card, create_card
 from components.modal import create_modal
+from components.profile_components.consts import ProfileForm
 from components.test_case_components.consts import TestCaseForm
 from database.database_manager import DatabaseManager
 from models.test_case import TestCase
 
 
 def build_profile_dropdown():
-    options = [profile_name for profile_name in DatabaseManager().profile_manager.profiles]
     return create_card('Select Profiles', [
-        dcc.Dropdown(options, id=TestCaseForm.Inputs.PROFILE_DROPDOWN, searchable=True, style={'width': '230px'}),
+        dcc.Dropdown([], id=TestCaseForm.Inputs.PROFILE_DROPDOWN, searchable=True, style={'width': '230px'}),
         html.Div([], id=TestCaseForm.SELECTED_PROFILES,
                  style={'margin-top': '10px', 'justify-content': 'center'},
                  className='flex')
@@ -36,6 +36,12 @@ def get_already_selected_profiles(selected_profiles_children: dict):
         if children:
             return children
     return []
+
+
+@callback(Output(TestCaseForm.Inputs.PROFILE_DROPDOWN, 'options'),
+          Input(Placeholder.ID, Placeholder.Fields.CHILDREN))
+def update_profiles_dropdown(*args):
+    return [profile_name for profile_name in DatabaseManager().profile_manager.profiles]
 
 
 @callback(Output(TestCaseForm.SELECTED_PROFILES, 'children'),
