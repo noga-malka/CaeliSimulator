@@ -15,15 +15,15 @@ from models.test_case import TestCase
 def build_profile_dropdown():
     return create_card('Select Profiles', [
         dcc.Dropdown([], id=TestCaseForm.Inputs.PROFILE_DROPDOWN, searchable=True, style={'width': '230px'}),
-        html.Div([], id=TestCaseForm.SELECTED_PROFILES,
-                 style={'margin-top': '10px', 'justify-content': 'center'},
-                 className='flex')
     ])
 
 
 add_test_case_form = create_modal('Add Test Case', TestCaseForm.ID, [
     build_string_input_card('Test Case Name', TestCaseForm.Inputs.TEST_CASE_NAME),
     build_profile_dropdown(),
+    html.Div([], id=TestCaseForm.SELECTED_PROFILES,
+             style={'margin-bottom': '10px', 'justify-content': 'center'},
+             className='flex'),
     dash_bootstrap_components.Button('Save', TestCaseForm.ADD_BUTTON)
 
 ])
