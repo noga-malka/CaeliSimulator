@@ -12,18 +12,18 @@ from models.profile import Profile
 add_profile_form = create_modal('Add Profile', ProfileForm.ID, [
     build_string_input_card('Profile Name', ProfileForm.Inputs.PROFILE_NAME),
     html.Div([
-        build_number_input_card('Set Inspirium Time', ProfileForm.Inputs.INSPIRIUM_TIME, 0, 100),
-        build_number_input_card('Set Inspirium Hold Time', ProfileForm.Inputs.INSPIRIUM_HOLD_TIME, 0,
-                                100),
+        build_number_input_card('Inspirium Time [mSec]', ProfileForm.Inputs.INSPIRIUM_TIME, 0, 10000),
+        build_number_input_card('Inspirium Hold Time [mSec]', ProfileForm.Inputs.INSPIRIUM_HOLD_TIME, 0,
+                                5000),
     ], className='flex'),
     html.Div([
-        build_number_input_card('Set Expirium Time', ProfileForm.Inputs.EXPIRIUM_TIME, 0, 100),
-        build_number_input_card('Set Expirium Hold Time', ProfileForm.Inputs.EXSPIRIUM_HOLD_TIME, 0,
-                                100),
+        build_number_input_card('Expirium Time [mSec]', ProfileForm.Inputs.EXPIRIUM_TIME, 0, 10000),
+        build_number_input_card('Expirium Hold Time [mSec]', ProfileForm.Inputs.EXSPIRIUM_HOLD_TIME, 0,
+                                5000),
     ], className='flex'),
     html.Div([
-        build_number_input_card('Set Tidal Volume', ProfileForm.Inputs.TIDAL_VOLUME, 0, 100),
-        build_number_input_card('Set Profile Time Span', ProfileForm.Inputs.TIME_SPAN, 0, 100),
+        build_number_input_card('Tidal Volume [mm]', ProfileForm.Inputs.TIDAL_VOLUME, 0, 150),
+        build_number_input_card('Profile Time Span [Sec]', ProfileForm.Inputs.TIME_SPAN, 0, 1800),
     ], className='flex'),
     dash_bootstrap_components.Button('Save', ProfileForm.ADD_BUTTON)
 ])
