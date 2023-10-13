@@ -8,6 +8,7 @@ from components.input_card import build_number_input_card, build_string_input_ca
 from database.database_manager import DatabaseManager
 
 from models.profile import Profile
+from utilities import validate_arguments
 
 add_profile_form = create_modal('Add Profile', ProfileForm.ID, [
     build_string_input_card('Profile Name', ProfileForm.Inputs.PROFILE_NAME),
@@ -47,6 +48,7 @@ def add_new_profile(name: str,
                     tidal_volume: int,
                     time_span: int,
                     button_clicked: int):
+    validate_arguments(button_clicked)
     new_profile = Profile(name=name,
                           inspirium_time=inspirium_time,
                           inspirium_hold_time=inspirium_hold_time,

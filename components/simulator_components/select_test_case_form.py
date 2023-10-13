@@ -9,6 +9,7 @@ from components.input_card import create_card
 from components.modal import create_modal
 from components.simulator_components.consts import SelectTestCaseModal, ButtonIds
 from database.database_manager import DatabaseManager
+from utilities import validate_arguments
 
 
 def build_devices_dropdown():
@@ -39,9 +40,9 @@ def toggle_modal(is_open: bool, *buttons_clicked):
           Input(SelectTestCaseModal.SEND_TEST_CASE, 'n_clicks'),
           prevent_initial_call=True)
 def send_test_case_to_simulator(test_case_name: str, send_button: int):
-    if test_case_name:
-        test_case = DatabaseManager().test_case_manager.test_cases[test_case_name]
-        Cnc().send_command(SyncTestCasePacket(test_case))
+    validate_arguments(test_case_name, send_button)
+    test_case = DatabaseManager().test_case_manager.test_cases[test_case_name]
+    Cnc().send_command(SyncTestCasePacket(test_case))
 
 
 @callback(Output(SelectTestCaseModal.TEST_CASE_DROPDOWN, 'options'),

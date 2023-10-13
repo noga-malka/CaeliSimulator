@@ -7,6 +7,7 @@ from cnc.command_mapping import COMMAND_PER_BUTTON
 from components.consts import Placeholder
 from components.simulator_components.consts import ButtonGroupIds, ButtonIds
 from components.simulator_components.utilities import create_control_button
+from utilities import validate_arguments
 
 simulator_buttons = dash_bootstrap_components.ButtonGroup([
     create_control_button('On', ButtonIds.Simulator.ON, ControlButtonIcons.ON),
@@ -25,5 +26,6 @@ simulator_buttons = dash_bootstrap_components.ButtonGroup([
           Input(ButtonIds.Simulator.OFF, 'n_clicks'),
           prevent_initial_call=True)
 def activate_simulator_buttons(*buttons):
+    validate_arguments(*buttons)
     command_packet = COMMAND_PER_BUTTON[callback_context.triggered_id]
     Cnc().send_command(command_packet)

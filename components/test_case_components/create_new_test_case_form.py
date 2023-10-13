@@ -10,6 +10,7 @@ from components.profile_components.consts import ProfileForm
 from components.test_case_components.consts import TestCaseForm
 from database.database_manager import DatabaseManager
 from models.test_case import TestCase
+from utilities import validate_arguments
 
 
 def build_profile_dropdown():
@@ -49,8 +50,7 @@ def update_profiles_dropdown(*args):
           Input(TestCaseForm.Inputs.PROFILE_DROPDOWN, 'value'),
           prevent_initial_call=True)
 def update_selected_profiles(already_selected: list, profile_to_add: str):
-    if not profile_to_add:
-        raise PreventUpdate
+    validate_arguments(profile_to_add)
     new_badge = dash_bootstrap_components.Badge(profile_to_add, color='green', pill=True, style={'font-size': '15px'})
     if already_selected:
         return already_selected + [TestCaseIcons.RIGHT_ARROW, new_badge]
@@ -72,6 +72,7 @@ def extract_profile_names(selected_profiles_children: list) -> list:
           Input(TestCaseForm.ADD_BUTTON, 'n_clicks'),
           prevent_initial_call=True)
 def add_test_case(test_case_name: str, selected_profiles_children: list, button_clicked: int):
+    validate_arguments(button_clicked)
     profile_names = extract_profile_names(selected_profiles_children)
     new_test_case = TestCase(name=test_case_name, profile_names=profile_names)
     DatabaseManager().test_case_manager.add(new_test_case)

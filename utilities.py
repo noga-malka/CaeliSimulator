@@ -1,3 +1,6 @@
+from dash.exceptions import PreventUpdate
+
+
 def log_function(function):
     def inner(*args, **kwargs):
         formatted_arguments = [str(argument) for argument in args]
@@ -10,3 +13,8 @@ def log_function(function):
 
 def int_to_bytes(payload: int, byte_count: int = 2):
     return payload.to_bytes(byte_count, 'big')
+
+
+def validate_arguments(*args):
+    if not any(args):
+        raise PreventUpdate

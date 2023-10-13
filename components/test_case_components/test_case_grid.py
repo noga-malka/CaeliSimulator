@@ -7,6 +7,7 @@ from assets.icons import TestCaseIcons
 from components.test_case_components.consts import TestCaseGrid, TestCaseForm
 from database.database_manager import DatabaseManager
 from models.test_case import TestCase
+from utilities import validate_arguments
 
 
 def generate_test_case_details(test_case: TestCase):

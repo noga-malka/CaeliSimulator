@@ -6,6 +6,7 @@ from assets.icons import ProfileIcons
 from components.profile_components.consts import ProfileGrid, ProfileForm
 from database.database_manager import DatabaseManager
 from models.profile import Profile
+from utilities import validate_arguments
 
 
 def generate_profile_single_stat(profile_name: str, icons: list[DashIconify], stat_description: str, stat_value: int):
