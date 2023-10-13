@@ -3,9 +3,9 @@ class ConnectionStatus:
 
 
 class ButtonIds:
-    CONNECT_TO_SIMULATOR = 'open_connection_modal'
-    DISCONNECT_FROM_SIMULATOR = 'open_disconnect_modal'
-    TEST_CASE = 'open_test_case_modal'
+    CONNECT_TO_SIMULATOR = 'connect_to_simulator_modal'
+    DISCONNECT_FROM_SIMULATOR = 'disconnect_connection_button'
+    TEST_CASE = 'select_test_case_modal'
 
     class Simulator:
         ON = 'simulator_on'
