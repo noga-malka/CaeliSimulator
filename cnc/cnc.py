@@ -4,6 +4,7 @@ from cnc.no_connection_open_exception import NoConnectionOpenException
 from cnc.packets.base_packet import BasePacket
 from connections.base_connection import BaseConnection
 from singleton import Singleton
+from utilities import log_function
 
 
 class Cnc(Singleton):
@@ -30,6 +31,7 @@ class Cnc(Singleton):
         packet_buffer.append(self._build_packet_footer())
         return b''.join(packet_buffer)
 
+    @log_function
     def send_command(self, packet: BasePacket):
         if not self.connection.is_connected:
             raise NoConnectionOpenException(packet.command_type.name)

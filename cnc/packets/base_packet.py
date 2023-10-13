@@ -10,3 +10,6 @@ class BasePacket(ABC):
     @abstractmethod
     def build_payload(self):
         ...
+
+    def __str__(self):
+        return f'Command {self.command_type.name}: {self.command_type.value}'

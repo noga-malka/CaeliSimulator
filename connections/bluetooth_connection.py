@@ -5,6 +5,7 @@ import bluetooth
 from connections.base_connection import BaseConnection
 from connections.consts import BluetoothConsts
 from connections.device_disconnected_exception import DeviceDisconnectedException
+from utilities import log_function
 
 
 class BluetoothConnection(BaseConnection):
@@ -19,6 +20,7 @@ class BluetoothConnection(BaseConnection):
         """
         self.discovered_devices = dict(bluetooth.discover_devices(lookup_names=True))
 
+    @log_function
     def connect(self, device: str):
         """
         connect the given device
@@ -42,7 +44,7 @@ class BluetoothConnection(BaseConnection):
         :return: the bluetooth connection
         """
         new_device = socket.socket(socket.AF_BLUETOOTH, socket.SOCK_STREAM, socket.BTPROTO_RFCOMM)
-        new_device.connect((self.discovered_devices.get(mac_address, ''), 1))
+        new_device.connect((mac_address, 1))
         return new_device
 
     def disconnect(self):
@@ -50,6 +52,7 @@ class BluetoothConnection(BaseConnection):
             self.device.close()
         self.device = None
 
+    @log_function
     def send(self, data: bytes):
         self.device.send(data)
 
