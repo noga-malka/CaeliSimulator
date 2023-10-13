@@ -6,3 +6,7 @@ def log_function(function):
         return function(*args, **kwargs)
 
     return inner
+
+
+def int_to_bytes(payload: int, byte_count: int = 2):
+    return payload.to_bytes(byte_count, 'big')

@@ -4,7 +4,7 @@ from cnc.no_connection_open_exception import NoConnectionOpenException
 from cnc.packets.base_packet import BasePacket
 from connections.base_connection import BaseConnection
 from singleton import Singleton
-from utilities import log_function
+from utilities import log_function, int_to_bytes
 
 
 class Cnc(Singleton):
@@ -26,7 +26,7 @@ class Cnc(Singleton):
         packet_buffer = [self._build_packet_header(), packet.command_type.value]
         payload = packet.build_payload()
         if payload is not None:
-            payload_length = len(payload).to_bytes(2, sys.byteorder)
+            payload_length = int_to_bytes(len(payload), byte_count=1)
             packet_buffer += [payload_length, payload]
         packet_buffer.append(self._build_packet_footer())
         return b''.join(packet_buffer)

@@ -5,6 +5,7 @@ from cnc.packets.base_packet import BasePacket
 from database.database_manager import DatabaseManager
 from models.profile import Profile
 from models.test_case import TestCase
+from utilities import int_to_bytes
 
 
 class SyncTestCasePacket(BasePacket):
@@ -13,7 +14,7 @@ class SyncTestCasePacket(BasePacket):
         self.test_case = test_case
 
     def build_payload(self):
-        profile_number = len(self.test_case.profile_names).to_bytes(2, sys.byteorder)
+        profile_number = int_to_bytes(len(self.test_case.profile_names))
         database = DatabaseManager()
         profiles = b''
         for profile_name in self.test_case.profile_names:
@@ -30,4 +31,4 @@ class SyncTestCasePacket(BasePacket):
             profile.tidal_volume,
             profile.time_span
         ]
-        return b''.join([detail.to_bytes(2, sys.byteorder) for detail in ordered_details])
+        return b''.join([int_to_bytes(detail) for detail in ordered_details])
