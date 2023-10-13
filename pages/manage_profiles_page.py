@@ -15,5 +15,5 @@ dash.register_page(
 
 layout = generate_default_layout(
     html.Div([profiles_grid, create_new_profile_button, add_profile_form], className='flex',
-             style={'flex-direction': 'column', 'align-items': 'center', 'width': '100%', 'margin-top': '10px'}),
+             style={'flex-direction': 'column', 'align-items': 'center', 'margin-top': '10px'}),
 )

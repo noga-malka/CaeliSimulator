@@ -15,5 +15,5 @@ dash.register_page(
 
 layout = generate_default_layout(
     html.Div([test_case_grid, create_new_test_case_button, add_test_case_form], className='flex',
-             style={'flex-direction': 'column', 'align-items': 'center', 'width': '100%', 'margin-top': '10px'})
+             style={'flex-direction': 'column', 'align-items': 'center', 'margin-top': '10px'})
 )

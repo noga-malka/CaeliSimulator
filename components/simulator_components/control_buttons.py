@@ -4,10 +4,9 @@ from dash import html, callback, Output, State, Input
 from assets.icons import ControlButtonIcons
 from cnc.cnc import Cnc
 from components.consts import Placeholder
-from components.simulator_components.select_test_case_form import test_case_modal
-from components.simulator_components.simulator_buttons import simulator_buttons
 from components.simulator_components.connection_form import connection_modal
 from components.simulator_components.consts import ButtonIds, ButtonGroupIds, ConnectionStatus, ConnectionModal
+from components.simulator_components.select_test_case_form import test_case_modal
 from components.simulator_components.utilities import create_control_button
 
 control_buttons = html.Div([
@@ -19,7 +18,6 @@ control_buttons = html.Div([
                               ControlButtonIcons.DISCONNECT_FROM_SIMULATOR),
         create_control_button('Select Test Case', ButtonIds.TEST_CASE, ControlButtonIcons.SELECT_TEST_CASE)
     ], id=ButtonGroupIds.SETUP_SIMULATOR),
-    simulator_buttons,
     test_case_modal,
     connection_modal,
 ], className='bg-secondary flex', style={'justify-content': 'center', 'flex-direction': 'column'})

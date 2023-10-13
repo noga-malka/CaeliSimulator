@@ -10,7 +10,7 @@ flex-direction: column;
 .control-buttons{
 border-radius: 0;
 padding: 8px;
-border-bottom: none;
+border-top: none;
 align-items: center;
 border-width: medium;
 }
