@@ -13,5 +13,5 @@ dash.register_page(
 layout = html.Div([
     html.Div([
         simulator_buttons,
-    ], className='bg-secondary flex', style={'justify-content': 'center', 'flex-direction': 'column'}),
+    ], className='bg-secondary flex-center flex-column'),
 ])

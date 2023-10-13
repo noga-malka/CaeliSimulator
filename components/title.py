@@ -2,6 +2,5 @@ from dash import html
 
 title = html.Div(
     html.Img(src='assets/caeli_logo.png', width=120),
-    className='bg-primary flex center',
-    style={'padding': '10px'}
+    className='bg-primary flex-center padding'
 )

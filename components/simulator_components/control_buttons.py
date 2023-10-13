@@ -18,7 +18,7 @@ control_buttons = html.Div([
                               ControlButtonIcons.DISCONNECT_FROM_SIMULATOR),
     ], id=ButtonGroupIds.SETUP_SIMULATOR),
     connection_modal,
-], className='bg-secondary flex', style={'justify-content': 'center', 'flex-direction': 'column'})
+], className='bg-secondary flex-center flex-column')
 
 
 @callback(

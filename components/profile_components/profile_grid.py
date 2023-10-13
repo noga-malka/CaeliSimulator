@@ -34,18 +34,13 @@ def generate_profile_details(profile: Profile):
 
 def generate_profile_card(profile: Profile):
     return html.Div([
-        html.Label(profile.name, className='flex',
-                   style={'justify-content': 'center', 'font-size': '20px', 'font-weight': 'bold'}),
-        html.Hr(style={'margin': '5px'}),
+        html.Label(profile.name, className='flex-center', style={'font-size': '20px', 'font-weight': 'bold'}),
+        html.Hr(className='margin full-width'),
         html.Div(generate_profile_details(profile))
-    ], style={'padding': '10px', 'margin': '5px', 'height': 'fit-content', 'border': '1px solid',
-              'border-radius': '10px'})
+    ], className='grid-card')
 
 
-profiles_grid = html.Div([],
-                         style={'display': 'grid', 'grid-gap': '10px',
-                                'grid-template-columns': '200px 200px 200px 200px',
-                                'height': 'fit-content'}, id=ProfileGrid.ID)
+profiles_grid = html.Div([], className='grid', id=ProfileGrid.ID)
 
 
 @callback(Output(ProfileGrid.ID, 'children'),

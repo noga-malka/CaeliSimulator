@@ -1,18 +1,44 @@
-.column{
-flex-direction: column;
-}
-.center{
-    justify-content: center;
-}
 .flex{
  display: flex;
 }
+.flex-column{
+    display: flex;
+    flex-direction: column;
+}
+.flex-center{
+    display: flex;
+    justify-content: center;
+}
+.full-width{
+    width: 100%;
+}
+.padding{
+    padding: 10px;
+}
+.margin{
+    margin: 5px;
+}
+.grid{
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: 200px 200px 200px 200px;
+    height: fit-content
+}
+.grid-card{
+    padding: 10px;
+    margin: 5px;
+    height: fit-content;
+    border: 1px solid;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+}
 .control-buttons{
-border-radius: 0;
-padding: 8px;
-border-top: none;
-align-items: center;
-border-width: medium;
+    border-radius: 0;
+    padding: 8px;
+    border-top: none;
+    align-items: center;
+    border-width: medium;
 }
 .connection-status {
     width: 100%;
@@ -23,7 +49,6 @@ border-width: medium;
     -moz-transition: background-position 1s;
     transition: background-position 1s;
 }
-
 .connected {
     background-position: -100% 0;
 }

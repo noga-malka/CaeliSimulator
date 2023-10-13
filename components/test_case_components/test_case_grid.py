@@ -19,28 +19,21 @@ def generate_test_case_details(test_case: TestCase):
     for profile_name in test_case.profile_names:
         profiles_flow += [
             TestCaseIcons.DOWN_ARROW,
-            dash_bootstrap_components.Badge(profile_name, pill=True, style={'margin': '5px'})
+            dash_bootstrap_components.Badge(profile_name, pill=True, className='margin')
         ]
     return profiles_flow
 
 
 def generate_test_case_card(test_case: TestCase):
     return html.Div([
-        html.Label(test_case.name, className='flex',
-                   style={'justify-content': 'center', 'font-size': '20px', 'font-weight': 'bold'}),
-        html.Hr(style={'margin': '5px', 'width': '100%'}),
-        html.Div(generate_test_case_details(test_case),
-                 style={'display': 'flex', 'flex-direction': 'column', 'align-items': 'center'}),
-        dash_bootstrap_components.Button('Send',
-                                         id={'id': TestCaseGrid.SEND_TEST_CASE_BUTTON, 'type': test_case.name})
-    ], style={'padding': '10px', 'margin': '5px', 'height': 'fit-content', 'border': '1px solid',
-              'border-radius': '10px', 'display': 'flex', 'flex-direction': 'column'})
+        html.Label(test_case.name, className='flex-center', style={'font-size': '20px', 'font-weight': 'bold'}),
+        html.Hr(className='margin full-width'),
+        html.Div(generate_test_case_details(test_case), className='flex-column', style={'align-items': 'center'}),
+        dash_bootstrap_components.Button('Send', id={'id': TestCaseGrid.SEND_TEST_CASE_BUTTON, 'type': test_case.name})
+    ], className='grid-card')
 
 
-test_case_grid = html.Div([],
-                          style={'display': 'grid', 'grid-gap': '10px',
-                                 'grid-template-columns': '200px 200px 200px 200px',
-                                 'height': 'fit-content'}, id=TestCaseGrid.ID)
+test_case_grid = html.Div([], className='grid', id=TestCaseGrid.ID)
 
 
 @callback(Output(TestCaseGrid.ID, 'children'),

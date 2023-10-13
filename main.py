@@ -21,7 +21,7 @@ app.layout = html.Div([
     html.Div([navigation_bar,
               html.Div([control_buttons,
                         dash.page_container],
-                       style={'width': '100%'})],
+                       className='full-width')],
              className='flex', style={'height': '100vh'})])
 
 if __name__ == '__main__':

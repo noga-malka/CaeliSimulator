@@ -12,5 +12,5 @@ dash.register_page(
     title=PageTitles.MANAGE_TEST_CASES
 )
 
-layout = html.Div([test_case_grid, create_new_test_case_button, add_test_case_form], className='flex',
-                  style={'flex-direction': 'column', 'align-items': 'center', 'margin-top': '10px'})
+layout = html.Div([test_case_grid, create_new_test_case_button, add_test_case_form], className='flex-column',
+                  style={'align-items': 'center', 'margin-top': '10px'})
