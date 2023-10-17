@@ -7,8 +7,8 @@ from components.placeholder import placeholder
 from components.simulator_components.control_buttons import control_buttons
 from components.title import title
 from database.database_manager import DatabaseManager
+from simulator_data_manager.simulator_data_manager import SimulatorDataManager
 
-database_manager = DatabaseManager()
 app = Dash(__name__,
            external_stylesheets=[dash_bootstrap_components.themes.FLATLY],
            suppress_callback_exceptions=True,
@@ -25,4 +25,6 @@ app.layout = html.Div([
              className='flex', style={'height': '100vh'})])
 
 if __name__ == '__main__':
+    SimulatorDataManager()
+    DatabaseManager()
     app.run(host='0.0.0.0', debug=True)

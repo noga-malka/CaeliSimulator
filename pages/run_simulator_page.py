@@ -1,6 +1,7 @@
 import dash
 from dash import html
 
+from components.simulator_components.save_data_interval import save_data_interval
 from components.simulator_components.simulator_buttons import simulator_buttons
 from pages.consts import PageRoutes, PageTitles
 
@@ -12,6 +13,7 @@ dash.register_page(
 
 layout = html.Div([
     html.Div([
+        save_data_interval,
         simulator_buttons,
     ], className='bg-secondary flex-center flex-column'),
 ])
