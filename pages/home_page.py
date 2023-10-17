@@ -7,7 +7,6 @@ from components.title import title
 dash.register_page(
     __name__,
     path='/',
-    redirect_from=['/home'],
     title='Home'
 )
 

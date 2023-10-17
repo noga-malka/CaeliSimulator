@@ -26,7 +26,9 @@ class ControlButtonIcons:
     ON = create_icon('iconoir:on-tag', width=32, style={'margin-right': '3px'})
     RUN = create_icon('carbon:play-filled', width=32, style={'margin-right': '3px'})
     HOMING = create_icon('ant-design:home-filled', width=32, style={'margin-right': '3px'})
-    PAUSE = create_icon('heroicons-outline:pause', width=32, style={'margin-right': '3px'})
+    STOP = create_icon('bi:stop-fill', width=32, style={'margin-right': '3px'})
+    PAUSE = create_icon('ic:round-pause', width=32, style={'margin-right': '3px'})
+    RESUME = create_icon('material-symbols:resume-rounded', width=32, style={'margin-right': '3px'})
     OFF = create_icon('iconoir:off-tag', width=32, style={'margin-right': '3px'})
 
 

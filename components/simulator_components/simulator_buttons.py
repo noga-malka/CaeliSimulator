@@ -12,8 +12,10 @@ from utilities import validate_arguments
 simulator_buttons = dash_bootstrap_components.ButtonGroup([
     create_control_button('On', ButtonIds.Simulator.ON, ControlButtonIcons.ON),
     create_control_button('Run', ButtonIds.Simulator.RUN, ControlButtonIcons.RUN),
-    create_control_button('Homing', ButtonIds.Simulator.HOMING, ControlButtonIcons.HOMING),
     create_control_button('Pause', ButtonIds.Simulator.PAUSE, ControlButtonIcons.PAUSE),
+    create_control_button('Resume', ButtonIds.Simulator.RESUME, ControlButtonIcons.RESUME),
+    create_control_button('Stop', ButtonIds.Simulator.STOP, ControlButtonIcons.STOP),
+    create_control_button('Homing', ButtonIds.Simulator.HOMING, ControlButtonIcons.HOMING),
     create_control_button('Off', ButtonIds.Simulator.OFF, ControlButtonIcons.OFF),
 ], id=ButtonGroupIds.SIMULATOR_CONTROLS)
 
@@ -23,6 +25,8 @@ simulator_buttons = dash_bootstrap_components.ButtonGroup([
           Input(ButtonIds.Simulator.RUN, 'n_clicks'),
           Input(ButtonIds.Simulator.HOMING, 'n_clicks'),
           Input(ButtonIds.Simulator.PAUSE, 'n_clicks'),
+          Input(ButtonIds.Simulator.RESUME, 'n_clicks'),
+          Input(ButtonIds.Simulator.STOP, 'n_clicks'),
           Input(ButtonIds.Simulator.OFF, 'n_clicks'),
           prevent_initial_call=True)
 def activate_simulator_buttons(*buttons):
