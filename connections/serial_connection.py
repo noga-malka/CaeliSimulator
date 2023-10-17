@@ -9,7 +9,7 @@ from connections.device_disconnected_exception import DeviceDisconnectedExceptio
 class SerialConnection(BaseConnection):
 
     def initiate(self):
-        self.device = None
+        self._device = None
 
     def discover(self):
         connected_usb_ports = filter(lambda port: "USB" in port[2], list_ports.comports())
@@ -24,24 +24,24 @@ class SerialConnection(BaseConnection):
         """
         self.disconnect()  # in case a previous connection exists
         try:
-            self.device = serial.Serial(device, UartConsts.BAUDRATE, timeout=UartConsts.TIMEOUT)
+            self._device = serial.Serial(device, UartConsts.BAUDRATE, timeout=UartConsts.TIMEOUT)
         except serial.SerialException:
-            self.device = None
+            self._device = None
 
     def disconnect(self):
         if self.is_connected:
-            self.device.close()
-        self.device = None
+            self._device.close()
+        self._device = None
 
     def send(self, data: bytes):
-        self.device.write(data)
+        self._device.write(data)
 
     def receive(self) -> bytes:
-        return self.device.readline()
+        return self._device.readline()
 
     def receive_message(self) -> str:
         try:
-            if self.device.inWaiting():
+            if self._device.inWaiting():
                 return self.receive().decode().strip()
         except (serial.SerialException, AttributeError):
             raise DeviceDisconnectedException(self.__class__.__name__)

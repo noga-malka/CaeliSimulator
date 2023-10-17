@@ -10,7 +10,7 @@ from utilities import log_function
 
 class BluetoothConnection(BaseConnection):
     def initiate(self):
-        self.device = None
+        self._device = None
         self._received_data_buffer = BluetoothConsts.NO_DATA_RECEIVED
 
     def discover(self):
@@ -31,10 +31,10 @@ class BluetoothConnection(BaseConnection):
 
         try:
             self._received_data_buffer = BluetoothConsts.NO_DATA_RECEIVED
-            self.device = self._connect_device(device)
+            self._device = self._connect_device(device)
 
         except OSError:
-            self.device = None
+            self._device = None
 
     def _connect_device(self, mac_address: str) -> socket.socket:
         """
@@ -49,15 +49,15 @@ class BluetoothConnection(BaseConnection):
 
     def disconnect(self):
         if self.is_connected:
-            self.device.close()
-        self.device = None
+            self._device.close()
+        self._device = None
 
     @log_function
     def send(self, data: bytes):
-        self.device.send(data)
+        self._device.send(data)
 
     def receive(self) -> bytes:
-        return self.device.recv(BluetoothConsts.RECEIVE_BUFFER_SIZE)
+        return self._device.recv(BluetoothConsts.RECEIVE_BUFFER_SIZE)
 
     def _receive_until_end_of_line(self):
         """

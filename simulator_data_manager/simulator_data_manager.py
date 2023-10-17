@@ -4,5 +4,5 @@ from singleton import Singleton
 
 class SimulatorDataManager(Singleton):
     def initiate(self):
-        self.read_data_thread = ReadDataThread()
-        self.read_data_thread.start()
+        self._read_data_thread = ReadDataThread()
+        self._read_data_thread.start()

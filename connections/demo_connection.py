@@ -5,7 +5,7 @@ from connections.base_connection import BaseConnection
 
 class DemoConnection(BaseConnection):
     def initiate(self):
-        self.device = None
+        self._device = None
 
     def discover(self):
         """
@@ -20,10 +20,10 @@ class DemoConnection(BaseConnection):
         :param device: mac address of the device to connect to
         :return: True if the connection was successful, else False
         """
-        self.device = 'connected'
+        self._device = 'connected'
 
     def disconnect(self):
-        self.device = None
+        self._device = None
 
     def send(self, data: bytes):
         print('Send: ', data)

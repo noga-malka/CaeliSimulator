@@ -26,7 +26,7 @@ class BaseConnection(Singleton, ABC):
 
     @property
     def is_connected(self):
-        return self.device is not None
+        return self._device is not None
 
     @abstractmethod
     def disconnect(self):
