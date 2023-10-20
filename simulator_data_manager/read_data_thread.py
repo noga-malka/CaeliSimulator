@@ -14,7 +14,7 @@ class ReadDataThread(Thread):
     def run(self) -> None:
         while True:
             time.sleep(0.001)
-            if self._cnc.connection and self._cnc.connection.is_connected:
+            if self._cnc.is_connected:
                 try:
                     packet_type, payload = self._cnc.parse_incoming_packet()
                     if packet_type in PacketType.__dict__:

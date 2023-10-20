@@ -1,4 +1,3 @@
-import sys
 from typing import Union
 
 from cnc.no_connection_open_exception import NoConnectionOpenException
@@ -14,6 +13,10 @@ class Cnc(Singleton):
 
     def set_connection(self, connection: BaseConnection):
         self.connection = connection
+
+    @property
+    def is_connected(self):
+        return self.connection is not None and self.connection.is_connected
 
     @staticmethod
     def _build_packet_header() -> bytes:
@@ -34,7 +37,7 @@ class Cnc(Singleton):
 
     @log_function
     def send_command(self, packet: BasePacket):
-        if not self.connection.is_connected:
+        if not self.is_connected:
             raise NoConnectionOpenException(packet.command_type.name)
         packet = self._build_command_packet(packet)
         self.connection.send(packet)

@@ -71,6 +71,6 @@ def connect_selected_device(*button_clicks: list[int]):
     clear_packet_types()
     class_name = 'connection-status'
     is_connected_class_name = ''
-    if Cnc().connection and Cnc().connection.is_connected:
+    if Cnc().is_connected:
         is_connected_class_name = 'connected'
     return f'{class_name} {is_connected_class_name}'
