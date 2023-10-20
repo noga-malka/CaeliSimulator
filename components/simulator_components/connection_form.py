@@ -1,6 +1,7 @@
 import dash_bootstrap_components
 from dash import callback, Output, State, Input
 from dash import dcc
+from dash.exceptions import PreventUpdate
 
 from cnc.cnc import Cnc
 from components.consts import Placeholder
@@ -48,10 +49,12 @@ def sync_devices(connection_type: str, sync_button_clicked: int):
           Input(ConnectionModal.CONNECT_DEVICE, 'n_clicks'),
           prevent_initial_call=True)
 def connect_selected_device(device: str, connection_type: str, button_clicked: int):
-    if connection_type in Connections.__members__:
-        cnc = Cnc()
-        cnc.set_connection(Connections[connection_type].value)
-        cnc.connection.connect(device)
+    if connection_type not in Connections.__members__ or not device:
+        raise PreventUpdate
+    cnc = Cnc()
+    cnc.set_connection(Connections[connection_type].value)
+    print(Connections[connection_type].value, device)
+    cnc.connection.connect(device)
 
 
 @callback(Output(ConnectionStatus.ID, 'className'),

@@ -24,7 +24,7 @@ control_buttons = html.Div([
 @callback(
     Output(ConnectionModal.ID, 'is_open'),
     State(ConnectionModal.ID, 'is_open'),
-    Input(ConnectionModal.CONNECT_DEVICE, 'n_clicks'),
+    Input(Placeholder.ID, Placeholder.Fields.CLICKS_TIMESTAMP),
     Input(ButtonIds.CONNECT_TO_SIMULATOR, 'n_clicks'),
     prevent_initial_call=True)
 def toggle_modal(is_open: bool, *buttons_clicked):
