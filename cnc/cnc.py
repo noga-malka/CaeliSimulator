@@ -49,6 +49,9 @@ class Cnc(Singleton):
         if len(packet_content) == 1:
             return packet_content[0]
         parsed_content = dict()
-        for field_name_index in range(0, len(packet_content), 2):
-            parsed_content[packet_content[field_name_index]] = packet_content[field_name_index + 1]
-        return parsed_content
+        try:
+            for field_name_index in range(0, len(packet_content), 2):
+                parsed_content[packet_content[field_name_index]] = packet_content[field_name_index + 1]
+            return parsed_content
+        except IndexError:
+            return "\t".join(packet_content)

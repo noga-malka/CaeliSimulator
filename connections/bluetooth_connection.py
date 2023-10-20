@@ -74,6 +74,5 @@ class BluetoothConnection(BaseConnection):
 
     def receive_message(self) -> str:
         self._receive_until_end_of_line()
-        line_end_index = self._received_data_buffer.find(BluetoothConsts.LINE_SEPARATOR)
-        message, self._received_data_buffer = self._received_data_buffer.split(line_end_index, 1)
+        message, self._received_data_buffer = self._received_data_buffer.split(BluetoothConsts.LINE_SEPARATOR, 1)
         return message.decode()
