@@ -22,7 +22,6 @@ simulator_buttons = dash_bootstrap_components.ButtonGroup([
 
 @callback(Output(Placeholder.ID, Placeholder.Fields.ACCESS_KEY),
           Input(ButtonIds.Simulator.ON, 'n_clicks'),
-          Input(ButtonIds.Simulator.RUN, 'n_clicks'),
           Input(ButtonIds.Simulator.HOMING, 'n_clicks'),
           Input(ButtonIds.Simulator.PAUSE, 'n_clicks'),
           Input(ButtonIds.Simulator.RESUME, 'n_clicks'),

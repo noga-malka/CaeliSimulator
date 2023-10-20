@@ -1,6 +1,7 @@
 import dash
 from dash import html
 
+from components.simulator_components.select_test_case_form import test_case_modal
 from components.simulator_components.simulator_buttons import simulator_buttons
 from pages.consts import PageRoutes, PageTitles
 
@@ -12,6 +13,7 @@ dash.register_page(
 
 layout = html.Div([
     html.Div([
+        test_case_modal,
         simulator_buttons,
     ], className='bg-secondary flex-center flex-column'),
 ])
