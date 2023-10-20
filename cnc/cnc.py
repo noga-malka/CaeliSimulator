@@ -1,4 +1,5 @@
 import sys
+from typing import Union
 
 from cnc.no_connection_open_exception import NoConnectionOpenException
 from cnc.packets.base_packet import BasePacket
@@ -44,7 +45,9 @@ class Cnc(Singleton):
         return packet_type, self._parse_packet_content(packet_content)
 
     @staticmethod
-    def _parse_packet_content(packet_content: list[str]):
+    def _parse_packet_content(packet_content: list[str]) -> Union[str, dict]:
+        if len(packet_content) == 1:
+            return packet_content[0]
         parsed_content = dict()
         for field_name_index in range(0, len(packet_content), 2):
             parsed_content[packet_content[field_name_index]] = packet_content[field_name_index + 1]
