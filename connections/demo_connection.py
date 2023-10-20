@@ -12,7 +12,7 @@ class DemoConnection(BaseConnection):
         discover all near bluetooth devices
         :return: { device name:str , mac:str}
         """
-        self.discovered_devices = {}
+        self.discovered_devices = {'test': 'test'}
 
     def connect(self, device: str):
         """
