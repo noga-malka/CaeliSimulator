@@ -1,3 +1,5 @@
+import time
+
 import serial
 from serial.tools import list_ports
 
@@ -41,8 +43,8 @@ class SerialConnection(BaseConnection):
 
     def receive_message(self) -> str:
         try:
-            if self._device.inWaiting():
-                return self.receive().decode().strip()
+            while not self._device.inWaiting():
+                time.sleep(0.01)
+            return self.receive().decode().strip()
         except (serial.SerialException, AttributeError):
             raise DeviceDisconnectedException(self.__class__.__name__)
-        return ''
