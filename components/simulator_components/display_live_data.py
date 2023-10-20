@@ -1,6 +1,5 @@
 import plotly.express as px
 from dash import html, dcc, callback, Output, Input
-from dash.exceptions import PreventUpdate
 
 from components.simulator_components.consts import LiveData
 from simulator_data_manager.packet_type import PacketType
@@ -34,7 +33,7 @@ live_data = html.Div([
 def update_live_data(interval):
     data = PacketType.Data.value.saved_data
     if data.empty:
-        raise PreventUpdate
+        return []
     live_cards = []
     for column_name in data.columns:
         figure = px.line(data[column_name], y=column_name)

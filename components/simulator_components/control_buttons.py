@@ -7,6 +7,7 @@ from components.consts import Placeholder
 from components.simulator_components.connection_form import connection_modal
 from components.simulator_components.consts import ButtonIds, ButtonGroupIds, ConnectionStatus, ConnectionModal
 from components.simulator_components.utilities import create_control_button
+from simulator_data_manager.packet_type import clear_packet_types
 from utilities import validate_arguments
 
 control_buttons = html.Div([
@@ -37,3 +38,4 @@ def toggle_modal(is_open: bool, *buttons_clicked):
 def connect_selected_device(disconnect_button: int):
     validate_arguments(disconnect_button)
     Cnc().connection.disconnect()
+    clear_packet_types()

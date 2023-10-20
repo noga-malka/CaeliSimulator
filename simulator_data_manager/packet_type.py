@@ -1,3 +1,4 @@
+import time
 from enum import Enum
 
 from simulator_data_manager.packet_type_parsers.data_packet_parser import DataframePacketParser
@@ -12,6 +13,7 @@ class PacketType(Enum):
 
 
 def clear_packet_types():
+    time.sleep(0.1)
     PacketType.Data.value.clear()
     PacketType.BreathParams.value.clear()
     PacketType.ActiveBreathParams.value.clear()
