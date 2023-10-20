@@ -18,6 +18,12 @@
 .margin{
     margin: 5px;
 }
+.graph-grid{
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: 500px 500px;
+    height: fit-content
+}
 .grid{
     display: grid;
     grid-gap: 10px;
