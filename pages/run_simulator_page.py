@@ -1,6 +1,7 @@
 import dash
 from dash import html
 
+from components.simulator_components.display_live_data import live_data
 from components.simulator_components.select_test_case_form import test_case_modal
 from components.simulator_components.simulator_buttons import simulator_buttons
 from pages.consts import PageRoutes, PageTitles
@@ -16,4 +17,5 @@ layout = html.Div([
         test_case_modal,
         simulator_buttons,
     ], className='bg-secondary flex-center flex-column'),
+    live_data,
 ])

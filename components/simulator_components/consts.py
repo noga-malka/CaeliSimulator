@@ -33,3 +33,8 @@ class SelectTestCaseModal:
     ID = 'select_test_case_modal'
     SEND_TEST_CASE = 'send_test_case'
     TEST_CASE_DROPDOWN = 'test_case_dropdown'
+
+
+class LiveData:
+    ID = 'live_data_container'
+    INTERVAL = 'live_data_interval'
