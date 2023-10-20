@@ -1,10 +1,12 @@
 import dash_bootstrap_components
-from dash import callback, Output, Input, callback_context, State
+from dash import Output, Input, callback_context, State, no_update
+from dash_extensions.enrich import callback, DashLogger
 
 from assets.icons import ControlButtonIcons
 from cnc.cnc import Cnc
 from cnc.command_mapping import COMMAND_PER_BUTTON
 from cnc.consts import Commands
+from cnc.no_connection_open_exception import NoConnectionOpenException
 from cnc.packets.command_packet import CommandPacket
 from components.consts import Placeholder
 from components.simulator_components.consts import ButtonGroupIds, ButtonIds
@@ -26,21 +28,31 @@ simulator_buttons = dash_bootstrap_components.ButtonGroup([
           Input(ButtonIds.Simulator.HOMING, 'n_clicks'),
           Input(ButtonIds.Simulator.STOP, 'n_clicks'),
           Input(ButtonIds.Simulator.OFF, 'n_clicks'),
-          prevent_initial_call=True)
-def activate_simulator_buttons(*buttons):
+          prevent_initial_call=True, log=True)
+def activate_simulator_buttons(*buttons, dash_logger: DashLogger):
     validate_arguments(*buttons)
     command_packet = COMMAND_PER_BUTTON[callback_context.triggered_id]
-    Cnc().send_command(command_packet)
+    try:
+        Cnc().send_command(command_packet)
+    except NoConnectionOpenException as exception:
+        dash_logger.error(str(exception))
 
 
 @callback(Output(ButtonIds.Simulator.PauseResume.ID, 'children'),
           State(ButtonIds.Simulator.PauseResume.ID, 'children'),
           Input(ButtonIds.Simulator.PauseResume.ID, 'n_clicks'),
-          prevent_initial_call=True)
-def activate_simulator_buttons(button_content, button_clicked):
+          prevent_initial_call=True, log=True)
+def activate_simulator_buttons(button_content, button_clicked, dash_logger: DashLogger):
+    if not button_clicked:
+        return no_update
     if button_content[1] == 'Pause':
-        Cnc().send_command(CommandPacket(Commands.PAUSE_SESSION))
-        return ButtonIds.Simulator.PauseResume.RESUME_BUTTON
+        command = Commands.PAUSE_SESSION
+        button = ButtonIds.Simulator.PauseResume.RESUME_BUTTON
     else:
-        Cnc().send_command(CommandPacket(Commands.RESUME_SESSION))
-        return ButtonIds.Simulator.PauseResume.PAUSE_BUTTON
+        command = Commands.RESUME_SESSION
+        button = ButtonIds.Simulator.PauseResume.PAUSE_BUTTON
+    try:
+        Cnc().send_command(CommandPacket(command))
+    except NoConnectionOpenException as exception:
+        dash_logger.error(str(exception))
+    return button

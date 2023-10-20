@@ -1,11 +1,11 @@
-import time
-
 import dash_bootstrap_components
-from dash import callback, Output, Input, State
+from dash import Output, Input, State
 from dash import dcc
+from dash_extensions.enrich import callback, DashLogger
 
 from cnc.cnc import Cnc
 from cnc.consts import Commands
+from cnc.no_connection_open_exception import NoConnectionOpenException
 from cnc.packets.command_packet import CommandPacket
 from cnc.packets.sync_test_case_packet import SyncTestCasePacket
 from components.consts import Placeholder
@@ -42,14 +42,17 @@ def toggle_modal(is_open: bool, *buttons_clicked):
 @callback(Output(Placeholder.ID, Placeholder.Fields.CLASS_NAME),
           State(SelectTestCaseModal.TEST_CASE_DROPDOWN, 'value'),
           Input(SelectTestCaseModal.SEND_TEST_CASE, 'n_clicks'),
-          prevent_initial_call=True)
-def send_test_case_to_simulator(test_case_name: str, send_button: int):
+          prevent_initial_call=True, log=True)
+def send_test_case_to_simulator(test_case_name: str, send_button: int, dash_logger: DashLogger):
     if test_case_name:
         test_case = DatabaseManager().test_case_manager.test_cases[test_case_name]
         PacketType.BreathParams.value.event.clear()
-        Cnc().send_command(SyncTestCasePacket(test_case))
-        PacketType.BreathParams.value.event.wait()
-        Cnc().send_command(CommandPacket(Commands.RUN))
+        try:
+            Cnc().send_command(SyncTestCasePacket(test_case))
+            PacketType.BreathParams.value.event.wait()
+            Cnc().send_command(CommandPacket(Commands.RUN))
+        except NoConnectionOpenException as exception:
+            dash_logger.error(str(exception))
 
 
 @callback(Output(SelectTestCaseModal.TEST_CASE_DROPDOWN, 'options'),
