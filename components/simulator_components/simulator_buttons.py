@@ -14,9 +14,9 @@ simulator_buttons = dash_bootstrap_components.ButtonGroup([
     create_control_button('Run', ButtonIds.Simulator.RUN, ControlButtonIcons.RUN),
     create_control_button('Pause', ButtonIds.Simulator.PAUSE, ControlButtonIcons.PAUSE),
     create_control_button('Resume', ButtonIds.Simulator.RESUME, ControlButtonIcons.RESUME),
-    create_control_button('Stop', ButtonIds.Simulator.STOP, ControlButtonIcons.STOP),
     create_control_button('Homing', ButtonIds.Simulator.HOMING, ControlButtonIcons.HOMING),
     create_control_button('Off', ButtonIds.Simulator.OFF, ControlButtonIcons.OFF),
+    create_control_button('Emergency Stop', ButtonIds.Simulator.STOP, ControlButtonIcons.STOP, 'danger'),
 ], id=ButtonGroupIds.SIMULATOR_CONTROLS)
 
 
