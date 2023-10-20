@@ -10,10 +10,10 @@ class ButtonIds:
         ON = 'simulator_on'
         RUN = 'simulator_run'
         HOMING = 'simulator_homing'
-        STOP = 'simulator_stop'
+        STOP = 'simulator_emergency_stop'
         OFF = 'simulator_off'
-        PAUSE = 'simulator_pause'
-        RESUME = 'simulator_resume'
+        PAUSE = 'simulator_pause_session'
+        RESUME = 'simulator_resume_session'
 
 
 class ButtonGroupIds:
