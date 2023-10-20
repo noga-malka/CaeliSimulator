@@ -1,4 +1,5 @@
 import random
+import time
 
 from connections.base_connection import BaseConnection
 
@@ -36,6 +37,7 @@ class DemoConnection(BaseConnection):
         return str(random.randint(0, 10))
 
     def receive_message(self) -> str:
+        time.sleep(0.5)
         message = [
             'Data',
             'Profile Index',
