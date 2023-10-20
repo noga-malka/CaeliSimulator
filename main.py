@@ -1,6 +1,6 @@
 import dash
 import dash_bootstrap_components
-from dash import Dash, html
+from dash_extensions.enrich import html, DashProxy, LogTransform
 
 from components.navigation_bar import navigation_bar
 from components.placeholder import placeholder
@@ -9,11 +9,12 @@ from components.title import title
 from database.database_manager import DatabaseManager
 from simulator_data_manager.simulator_data_manager import SimulatorDataManager
 
-app = Dash(__name__,
-           external_stylesheets=[dash_bootstrap_components.themes.FLATLY],
-           suppress_callback_exceptions=True,
-           use_pages=True,
-           title='Caeli')
+app = DashProxy(__name__,
+                external_stylesheets=[dash_bootstrap_components.themes.FLATLY],
+                suppress_callback_exceptions=True,
+                use_pages=True,
+                transforms=[LogTransform()],
+                title='Caeli')
 
 app.layout = html.Div([
     title,

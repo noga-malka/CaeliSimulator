@@ -1,4 +1,8 @@
+import logging
+
+from dash import no_update
 from dash.exceptions import PreventUpdate
+from dash_extensions.enrich import DashLogger
 
 
 def log_function(function):
@@ -18,3 +22,8 @@ def int_to_bytes(payload: int, byte_count: int = 2):
 def validate_arguments(*args):
     if not any(args):
         raise PreventUpdate
+
+
+def dash_logging(logger: DashLogger, message, level: int = logging.INFO):
+    logger.log(level, message, autoClose=5000)
+    return no_update
