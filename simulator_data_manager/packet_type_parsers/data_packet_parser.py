@@ -13,6 +13,3 @@ class DataframePacketParser(BasePacketParser):
         if len(new_data) > 100:
             new_data = new_data.iloc[1:, :]
         self.saved_data = new_data
-
-    def get_live_data(self):
-        return dict(self.saved_data.iloc[-1])

@@ -9,3 +9,9 @@ class PacketType(Enum):
     Data = DataframePacketParser()
     BreathParams = ProfilePacketParser()
     ActiveBreathParams = DictionaryPacketParser()
+
+
+def clear_packet_types():
+    PacketType.Data.value.clear()
+    PacketType.BreathParams.value.clear()
+    PacketType.ActiveBreathParams.value.clear()

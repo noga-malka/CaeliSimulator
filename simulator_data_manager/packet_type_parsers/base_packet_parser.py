@@ -4,10 +4,14 @@ from typing import Any, Union
 
 
 class BasePacketParser(ABC):
-    def __init__(self, saved_data: Any):
-        self.saved_data = saved_data
+    def __init__(self, initial_value: Any):
+        self._initial_value = initial_value
+        self.saved_data = initial_value
         self.event = Event()
 
     @abstractmethod
     def save(self, content: Union[str, dict]):
         ...
+
+    def clear(self):
+        self.saved_data = self._initial_value
