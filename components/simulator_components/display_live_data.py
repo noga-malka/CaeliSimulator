@@ -22,6 +22,6 @@ live_data = html.Div([
 @callback(Output(LiveData.ID, 'children'), Input(LiveData.INTERVAL, 'n_intervals'))
 def update_live_data(interval):
     data = PacketType.Data.value.saved_data
-    if not data:
+    if data.empty:
         raise PreventUpdate
-    return [create_live_data_card(title, content) for title, content in data.items()]
+    return [create_live_data_card(title, content) for title, content in PacketType.Data.value.get_live_data().items()]
