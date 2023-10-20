@@ -1,3 +1,6 @@
+from assets.icons import ControlButtonIcons
+
+
 class ConnectionStatus:
     ID = 'connection_status_bar'
 
@@ -12,8 +15,11 @@ class ButtonIds:
         HOMING = 'simulator_homing'
         STOP = 'simulator_emergency_stop'
         OFF = 'simulator_off'
-        PAUSE = 'simulator_pause_session'
-        RESUME = 'simulator_resume_session'
+
+        class PauseResume:
+            ID = 'simulator_pause_resume'
+            PAUSE_BUTTON = [ControlButtonIcons.PAUSE, 'Pause']
+            RESUME_BUTTON = [ControlButtonIcons.RESUME, 'Resume']
 
 
 class ButtonGroupIds:
