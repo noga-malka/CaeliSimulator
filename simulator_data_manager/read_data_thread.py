@@ -15,4 +15,7 @@ class ReadDataThread(Thread):
             time.sleep(0.001)
             if self._cnc.connection and self._cnc.connection.is_connected:
                 packet_type, payload = self._cnc.parse_incoming_packet()
-                PacketType[packet_type].value.save(payload)
+                if packet_type in PacketType.__dict__:
+                    PacketType[packet_type].value.save(payload)
+                else:
+                    print(f'Unknown packet type: {packet_type}, payload: {payload}')
