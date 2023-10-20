@@ -1,8 +1,12 @@
+import time
+
 import dash_bootstrap_components
 from dash import callback, Output, Input, State
 from dash import dcc
 
 from cnc.cnc import Cnc
+from cnc.consts import Commands
+from cnc.packets.command_packet import CommandPacket
 from cnc.packets.sync_test_case_packet import SyncTestCasePacket
 from components.consts import Placeholder
 from components.input_card import create_card
@@ -42,6 +46,8 @@ def send_test_case_to_simulator(test_case_name: str, send_button: int):
     if test_case_name:
         test_case = DatabaseManager().test_case_manager.test_cases[test_case_name]
         Cnc().send_command(SyncTestCasePacket(test_case))
+        time.sleep(2)
+        Cnc().send_command(CommandPacket(Commands.RUN))
 
 
 @callback(Output(SelectTestCaseModal.TEST_CASE_DROPDOWN, 'options'),
