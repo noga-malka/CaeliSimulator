@@ -21,7 +21,7 @@
 .graph-grid{
     display: grid;
     grid-gap: 10px;
-    grid-template-columns: 470px 470px 470px;
+    grid-template-columns: 30% 30% 30%;
     height: fit-content
 }
 .grid{
