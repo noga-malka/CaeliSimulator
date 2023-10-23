@@ -11,7 +11,7 @@ from components.input_card import create_card
 from components.modal import create_modal
 from components.simulator_components.consts import ConnectionModal, ConnectionStatus
 from connections.connections import Connections
-from simulator_data_manager.packet_type import clear_packet_types
+from simulator_data_manager.simulator_data_manager import SimulatorDataManager
 from utilities import dash_logging
 
 
@@ -68,7 +68,7 @@ def connect_selected_device(device: str, connection_type: str, button_clicked: i
           Input(Placeholder.ID, Placeholder.Fields.CLICKS_TIMESTAMP),
           Input(Placeholder.ID, Placeholder.Fields.KEY))
 def connect_selected_device(*button_clicks: list[int]):
-    clear_packet_types()
+    SimulatorDataManager().clear_saved_data()
     class_name = 'connection-status'
     is_connected_class_name = ''
     if Cnc().is_connected:

@@ -2,7 +2,8 @@ import plotly.express as px
 from dash import html, dcc, callback, Output, Input
 
 from components.simulator_components.consts import LiveData
-from simulator_data_manager.packet_type import PacketType
+from simulator_data_manager.consts import PacketHeaders
+from simulator_data_manager.simulator_data_manager import SimulatorDataManager
 
 
 def create_live_data_card(title, content):
@@ -31,7 +32,7 @@ live_data = html.Div([
 
 @callback(Output(LiveData.ID, 'children'), Input(LiveData.INTERVAL, 'n_intervals'))
 def update_live_data(interval):
-    data = PacketType.Data.value.saved_data
+    data = SimulatorDataManager().get_data(PacketHeaders.DATA)
     if data.empty:
         return []
     live_cards = []

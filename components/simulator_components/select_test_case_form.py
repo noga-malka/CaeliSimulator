@@ -13,7 +13,8 @@ from components.input_card import create_card
 from components.modal import create_modal
 from components.simulator_components.consts import SelectTestCaseModal, ButtonIds
 from database.database_manager import DatabaseManager
-from simulator_data_manager.packet_type import PacketType
+from simulator_data_manager.consts import PacketHeaders
+from simulator_data_manager.simulator_data_manager import SimulatorDataManager
 
 
 def build_devices_dropdown():
@@ -45,11 +46,12 @@ def toggle_modal(is_open: bool, *buttons_clicked):
           prevent_initial_call=True, log=True)
 def send_test_case_to_simulator(test_case_name: str, send_button: int, dash_logger: DashLogger):
     if test_case_name:
+        breath_packet_event = SimulatorDataManager().get_event(PacketHeaders.BREATH_PARAMS)
+        breath_packet_event.clear()
         test_case = DatabaseManager().test_case_manager.test_cases[test_case_name]
-        PacketType.BreathParams.value.event.clear()
         try:
             Cnc().send_command(SyncTestCasePacket(test_case))
-            PacketType.BreathParams.value.event.wait()
+            breath_packet_event.wait()
             Cnc().send_command(CommandPacket(Commands.RUN))
         except NoConnectionOpenException as exception:
             dash_logger.error(str(exception))
