@@ -19,11 +19,13 @@ app = DashProxy(__name__,
 app.layout = html.Div([
     title,
     placeholder,
-    html.Div([navigation_bar,
-              html.Div([control_buttons,
-                        dash.page_container],
-                       className='full-width')],
-             className='flex', style={'height': '100vh'})])
+    html.Div([
+        navigation_bar,
+        html.Div([
+            control_buttons,
+            dash.page_container  # here we insert each page content
+        ], className='full-width')
+    ], className='flex', style={'height': '100vh'})])
 
 if __name__ == '__main__':
     SimulatorDataManager()
