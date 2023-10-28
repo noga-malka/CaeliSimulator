@@ -33,8 +33,8 @@ def build_text(data: pandas.Series):
 
 def build_content(data: pandas.Series, column_name: str):
     if column_name in LiveData.NUMERIC_VALUE_FIELDS:
-        return build_text(data[column_name])
-    return build_graph(data[column_name], column_name)
+        return build_text(data)
+    return build_graph(data, column_name)
 
 
 live_data = html.Div([
