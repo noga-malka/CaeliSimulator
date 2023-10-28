@@ -9,4 +9,3 @@ class Profile:
     expirium_time: int
     expirium_hold_time: int
     tidal_volume: int
-    time_span: int

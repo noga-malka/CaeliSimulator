@@ -1,8 +1,7 @@
-import sys
-
 from cnc.consts import Commands
 from cnc.packets.base_packet import BasePacket
 from database.database_manager import DatabaseManager
+from models.consts import FieldsDisplay
 from models.profile import Profile
 from models.test_case import TestCase
 from utilities import int_to_bytes
@@ -24,14 +23,13 @@ class SyncTestCasePacket(BasePacket):
     @staticmethod
     def _profile_to_bytes(profile: Profile):
         ordered_details = [
-            profile.inspirium_time,
-            profile.inspirium_hold_time,
-            profile.expirium_time,
-            profile.expirium_hold_time,
-            profile.tidal_volume,
-            profile.time_span
+            FieldsDisplay.inspirium_time.convert_to_bytes(profile.inspirium_time),
+            FieldsDisplay.inspirium_hold_time.convert_to_bytes(profile.inspirium_hold_time),
+            FieldsDisplay.expirium_time.convert_to_bytes(profile.expirium_time),
+            FieldsDisplay.expirium_hold_time.convert_to_bytes(profile.expirium_hold_time),
+            FieldsDisplay.tidal_volume.convert_to_bytes(profile.tidal_volume),
         ]
-        return b''.join([int_to_bytes(detail) for detail in ordered_details])
+        return b''.join(ordered_details)
 
     def __str__(self):
         formatted_test_case = f', {self.test_case.__class__.__name__}: {self.test_case.name}'
