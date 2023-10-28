@@ -1,12 +1,10 @@
 import dash_bootstrap_components
 from dash import html, dcc, callback, Output, Input, State
-from dash.exceptions import PreventUpdate
 
 from assets.icons import TestCaseIcons
 from components.consts import Placeholder
 from components.input_card import build_string_input_card, create_card
 from components.modal import create_modal
-from components.profile_components.consts import ProfileForm
 from components.test_case_components.consts import TestCaseForm
 from database.database_manager import DatabaseManager
 from models.test_case import TestCase
@@ -14,29 +12,31 @@ from utilities import validate_arguments
 
 
 def build_profile_dropdown():
-    return create_card('Select Profiles', [
-        dcc.Dropdown([], id=TestCaseForm.Inputs.PROFILE_DROPDOWN, searchable=True, style={'width': '230px'}),
-    ])
+    return create_card('Select Profiles', [dash_bootstrap_components.InputGroup([
+        dash_bootstrap_components.Select([],
+                                         id=TestCaseForm.Inputs.PROFILE_DROPDOWN,
+                                         placeholder='Profile Name',
+                                         required=True),
+        dash_bootstrap_components.Input(id=TestCaseForm.PROFILE_TIME_RANGE,
+                                        type='number',
+                                        placeholder='Run Time',
+                                        required=True),
+        dash_bootstrap_components.Button('Add Profile', id=TestCaseForm.ADD_PROFILE_BUTTON)
+    ])])
 
 
 add_test_case_form = create_modal('Add Test Case', TestCaseForm.ID, [
+    dcc.Store(id=TestCaseForm.PROFILE_STORE, data=[]),
     build_string_input_card('Test Case Name', TestCaseForm.Inputs.TEST_CASE_NAME),
     build_profile_dropdown(),
     html.Div([], id=TestCaseForm.SELECTED_PROFILES,
              style={'margin-bottom': '10px', 'justify-content': 'center'},
              className='flex'),
-    dash_bootstrap_components.Button('Save', TestCaseForm.ADD_BUTTON)
-
+    html.Div([
+        dash_bootstrap_components.Button('Save', TestCaseForm.SAVE_TEST_CASE_BUTTON, className='margin'),
+        dash_bootstrap_components.Button('Clear', TestCaseForm.CLEAR_PROFILES_BUTTON, className='margin')
+    ], className='flex')
 ])
-
-
-def get_already_selected_profiles(selected_profiles_children: dict):
-    props = selected_profiles_children.get('props')
-    if props:
-        children = props.get('children')
-        if children:
-            return children
-    return []
 
 
 @callback(Output(TestCaseForm.Inputs.PROFILE_DROPDOWN, 'options'),
@@ -46,33 +46,47 @@ def update_profiles_dropdown(*args):
 
 
 @callback(Output(TestCaseForm.SELECTED_PROFILES, 'children'),
-          State(TestCaseForm.SELECTED_PROFILES, 'children'),
-          Input(TestCaseForm.Inputs.PROFILE_DROPDOWN, 'value'),
+          Output(TestCaseForm.Inputs.PROFILE_DROPDOWN, 'value'),
+          Output(TestCaseForm.PROFILE_TIME_RANGE, 'value'),
+          Input(TestCaseForm.PROFILE_STORE, 'data'),
           prevent_initial_call=True)
-def update_selected_profiles(already_selected: list, profile_to_add: str):
-    validate_arguments(profile_to_add)
-    new_badge = dash_bootstrap_components.Badge(profile_to_add, color='green', pill=True, style={'font-size': '15px'})
-    if already_selected:
-        return already_selected + [TestCaseIcons.RIGHT_ARROW, new_badge]
-    return [new_badge]
-
-
-def extract_profile_names(selected_profiles_children: list) -> list:
-    profile_names = list()
-    for component in selected_profiles_children:
-        profile_name = component.get('props', {}).get('children')
-        if profile_name:
-            profile_names.append(profile_name)
-    return profile_names
+def update_selected_profiles(profile_list: list):
+    badges = []
+    for profile_name, _ in profile_list:
+        badges += [
+            TestCaseIcons.RIGHT_ARROW,
+            dash_bootstrap_components.Badge(profile_name, color='green', pill=True, style={'font-size': '15px'})
+        ]
+    return badges, '', ''
 
 
 @callback(Output(Placeholder.ID, Placeholder.Fields.CLICKS),
           State(TestCaseForm.Inputs.TEST_CASE_NAME, 'value'),
-          State(TestCaseForm.SELECTED_PROFILES, 'children'),
-          Input(TestCaseForm.ADD_BUTTON, 'n_clicks'),
+          State(TestCaseForm.PROFILE_STORE, 'data'),
+          Input(TestCaseForm.SAVE_TEST_CASE_BUTTON, 'n_clicks'),
           prevent_initial_call=True)
-def add_test_case(test_case_name: str, selected_profiles_children: list, button_clicked: int):
+def add_test_case(test_case_name: str, profiles_list: list, button_clicked: int):
     validate_arguments(button_clicked)
-    profile_names = extract_profile_names(selected_profiles_children)
-    new_test_case = TestCase(name=test_case_name, profile_names=profile_names)
+    new_test_case = TestCase(name=test_case_name, profile_names=profiles_list)
     DatabaseManager().test_case_manager.add(new_test_case)
+
+
+@callback(Output(TestCaseForm.PROFILE_STORE, 'data'),
+          State(TestCaseForm.Inputs.PROFILE_DROPDOWN, 'value'),
+          State(TestCaseForm.PROFILE_TIME_RANGE, 'value'),
+          State(TestCaseForm.PROFILE_STORE, 'data'),
+          Input(TestCaseForm.ADD_PROFILE_BUTTON, 'n_clicks'),
+          prevent_initial_call=True)
+def add_test_case(profile_name: str, time_range: int, profiles: list, button_clicked: int):
+    validate_arguments(profile_name)
+    validate_arguments(time_range)
+    profiles.append((profile_name, time_range))
+    return profiles
+
+
+@callback(Output(TestCaseForm.PROFILE_STORE, 'data', allow_duplicate=True),
+          Input(TestCaseForm.CLEAR_PROFILES_BUTTON, 'n_clicks'),
+          prevent_initial_call=True)
+def add_test_case(button_clicked: int):
+    validate_arguments(button_clicked)
+    return []

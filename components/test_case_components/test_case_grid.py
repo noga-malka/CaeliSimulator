@@ -9,10 +9,12 @@ from models.test_case import TestCase
 
 def generate_test_case_details(test_case: TestCase):
     profiles_flow = list()
-    for profile_name in test_case.profile_names:
+    for profile_name, profile_run_time in test_case.profile_names:
         profiles_flow += [
             TestCaseIcons.DOWN_ARROW,
-            dash_bootstrap_components.Badge(profile_name, pill=True, className='margin')
+            dash_bootstrap_components.Badge(f'"{profile_name}" for {profile_run_time}s',
+                                            pill=True,
+                                            className='margin')
         ]
     return profiles_flow
 
@@ -29,6 +31,6 @@ test_case_grid = html.Div([], className='grid', id=TestCaseGrid.ID)
 
 
 @callback(Output(TestCaseGrid.ID, 'children'),
-          Input(TestCaseForm.ADD_BUTTON, 'n_clicks'))
+          Input(TestCaseForm.SAVE_TEST_CASE_BUTTON, 'n_clicks'))
 def update_profile_list(new_profile_button: int):
     return [generate_test_case_card(test_case) for test_case in DatabaseManager().test_case_manager.test_cases.values()]

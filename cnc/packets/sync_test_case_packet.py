@@ -16,8 +16,9 @@ class SyncTestCasePacket(BasePacket):
         profile_number = int_to_bytes(len(self.test_case.profile_names))
         database = DatabaseManager()
         profiles = b''
-        for profile_name in self.test_case.profile_names:
+        for profile_name, profile_run_time in self.test_case.profile_names:
             profiles += self._profile_to_bytes(database.profile_manager.profiles[profile_name])
+            profiles += profile_run_time.to_bytes(2, 'big')
         return profile_number + profiles
 
     @staticmethod
