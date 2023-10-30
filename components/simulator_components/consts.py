@@ -45,3 +45,9 @@ class LiveData:
     ID = 'live_data_container'
     INTERVAL = 'live_data_interval'
     NUMERIC_VALUE_FIELDS = []
+
+
+class ProgressBar:
+    ID = 'progress_bar'
+    STEPS = 'progress_steps'
+    STEP_PERCENTAGE_WIDTH = 8
