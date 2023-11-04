@@ -1,6 +1,12 @@
 from enum import Enum
 
 
+class ProtocolConsts:
+    HEADER = bytes.fromhex('aa55aa')
+    FOOTER = bytes.fromhex('0000')
+    SEPARATOR = '\t'
+
+
 class Commands(Enum):
     RUN: bytes = b'\x41'
     STOP: bytes = b'\x42'

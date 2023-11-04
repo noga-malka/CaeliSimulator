@@ -33,7 +33,7 @@ def activate_simulator_buttons(*buttons, dash_logger: DashLogger):
     validate_arguments(*buttons)
     command_packet = COMMAND_PER_BUTTON[callback_context.triggered_id]
     try:
-        Cnc().send_command(command_packet)
+        Cnc().send_packet(command_packet)
     except NoConnectionOpenException as exception:
         dash_logger.error(str(exception))
 
@@ -52,7 +52,7 @@ def activate_simulator_buttons(button_content, button_clicked, dash_logger: Dash
         command = Commands.RESUME_SESSION
         button = ButtonIds.Simulator.PauseResume.PAUSE_BUTTON
     try:
-        Cnc().send_command(CommandPacket(command))
+        Cnc().send_packet(CommandPacket(command))
     except NoConnectionOpenException as exception:
         dash_logger.error(str(exception))
     return button

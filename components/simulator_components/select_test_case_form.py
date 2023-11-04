@@ -50,10 +50,10 @@ def send_test_case_to_simulator(test_case_name: str, send_button: int, dash_logg
         breath_packet_event.clear()
         test_case = DatabaseManager().test_case_manager.get(test_case_name)
         try:
-            Cnc().send_command(SyncTestCasePacket(test_case))
+            Cnc().send_packet(SyncTestCasePacket(test_case))
             breath_packet_event.wait(timeout=3)
             if breath_packet_event.is_set():
-                Cnc().send_command(CommandPacket(Commands.RUN))
+                Cnc().send_packet(CommandPacket(Commands.RUN))
                 return test_case.profile_names
         except NoConnectionOpenException as exception:
             dash_logger.error(str(exception))
