@@ -1,14 +1,12 @@
 class PageRoutes:
-    BLUETOOTH = '/bluetooth'
-    SERIAL = '/serial'
     MANAGE_PROFILES = '/profiles'
-    MANAGE_TEST_CASES = '/test_cases'
+    MANAGE_TEST_CASES = '/testCases'
     RUN_SIMULATOR = '/simulator'
+    HOME = '/'
 
 
 class PageTitles:
-    BLUETOOTH = 'Connect to Bluetooth'
-    SERIAL = 'Connect to Serial'
-    MANAGE_PROFILES = 'Manage Profiles'
-    MANAGE_TEST_CASES = 'Manage Test Cases'
+    MANAGE_PROFILES = 'Profile Manager'
+    MANAGE_TEST_CASES = 'Test Case Manager'
     RUN_SIMULATOR = 'Run Simulator'
+    HOME = 'Home'

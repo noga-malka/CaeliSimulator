@@ -6,11 +6,8 @@ from components.profile_components.create_new_profile_button import create_new_p
 from components.profile_components.profile_grid import profiles_grid
 from pages.consts import PageRoutes, PageTitles
 
-dash.register_page(
-    __name__,
-    path=PageRoutes.MANAGE_PROFILES,
-    title=PageTitles.MANAGE_PROFILES
-)
+dash.register_page(__name__, path=PageRoutes.MANAGE_PROFILES, title=PageTitles.MANAGE_PROFILES)
 
-layout = html.Div([profiles_grid, create_new_profile_button, add_profile_form], className='flex-column',
-                  style={'align-items': 'center', 'margin-top': '10px'})
+layout = html.Div([
+    profiles_grid, create_new_profile_button, add_profile_form
+], className='flex-column', style={'align-items': 'center', 'margin-top': '10px'})

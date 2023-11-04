@@ -1,12 +1,9 @@
 import dash
 from dash import html
 
-dash.register_page(
-    __name__,
-    path='/',
-    title='Home'
-)
+from pages.consts import PageRoutes, PageTitles
 
-layout = html.Div(
-    html.H1('Calei\'s Breath Simulator')
-    , className='flex-center')
+dash.register_page(__name__, path=PageRoutes.HOME, title=PageTitles.HOME)
+
+# todo: build home page
+layout = html.Div([], className='flex-center')
