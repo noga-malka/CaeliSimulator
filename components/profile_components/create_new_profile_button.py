@@ -12,5 +12,5 @@ create_new_profile_button = create_add_button(button_id=ProfileForm.CREATE_NEW_B
     Input(ProfileForm.CREATE_NEW_BUTTON, 'n_clicks'),
     Input(ProfileForm.ADD_BUTTON, 'n_clicks'),
     prevent_initial_call=True)
-def toggle_modal(is_open: bool, *buttons_clicked):
+def toggle_create_new_profile_modal(is_open: bool, *buttons_clicked):
     return not is_open

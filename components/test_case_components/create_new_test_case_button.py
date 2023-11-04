@@ -12,5 +12,5 @@ create_new_test_case_button = create_add_button(button_id=TestCaseForm.CREATE_NE
     Input(TestCaseForm.CREATE_NEW_BUTTON, 'n_clicks'),
     Input(TestCaseForm.SAVE_TEST_CASE_BUTTON, 'n_clicks'),
     prevent_initial_call=True)
-def toggle_modal(is_open: bool, *buttons_clicked):
+def toggle_create_new_test_case_modal(is_open: bool, *buttons_clicked):
     return not is_open
