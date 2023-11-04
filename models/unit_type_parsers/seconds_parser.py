@@ -6,4 +6,6 @@ class SecondsParser(BaseParser):
         super(SecondsParser, self).__init__('S')
 
     def convert_to_bytes(self, value: float) -> bytes:
-        return self._integer_to_bytes(int(value * 1000))
+        # convert seconds to milliseconds
+        milliseconds = int(value * 1000)
+        return self._integer_to_bytes(milliseconds)
