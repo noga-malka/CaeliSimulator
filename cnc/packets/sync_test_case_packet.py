@@ -18,7 +18,7 @@ class SyncTestCasePacket(BasePacket):
         profiles = b''
         for profile_name, profile_run_time in self.test_case.profile_names:
             profiles += self._profile_to_bytes(database.profile_manager.get(profile_name))
-            profiles += profile_run_time.to_bytes(2, 'big')
+            profiles += int_to_bytes(profile_run_time)
         return profile_number + profiles
 
     @staticmethod

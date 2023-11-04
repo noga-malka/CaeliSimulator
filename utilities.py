@@ -15,7 +15,12 @@ def log_function(function):
     return inner
 
 
-def int_to_bytes(payload: int, byte_count: int = 2):
+def int_to_bytes(payload: int, byte_count: int = 2) -> bytes:
+    """
+    :param payload: numeric payload to convert
+    :param byte_count: number of bytes to generate
+    :return: the bytes value of the given payload
+    """
     return payload.to_bytes(byte_count, 'big')
 
 
