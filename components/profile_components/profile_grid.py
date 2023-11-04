@@ -1,12 +1,13 @@
-from dash import html, callback, Output, Input
+from dash import callback, Output, Input
 
+from components.general_components.grid import create_grid_card, create_grid
 from components.profile_components.consts import ProfileGrid, ProfileForm
 from database.database_manager import DatabaseManager
 from models.consts import FieldsDisplay
 from models.profile import Profile
 
 
-def generate_profile_details(profile: Profile):
+def generate_profile_details(profile: Profile) -> list:
     return [
         FieldsDisplay.inspirium_time.generate_detailed_component(profile.name, profile.inspirium_time),
         FieldsDisplay.inspirium_hold_time.generate_detailed_component(profile.name, profile.inspirium_hold_time),
@@ -16,18 +17,13 @@ def generate_profile_details(profile: Profile):
     ]
 
 
-def generate_profile_card(profile: Profile):
-    return html.Div([
-        html.Label(profile.name, className='flex-center', style={'font-size': '20px', 'font-weight': 'bold'}),
-        html.Hr(className='margin full-width'),
-        html.Div(generate_profile_details(profile))
-    ], className='grid-card')
-
-
-profiles_grid = html.Div([], className='grid', id=ProfileGrid.ID)
+profiles_grid = create_grid(ProfileGrid.ID)
 
 
 @callback(Output(ProfileGrid.ID, 'children'),
           Input(ProfileForm.ADD_BUTTON, 'n_clicks'))
-def update_profile_list(new_profile_button: int):
-    return [generate_profile_card(profile) for profile in DatabaseManager().profile_manager.get_instances()]
+def update_profile_grid(button_clicked: int):
+    cards = []
+    for profile in DatabaseManager().profile_manager.get_instances():
+        cards.append(create_grid_card(profile.name, generate_profile_details(profile), False))
+    return cards
