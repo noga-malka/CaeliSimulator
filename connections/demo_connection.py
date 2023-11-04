@@ -5,38 +5,24 @@ from connections.base_connection import BaseConnection
 
 
 class DemoConnection(BaseConnection):
-    def initiate(self):
-        self._device = None
 
     def discover(self):
-        """
-        discover all near bluetooth devices
-        :return: { device name:str , mac:str}
-        """
-        self.discovered_devices = {'test': 'test'}
+        return {'test': 'test'}
 
     def connect(self, device: str):
-        """
-        connect the given device
-        :param device: mac address of the device to connect to
-        :return: True if the connection was successful, else False
-        """
-        self._device = 'connected'
+        self.set_device('connected')
 
-    def disconnect(self):
-        self._device = None
+    def close(self):
+        pass
 
     def send(self, data: bytes):
         print('Send: ', data)
-
-    def receive(self) -> bytes:
-        return b''
 
     @staticmethod
     def _random():
         return str(random.randint(0, 10))
 
-    def receive_message(self) -> str:
+    def receive(self) -> str:
         time.sleep(0.5)
         message = [
             'Data',

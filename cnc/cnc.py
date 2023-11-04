@@ -43,7 +43,7 @@ class Cnc(Singleton):
         self.connection.send(packet)
 
     def parse_incoming_packet(self):
-        packet = self.connection.receive_message()
+        packet = self.connection.receive()
         packet_type, *packet_content = packet.split('\t')
         return packet_type, self._parse_packet_content(packet_content)
 

@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from typing import Union, Any
 
 from singleton import Singleton
 
@@ -7,6 +8,32 @@ class BaseConnection(Singleton, ABC):
     """
     basic interface for other connections
     """
+
+    def initiate(self):
+        self._device = None
+        self.discovered_devices = self.discover()
+
+    def set_device(self, device: Any):
+        """
+        :param device: connected device
+        """
+        self._device = device
+
+    def disconnect(self):
+        """
+        if the connection is open, close it and reset self._device
+        """
+        if self.is_connected:
+            self.close()
+        self.set_device(None)
+
+    @property
+    def is_connected(self) -> bool:
+        return self._device is not None
+
+    @abstractmethod
+    def discover(self) -> Union[list, dict]:
+        ...
 
     @abstractmethod
     def connect(self, device: str):
@@ -17,19 +44,11 @@ class BaseConnection(Singleton, ABC):
         ...
 
     @abstractmethod
-    def receive(self) -> bytes:
+    def receive(self) -> str:
         ...
 
     @abstractmethod
-    def receive_message(self) -> str:
-        ...
-
-    @property
-    def is_connected(self):
-        return self._device is not None
-
-    @abstractmethod
-    def disconnect(self):
+    def close(self):
         ...
 
     def __del__(self):
