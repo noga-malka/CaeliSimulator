@@ -35,4 +35,4 @@ class FieldsDisplay:
                                 display_name='Lungs Volume',
                                 icons=[ProfileIcons.LUNGS],
                                 minimum=0,
-                                maximum=80)
+                                maximum=3)
