@@ -1,7 +1,7 @@
 from dash import html
 
 
-def create_grid_card(title: str, content: list, should_center: bool) -> html.Div:
+def create_grid_card(title: str, content: list, should_center: bool = False) -> html.Div:
     """
     create card inside a grid component
 

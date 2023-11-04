@@ -44,7 +44,7 @@ class SelectTestCaseModal:
 class LiveData:
     ID = 'live_data_container'
     INTERVAL = 'live_data_interval'
-    NUMERIC_VALUE_FIELDS = []
+    NUMERIC_VALUE_FIELDS = ["Profile RunTime", "Total RunTime", "Current Profile", "Total Intervals"]
 
 
 class ProgressBar:
