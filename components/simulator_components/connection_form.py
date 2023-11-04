@@ -42,7 +42,7 @@ connection_modal = create_modal('Connect to Simulator', ConnectionModal.ID, [
           prevent_initial_call=True)
 def sync_devices(connection_type: str, sync_button_clicked: int):
     if connection_type in Connections.__members__:
-        Connections[connection_type].value.discover()
+        Connections[connection_type].value.update_discovered_devices()
         return Connections[connection_type].value.discovered_devices
     return []
 
