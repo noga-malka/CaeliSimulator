@@ -6,4 +6,4 @@ class DictionaryPacketParser(BasePacketParser):
         super(DictionaryPacketParser, self).__init__({})
 
     def save(self, content: dict):
-        self.saved_data = content
+        self._saved_data = content

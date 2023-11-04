@@ -9,7 +9,7 @@ class DataframePacketParser(BasePacketParser):
 
     def save(self, content: dict):
         content = {key: int(value) for key, value in content.items()}
-        new_data = pandas.concat([self.saved_data, pandas.DataFrame(content, index=[0])], ignore_index=True)
+        new_data = pandas.concat([self._saved_data, pandas.DataFrame(content, index=[0])], ignore_index=True)
         if len(new_data) > 100:
             new_data = new_data.iloc[1:, :]
-        self.saved_data = new_data
+        self._saved_data = new_data

@@ -6,5 +6,5 @@ class ProfilePacketParser(BasePacketParser):
         super(ProfilePacketParser, self).__init__({})
 
     def save(self, content: dict):
-        self.saved_data[content['Index']] = content
-        self.event.set()
+        self._saved_data[content['Index']] = content
+        self._event.set()
