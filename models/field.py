@@ -3,7 +3,7 @@ from typing import Any
 import dash_bootstrap_components
 from dash import html
 
-from components.input_card import build_number_input_card
+from components.general_components.input_card import build_number_input_card
 from models.unit_type_parsers.base_parser import BaseParser
 
 

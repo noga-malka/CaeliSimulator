@@ -7,8 +7,8 @@ from dash_extensions.enrich import callback, DashLogger
 
 from cnc.cnc import Cnc
 from components.consts import Placeholder
-from components.input_card import create_card
-from components.modal import create_modal
+from components.general_components.input_card import create_card
+from components.general_components.modal import create_modal
 from components.simulator_components.consts import ConnectionModal, ConnectionStatus
 from connections.connections import Connections
 from simulator_data_manager.simulator_data_manager import SimulatorDataManager

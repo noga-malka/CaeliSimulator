@@ -2,8 +2,8 @@ import dash_bootstrap_components
 from dash import html, callback, Output, Input, State
 
 from components.consts import Placeholder
-from components.input_card import build_string_input_card
-from components.modal import create_modal
+from components.general_components.input_card import build_string_input_card
+from components.general_components.modal import create_modal
 from components.profile_components.consts import ProfileForm
 from database.database_manager import DatabaseManager
 from models.consts import FieldsDisplay

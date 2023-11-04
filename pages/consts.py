@@ -1,12 +1,12 @@
 class PageRoutes:
-    MANAGE_PROFILES = '/profiles'
-    MANAGE_TEST_CASES = '/testCases'
+    PROFILE_MANAGER = '/profiles'
+    TEST_CASE_MANAGER = '/testCases'
     RUN_SIMULATOR = '/simulator'
     HOME = '/'
 
 
 class PageTitles:
-    MANAGE_PROFILES = 'Profile Manager'
-    MANAGE_TEST_CASES = 'Test Case Manager'
+    PROFILE_MANAGER = 'Profile Manager'
+    TEST_CASE_MANAGER = 'Test Case Manager'
     RUN_SIMULATOR = 'Run Simulator'
     HOME = 'Home'

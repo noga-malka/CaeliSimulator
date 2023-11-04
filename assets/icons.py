@@ -33,6 +33,6 @@ class ControlButtonIcons:
 
 
 class NavigationBarIcons:
-    MANAGE_PROFILES = create_icon('carbon:user-profile', width=45, style={'margin-right': '8px'})
-    MANAGE_TEST_CASES = create_icon('fluent-mdl2:test-case', width=45, style={'margin-right': '8px'})
+    PROFILE_MANAGER = create_icon('carbon:user-profile', width=45, style={'margin-right': '8px'})
+    TEST_CASE_MANAGER = create_icon('fluent-mdl2:test-case', width=45, style={'margin-right': '8px'})
     RUN_SIMULATOR = create_icon('carbon:play-filled', width=45, style={'margin-right': '8px'})

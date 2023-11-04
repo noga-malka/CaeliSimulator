@@ -3,8 +3,8 @@ from dash import html, dcc, callback, Output, Input, State
 
 from assets.icons import TestCaseIcons
 from components.consts import Placeholder
-from components.input_card import build_string_input_card, create_card
-from components.modal import create_modal
+from components.general_components.input_card import build_string_input_card, create_card
+from components.general_components.modal import create_modal
 from components.test_case_components.consts import TestCaseForm
 from database.database_manager import DatabaseManager
 from models.test_case import TestCase

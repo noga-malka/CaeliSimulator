@@ -1,6 +1,6 @@
 from dash import callback, Output, Input, State
 
-from components.add_button import create_add_button
+from components.general_components.add_button import create_add_button
 from components.test_case_components.consts import TestCaseForm
 
 create_new_test_case_button = create_add_button(button_id=TestCaseForm.CREATE_NEW_BUTTON)

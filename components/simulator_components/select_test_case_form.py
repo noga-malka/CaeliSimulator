@@ -9,8 +9,8 @@ from cnc.no_connection_open_exception import NoConnectionOpenException
 from cnc.packets.command_packet import CommandPacket
 from cnc.packets.sync_test_case_packet import SyncTestCasePacket
 from components.consts import Placeholder
-from components.input_card import create_card
-from components.modal import create_modal
+from components.general_components.input_card import create_card
+from components.general_components.modal import create_modal
 from components.simulator_components.consts import SelectTestCaseModal, ButtonIds, ProgressBar
 from database.database_manager import DatabaseManager
 from simulator_data_manager.consts import PacketHeaders
