@@ -1,9 +1,11 @@
 import dash
 import dash_bootstrap_components
+from dash import dcc
 from dash_extensions.enrich import html, DashProxy, LogTransform
 
 from components.navigation_bar import navigation_bar
 from components.placeholder import placeholder
+from components.simulator_components.consts import ProgressBar
 from components.simulator_components.control_buttons import control_buttons
 from components.title import title
 from database.database_manager import DatabaseManager
@@ -21,6 +23,7 @@ app.layout = html.Div([
     placeholder,
     html.Div([
         navigation_bar,
+        dcc.Store(ProgressBar.CURRENT_TEST_CASE),
         html.Div([
             control_buttons,
             dash.page_container  # here we insert each page content

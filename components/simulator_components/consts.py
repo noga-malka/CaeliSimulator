@@ -51,3 +51,4 @@ class ProgressBar:
     ID = 'progress_bar'
     STEPS = 'progress_steps'
     STEP_PERCENTAGE_WIDTH = 8
+    CURRENT_TEST_CASE = 'current_test_case'

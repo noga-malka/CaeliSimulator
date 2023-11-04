@@ -11,7 +11,7 @@ from cnc.packets.sync_test_case_packet import SyncTestCasePacket
 from components.consts import Placeholder
 from components.input_card import create_card
 from components.modal import create_modal
-from components.simulator_components.consts import SelectTestCaseModal, ButtonIds
+from components.simulator_components.consts import SelectTestCaseModal, ButtonIds, ProgressBar
 from database.database_manager import DatabaseManager
 from simulator_data_manager.consts import PacketHeaders
 from simulator_data_manager.simulator_data_manager import SimulatorDataManager
@@ -40,7 +40,7 @@ def toggle_modal(is_open: bool, *buttons_clicked):
     return not is_open
 
 
-@callback(Output(Placeholder.ID, Placeholder.Fields.CLASS_NAME),
+@callback(Output(ProgressBar.CURRENT_TEST_CASE, 'data'),
           State(SelectTestCaseModal.TEST_CASE_DROPDOWN, 'value'),
           Input(SelectTestCaseModal.SEND_TEST_CASE, 'n_clicks'),
           prevent_initial_call=True, log=True)
@@ -51,8 +51,10 @@ def send_test_case_to_simulator(test_case_name: str, send_button: int, dash_logg
         test_case = DatabaseManager().test_case_manager.test_cases[test_case_name]
         try:
             Cnc().send_command(SyncTestCasePacket(test_case))
-            breath_packet_event.wait()
-            Cnc().send_command(CommandPacket(Commands.RUN))
+            breath_packet_event.wait(timeout=3)
+            if breath_packet_event.is_set():
+                Cnc().send_command(CommandPacket(Commands.RUN))
+                return test_case.profile_names
         except NoConnectionOpenException as exception:
             dash_logger.error(str(exception))
 
