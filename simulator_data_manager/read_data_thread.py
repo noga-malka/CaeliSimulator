@@ -6,9 +6,9 @@ from cnc.cnc import Cnc
 from connections.device_disconnected_exception import DeviceDisconnectedException
 from simulator_data_manager.consts import PacketHeaders
 from simulator_data_manager.packet_type_parsers.base_packet_parser import BasePacketParser
-from simulator_data_manager.packet_type_parsers.data_packet_parser import DataframePacketParser
+from simulator_data_manager.packet_type_parsers.breath_parameters_packet_parser import BreathParametersPacketParser
 from simulator_data_manager.packet_type_parsers.dictionary_packet_parser import DictionaryPacketParser
-from simulator_data_manager.packet_type_parsers.profile_packet_parser import ProfilePacketParser
+from simulator_data_manager.packet_type_parsers.numeric_dataframe_packet_parser import NumericDataframePacketParser
 
 
 class ReadDataThread(Thread):
@@ -21,9 +21,9 @@ class ReadDataThread(Thread):
         self._cnc = Cnc()
         # maps between the packet header and the  parser to use to save the packet's data
         self._packet_parsers: dict[str, BasePacketParser] = {
-            PacketHeaders.DATA: DataframePacketParser(),
-            PacketHeaders.BREATH_PARAMS: ProfilePacketParser(),
-            PacketHeaders.ACTIVE_BREATH_PARAMS: DictionaryPacketParser(),
+            PacketHeaders.DATA: NumericDataframePacketParser(100),
+            PacketHeaders.BREATH_PARAMETERS: BreathParametersPacketParser(),
+            PacketHeaders.ACTIVE_BREATH_PARAMETERS: DictionaryPacketParser(),
         }
 
     def clear_saved_data(self):

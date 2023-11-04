@@ -6,4 +6,9 @@ class DictionaryPacketParser(BasePacketParser):
         super(DictionaryPacketParser, self).__init__({})
 
     def save(self, content: dict):
+        """
+        save the dictionary received from the simulator without changes
+
+        :param content: dictionary of values to save
+        """
         self._saved_data = content

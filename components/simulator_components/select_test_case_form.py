@@ -46,7 +46,7 @@ def toggle_modal(is_open: bool, *buttons_clicked):
           prevent_initial_call=True, log=True)
 def send_test_case_to_simulator(test_case_name: str, send_button: int, dash_logger: DashLogger):
     if test_case_name:
-        breath_packet_event = SimulatorDataManager().get_event(PacketHeaders.BREATH_PARAMS)
+        breath_packet_event = SimulatorDataManager().get_event(PacketHeaders.BREATH_PARAMETERS)
         breath_packet_event.clear()
         test_case = DatabaseManager().test_case_manager.test_cases[test_case_name]
         try:
