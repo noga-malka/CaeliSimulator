@@ -42,7 +42,7 @@ add_test_case_form = create_modal('Add Test Case', TestCaseForm.ID, [
 @callback(Output(TestCaseForm.Inputs.PROFILE_DROPDOWN, 'options'),
           Input(Placeholder.ID, Placeholder.Fields.CHILDREN))
 def update_profiles_dropdown(*args):
-    return [profile_name for profile_name in DatabaseManager().profile_manager.profiles]
+    return [profile_name for profile_name in DatabaseManager().profile_manager.get_names()]
 
 
 @callback(Output(TestCaseForm.SELECTED_PROFILES, 'children'),

@@ -33,4 +33,4 @@ test_case_grid = html.Div([], className='grid', id=TestCaseGrid.ID)
 @callback(Output(TestCaseGrid.ID, 'children'),
           Input(TestCaseForm.SAVE_TEST_CASE_BUTTON, 'n_clicks'))
 def update_profile_list(new_profile_button: int):
-    return [generate_test_case_card(test_case) for test_case in DatabaseManager().test_case_manager.test_cases.values()]
+    return [generate_test_case_card(test_case) for test_case in DatabaseManager().test_case_manager.get_instances()]

@@ -30,4 +30,4 @@ profiles_grid = html.Div([], className='grid', id=ProfileGrid.ID)
 @callback(Output(ProfileGrid.ID, 'children'),
           Input(ProfileForm.ADD_BUTTON, 'n_clicks'))
 def update_profile_list(new_profile_button: int):
-    return [generate_profile_card(profile) for profile in DatabaseManager().profile_manager.profiles.values()]
+    return [generate_profile_card(profile) for profile in DatabaseManager().profile_manager.get_instances()]

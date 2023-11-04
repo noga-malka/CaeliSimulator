@@ -1,32 +1,40 @@
-from database.manager import Manager
-from database.name_already_exists_exception import NameAlreadyExistsException
+from database.base_manager import BaseManager
 from models.test_case import TestCase
 
 
-class TestCaseManager(Manager):
+class TestCaseManager(BaseManager):
     def __init__(self, save_function: callable):
         super().__init__(save_function)
-        self.test_cases: dict[str, TestCase] = {}  # {name: TestCase object}
-
-    def _does_test_case_exist(self, test_case_name: str):
-        return test_case_name in self.test_cases
 
     def get(self, test_case_name: str) -> TestCase:
-        if not self._does_test_case_exist(test_case_name):
-            raise NameAlreadyExistsException(test_case_name)
+        """
+        get TestCase object by name
 
-        return self.test_cases.get(test_case_name)
+        :param test_case_name: name to extract
+        :return: TestCase Object
+        :raises: NameDoesNotExistsException if the test case does not exist
+        """
+        self.validate_instance_exists(instance_name=test_case_name)
+        return self._instances.get(test_case_name)
 
     def add(self, test_case: TestCase):
-        if self._does_test_case_exist(test_case.name):
-            raise NameAlreadyExistsException(test_case.name)
+        """
+        save the given test case in the test cases' dictionary
 
-        self.test_cases[test_case.name] = test_case
+        :param test_case: TestCase Object
+        :raises: NameAlreadyExistsException if the test case does not exist
+        """
+        self.validate_instance_does_not_exist(instance_name=test_case.name)
+        self._instances[test_case.name] = test_case
         self.save_function()
 
-    def remove(self, test_case: TestCase):
-        if not self._does_test_case_exist(test_case.name):
-            raise NameAlreadyExistsException(test_case.name)
+    def remove(self, test_case_name: str):
+        """
+        remove the test case from the test cases' dictionary
 
-        self.test_cases.pop(test_case.name)
+        :param test_case_name: name to remove
+        :raises: NameDoesNotExistsException if the profile does not exist
+        """
+        self.validate_instance_exists(instance_name=test_case_name)
+        self._instances.pop(test_case_name)
         self.save_function()

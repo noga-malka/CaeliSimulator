@@ -48,7 +48,7 @@ def send_test_case_to_simulator(test_case_name: str, send_button: int, dash_logg
     if test_case_name:
         breath_packet_event = SimulatorDataManager().get_event(PacketHeaders.BREATH_PARAMETERS)
         breath_packet_event.clear()
-        test_case = DatabaseManager().test_case_manager.test_cases[test_case_name]
+        test_case = DatabaseManager().test_case_manager.get(test_case_name)
         try:
             Cnc().send_command(SyncTestCasePacket(test_case))
             breath_packet_event.wait(timeout=3)
@@ -62,4 +62,4 @@ def send_test_case_to_simulator(test_case_name: str, send_button: int, dash_logg
 @callback(Output(SelectTestCaseModal.TEST_CASE_DROPDOWN, 'options'),
           Input(Placeholder.ID, Placeholder.Fields.CLICKS))
 def update_test_cases_dropdown(*args):
-    return [test_case_name for test_case_name in DatabaseManager().test_case_manager.test_cases]
+    return [test_case_name for test_case_name in DatabaseManager().test_case_manager.get_names()]
