@@ -11,16 +11,12 @@ class BaseConnection(Singleton, ABC):
 
     def initiate(self):
         self._device = None
-        self.discovered_devices = None
 
     def set_device(self, device: Any):
         """
         :param device: connected device
         """
         self._device = device
-
-    def update_discovered_devices(self):
-        self.discovered_devices = self.discover()
 
     def disconnect(self):
         """

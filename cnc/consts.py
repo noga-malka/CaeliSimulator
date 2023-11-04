@@ -1,6 +1,12 @@
 from enum import Enum
 
 
+class Connections:
+    BLUETOOTH = 'Bluetooth'
+    SERIAL = 'Serial'
+    DEMO = 'Demo'
+
+
 class ProtocolConsts:
     HEADER = bytes.fromhex('aa55aa')
     FOOTER = bytes.fromhex('0000')
