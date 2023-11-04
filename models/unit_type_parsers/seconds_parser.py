@@ -6,4 +6,4 @@ class SecondsParser(BaseParser):
         super(SecondsParser, self).__init__('S')
 
     def convert_to_bytes(self, value: float) -> bytes:
-        return int((value * 1000)).to_bytes(2, 'big')
+        return self._integer_to_bytes(int(value * 1000))

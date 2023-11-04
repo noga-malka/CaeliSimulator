@@ -19,7 +19,7 @@ def generate_number_input(input_id: str, minimum: int, maximum: int):
                                            value=minimum)
 
 
-def build_number_input_card(card_title: str, input_id: str, minimum: int, maximum: int):
+def build_number_input_card(card_title: str, input_id: str, minimum: float, maximum: float):
     return create_card(card_title, [
         dash_bootstrap_components.Input(id=input_id,
                                         min=minimum,

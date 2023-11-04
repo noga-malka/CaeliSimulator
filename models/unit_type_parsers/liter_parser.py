@@ -6,4 +6,4 @@ class LiterParser(BaseParser):
         super(LiterParser, self).__init__('Liter')
 
     def convert_to_bytes(self, value: int) -> bytes:
-        return value.to_bytes(2, 'big')
+        return self._integer_to_bytes(value)

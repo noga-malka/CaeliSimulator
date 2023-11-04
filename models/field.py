@@ -8,8 +8,12 @@ from models.unit_type_parsers.base_parser import BaseParser
 
 
 class ProfileField:
-    def __init__(self, name: str, unit_parser: BaseParser, display_name: str, icons: list, minimum: int = 0,
-                 maximum: int = 10000):
+    def __init__(self, name: str,
+                 unit_parser: BaseParser,
+                 display_name: str,
+                 icons: list,
+                 minimum: float,
+                 maximum: float):
         self.name = name
         self.unit_parser = unit_parser
         self.display_name = display_name
