@@ -1,7 +1,9 @@
 import dash_bootstrap_components
-from dash import html, Input, Output, callback
+from dash import html, Input, Output, callback, State
 
 from components.simulator_components.consts import LiveData, ProgressBar
+from simulator_data_manager.consts import PacketHeaders
+from simulator_data_manager.simulator_data_manager import SimulatorDataManager
 from utilities import validate_arguments
 
 test_case_progress_bar = html.Div(
@@ -14,11 +16,23 @@ test_case_progress_bar = html.Div(
 
 
 def build_test_case_progress(profiles: list):
-    print(profiles)
     profile_steps = []
     for profile_name, _ in profiles:
         profile_steps.append(html.Div(profile_name, className='flex-center align circle'))
     return profile_steps + [html.Div()]
+
+
+def calculate_progress(profiles: list) -> int:
+    data = SimulatorDataManager().get_data(PacketHeaders.DATA).iloc[-1]
+    current_profile = data['Current Profile']
+    if current_profile == len(profiles):
+        return 100
+    profile_total_time = profiles[current_profile][1]
+    profile_run_time = min(data['Profile RunTime'], profile_total_time)
+    profile_length = (100 - ProgressBar.STEP_PERCENTAGE_WIDTH * len(profiles)) / len(profiles)
+    percentage = profile_run_time / profile_total_time * profile_length
+    base_length = (profile_length + ProgressBar.STEP_PERCENTAGE_WIDTH) * current_profile
+    return base_length + ProgressBar.STEP_PERCENTAGE_WIDTH + percentage
 
 
 @callback(Output(ProgressBar.STEPS, 'children'),
@@ -29,7 +43,8 @@ def update_progress_bar(profiles: list):
 
 
 @callback(Output(ProgressBar.ID, 'value'),
+          State(ProgressBar.CURRENT_TEST_CASE, 'data'),
           Input(LiveData.INTERVAL, 'n_intervals'))
-def update_progress_bar(interval: int):
-    validate_arguments(interval)
-    return ProgressBar.STEP_PERCENTAGE_WIDTH + interval / 2
+def update_progress_bar(profiles: list, interval: int):
+    validate_arguments(profiles)
+    return calculate_progress(profiles)
