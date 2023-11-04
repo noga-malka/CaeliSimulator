@@ -1,5 +1,3 @@
-import logging
-
 import dash_bootstrap_components
 from dash import Output, State, Input
 from dash import dcc
@@ -11,7 +9,7 @@ from components.general_components.input_card import create_card
 from components.general_components.modal import create_modal
 from components.simulator_components.consts import ConnectionModal, ConnectionStatus
 from simulator_data_manager.simulator_data_manager import SimulatorDataManager
-from utilities import dash_logging
+from utilities import ui_logger
 
 
 def build_devices_dropdown():
@@ -55,9 +53,9 @@ def sync_devices(connection_type: str, sync_button_clicked: int):
 def connect_selected_device(device: str, connection_type: str, button_clicked: int, dash_logger: DashLogger):
     cnc = Cnc()
     if connection_type not in cnc.connection_options:
-        return dash_logging(dash_logger, 'Connection type must be selected', logging.ERROR)
+        return ui_logger(dash_logger, 'Connection type must be selected')
     if not device:
-        return dash_logging(dash_logger, 'Device must be selected', logging.ERROR)
+        return ui_logger(dash_logger, 'Device must be selected')
     cnc.set_connection(cnc.connection_options[connection_type])
     print(cnc.connection_options[connection_type], device)
     cnc.connection.connect(device)

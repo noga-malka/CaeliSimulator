@@ -15,6 +15,7 @@ from components.simulator_components.consts import SelectTestCaseModal, ButtonId
 from database.database_manager import DatabaseManager
 from simulator_data_manager.consts import PacketHeaders
 from simulator_data_manager.simulator_data_manager import SimulatorDataManager
+from utilities import ui_logger
 
 
 def build_devices_dropdown():
@@ -56,7 +57,7 @@ def send_test_case_to_simulator(test_case_name: str, send_button: int, dash_logg
                 Cnc().send_packet(CommandPacket(Commands.RUN))
                 return test_case.profile_names
         except NoConnectionOpenException as exception:
-            dash_logger.error(str(exception))
+            return ui_logger(dash_logger, exception)
 
 
 @callback(Output(SelectTestCaseModal.TEST_CASE_DROPDOWN, 'options'),

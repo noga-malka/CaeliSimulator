@@ -11,7 +11,7 @@ from cnc.packets.command_packet import CommandPacket
 from components.consts import Placeholder
 from components.simulator_components.consts import ButtonGroupIds, ButtonIds
 from components.simulator_components.utilities import create_control_button
-from utilities import validate_arguments
+from utilities import validate_arguments, ui_logger
 
 simulator_buttons = dash_bootstrap_components.ButtonGroup([
     create_control_button('On', ButtonIds.Simulator.ON, ControlButtonIcons.ON),
@@ -35,7 +35,7 @@ def activate_simulator_buttons(*buttons, dash_logger: DashLogger):
     try:
         Cnc().send_packet(command_packet)
     except NoConnectionOpenException as exception:
-        dash_logger.error(str(exception))
+        return ui_logger(dash_logger, exception)
 
 
 @callback(Output(ButtonIds.Simulator.PauseResume.ID, 'children'),
@@ -54,5 +54,5 @@ def activate_simulator_buttons(button_content, button_clicked, dash_logger: Dash
     try:
         Cnc().send_packet(CommandPacket(command))
     except NoConnectionOpenException as exception:
-        dash_logger.error(str(exception))
+        return ui_logger(dash_logger, exception)
     return button
