@@ -21,8 +21,7 @@ add_test_case_form = create_modal('Add Test Case', TestCaseForm.ID, [
                  className='flex'),
         html.Div([
             dash_bootstrap_components.Button('Save', className='margin'),
-            dash_bootstrap_components.Button('Clear', TestCaseForm.CLEAR_PROFILES_BUTTON, className='margin')
-        ], className='flex')
+        ], className='flex-center')
     ], id=TestCaseForm.SUBMIT_FORM)
 ])
 

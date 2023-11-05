@@ -16,8 +16,12 @@ def build_profile_dropdown():
                                                             placeholder='Profile Name'),
                            dash_bootstrap_components.Input(id=TestCaseForm.PROFILE_TIME_RANGE,
                                                            type='number',
-                                                           placeholder='Seconds Run Time'),
-                           dash_bootstrap_components.Button('Add Profile', id=TestCaseForm.ADD_PROFILE_BUTTON)
+                                                           placeholder='Seconds',
+                                                           min=0),
+                           dash_bootstrap_components.Button('Add', id=TestCaseForm.ADD_PROFILE_BUTTON,
+                                                            type='button'),
+                           dash_bootstrap_components.Button('Clear', id=TestCaseForm.CLEAR_PROFILES_BUTTON,
+                                                            type="button")
                        ])])
 
 
@@ -36,5 +40,6 @@ def update_select_profile_dropdown_options(profile_added):
 def add_profile_to_test_case(profile_name: str, time_range: int, profiles: list, button_clicked: int):
     validate_arguments(profile_name)
     validate_arguments(time_range)
-    profiles.append((profile_name, time_range))
+    if time_range > 0:
+        profiles.append((profile_name, time_range))
     return profiles
