@@ -13,12 +13,10 @@ def build_profile_dropdown():
                        [dash_bootstrap_components.InputGroup([
                            dash_bootstrap_components.Select([],
                                                             id=TestCaseForm.Inputs.PROFILE_DROPDOWN,
-                                                            placeholder='Profile Name',
-                                                            required=True),
+                                                            placeholder='Profile Name'),
                            dash_bootstrap_components.Input(id=TestCaseForm.PROFILE_TIME_RANGE,
                                                            type='number',
-                                                           placeholder='Seconds Run Time',
-                                                           required=True),
+                                                           placeholder='Seconds Run Time'),
                            dash_bootstrap_components.Button('Add Profile', id=TestCaseForm.ADD_PROFILE_BUTTON)
                        ])])
 

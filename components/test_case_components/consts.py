@@ -1,6 +1,6 @@
 class TestCaseForm:
     ID = 'test_case_form'
-    SAVE_TEST_CASE_BUTTON = 'save_test_case_button'
+    SUBMIT_FORM = 'submit_test_case_form'
     CREATE_NEW_BUTTON = 'create_new_test_case_button'
     SELECTED_PROFILES = 'selected_profiles'
     ADD_PROFILE_BUTTON = 'add_button'

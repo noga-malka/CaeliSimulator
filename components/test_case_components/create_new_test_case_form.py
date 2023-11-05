@@ -12,16 +12,18 @@ from models.test_case import TestCase
 from utilities import validate_arguments
 
 add_test_case_form = create_modal('Add Test Case', TestCaseForm.ID, [
-    dcc.Store(id=TestCaseForm.PROFILE_STORE, data=[]),
-    build_string_input_card('Test Case Name', TestCaseForm.Inputs.TEST_CASE_NAME),
-    build_profile_dropdown(),
-    html.Div([], id=TestCaseForm.SELECTED_PROFILES,
-             style={'margin-bottom': '10px', 'justify-content': 'center'},
-             className='flex'),
-    html.Div([
-        dash_bootstrap_components.Button('Save', TestCaseForm.SAVE_TEST_CASE_BUTTON, className='margin'),
-        dash_bootstrap_components.Button('Clear', TestCaseForm.CLEAR_PROFILES_BUTTON, className='margin')
-    ], className='flex')
+    dash_bootstrap_components.Form([
+        dcc.Store(id=TestCaseForm.PROFILE_STORE, data=[]),
+        build_string_input_card('Test Case Name', TestCaseForm.Inputs.TEST_CASE_NAME),
+        build_profile_dropdown(),
+        html.Div([], id=TestCaseForm.SELECTED_PROFILES,
+                 style={'margin-bottom': '10px', 'justify-content': 'center'},
+                 className='flex'),
+        html.Div([
+            dash_bootstrap_components.Button('Save', className='margin'),
+            dash_bootstrap_components.Button('Clear', TestCaseForm.CLEAR_PROFILES_BUTTON, className='margin')
+        ], className='flex')
+    ], id=TestCaseForm.SUBMIT_FORM)
 ])
 
 
@@ -43,7 +45,7 @@ def update_selected_profiles(profile_list: list):
 @callback(Output(Placeholder.ID, Placeholder.Fields.CLICKS),
           State(TestCaseForm.Inputs.TEST_CASE_NAME, 'value'),
           State(TestCaseForm.PROFILE_STORE, 'data'),
-          Input(TestCaseForm.SAVE_TEST_CASE_BUTTON, 'n_clicks'),
+          Input(TestCaseForm.SUBMIT_FORM, 'n_submit'),
           prevent_initial_call=True)
 def add_test_case(test_case_name: str, profiles_list: list, button_clicked: int):
     validate_arguments(button_clicked)
