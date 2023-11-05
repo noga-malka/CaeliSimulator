@@ -1,4 +1,5 @@
 from assets.icons import ControlButtonIcons
+from simulator_data_manager.packet_type_parsers.consts import SimulatorKeys
 
 
 class ConnectionStatus:
@@ -44,7 +45,8 @@ class SelectTestCaseModal:
 class LiveData:
     ID = 'live_data_container'
     INTERVAL = 'live_data_interval'
-    NUMERIC_VALUE_FIELDS = ["Profile RunTime", "Total RunTime", "Current Profile", "Total Intervals"]
+    NUMERIC_VALUE_FIELDS = [SimulatorKeys.PROFILE_RUN_TIME, SimulatorKeys.TOTAL_RUN_TIME, SimulatorKeys.CURRENT_PROFILE,
+                            SimulatorKeys.TOTAL_INTERVALS]
 
 
 class ProgressBar:

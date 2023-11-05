@@ -3,6 +3,7 @@ from dash import html, Input, Output, callback, State
 
 from components.simulator_components.consts import LiveData, ProgressBar
 from simulator_data_manager.consts import PacketHeaders
+from simulator_data_manager.packet_type_parsers.consts import SimulatorKeys
 from simulator_data_manager.simulator_data_manager import SimulatorDataManager
 from utilities import validate_arguments
 
@@ -24,11 +25,11 @@ def build_test_case_progress(profiles: list):
 
 def calculate_progress(profiles: list) -> int:
     data = SimulatorDataManager().get_data(PacketHeaders.DATA).iloc[-1]
-    current_profile = data['Current Profile']
+    current_profile = data[SimulatorKeys.CURRENT_PROFILE]
     if current_profile == len(profiles):
         return 100
     profile_total_time = profiles[current_profile][1]
-    profile_run_time = min(data['Profile RunTime'], profile_total_time)
+    profile_run_time = min(data[SimulatorKeys.PROFILE_RUN_TIME], profile_total_time)
     profile_length = (100 - ProgressBar.STEP_PERCENTAGE_WIDTH * len(profiles)) / len(profiles)
     percentage = profile_run_time / profile_total_time * profile_length
     base_length = (profile_length + ProgressBar.STEP_PERCENTAGE_WIDTH) * current_profile
