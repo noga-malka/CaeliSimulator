@@ -44,9 +44,12 @@ class SelectTestCaseModal:
 
 class LiveData:
     ID = 'live_data_container'
+    TEXT_FIELDS = 'live_text_fields'
+    GRAPH_FIELDS = 'live_graph_fields'
     INTERVAL = 'live_data_interval'
     NUMERIC_VALUE_FIELDS = [SimulatorKeys.PROFILE_RUN_TIME, SimulatorKeys.TOTAL_RUN_TIME, SimulatorKeys.CURRENT_PROFILE,
                             SimulatorKeys.TOTAL_INTERVALS]
+    GRAPH_NUMBER_IN_ROW = 3
 
 
 class ProgressBar:
