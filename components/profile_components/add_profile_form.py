@@ -1,5 +1,5 @@
 import dash_bootstrap_components
-from dash import html, callback, Output, Input, State
+from dash import callback, Output, Input, State
 
 from components.consts import Placeholder
 from components.general_components.input_card import build_string_input_card
@@ -7,24 +7,32 @@ from components.general_components.modal import create_modal
 from components.profile_components.consts import ProfileForm
 from database.database_manager import DatabaseManager
 from models.consts import FieldsDisplay
+from models.field import ProfileField
 from models.profile import Profile
 from utilities import validate_arguments
 
+
+def generate_field_column(field_type: ProfileField):
+    return dash_bootstrap_components.Col(field_type.generate_input_component())
+
+
 add_profile_form = create_modal('Add Profile', ProfileForm.ID, [
     dash_bootstrap_components.Form([
-        build_string_input_card('Profile Name', ProfileForm.Inputs.PROFILE_NAME),
-        html.Div([
-            FieldsDisplay.inspirium_time.generate_input_component(),
-            FieldsDisplay.inspirium_hold_time.generate_input_component(),
-        ], className='flex'),
-        html.Div([
-            FieldsDisplay.expirium_time.generate_input_component(),
-            FieldsDisplay.expirium_hold_time.generate_input_component(),
-        ], className='flex'),
-        html.Div([
-            FieldsDisplay.tidal_volume.generate_input_component(),
-        ], className='flex'),
-        dash_bootstrap_components.Button('Save')
+        dash_bootstrap_components.Row([
+            dash_bootstrap_components.Col(build_string_input_card('Profile Name', ProfileForm.Inputs.PROFILE_NAME)),
+            generate_field_column(FieldsDisplay.tidal_volume)
+        ]),
+        dash_bootstrap_components.Row([
+            generate_field_column(FieldsDisplay.inspirium_time),
+            generate_field_column(FieldsDisplay.inspirium_hold_time),
+        ]),
+        dash_bootstrap_components.Row([
+            generate_field_column(FieldsDisplay.expirium_time),
+            generate_field_column(FieldsDisplay.expirium_hold_time),
+        ]),
+        dash_bootstrap_components.Row(
+            dash_bootstrap_components.Col(dash_bootstrap_components.Button('Save'), className='flex-center')
+        )
     ], id=ProfileForm.SUBMIT_FORM)])
 
 
