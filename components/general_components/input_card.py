@@ -26,7 +26,8 @@ def build_number_input_card(card_title: str, input_id: str, minimum: float, maxi
                                         max=maximum,
                                         type='number',
                                         className='full-width',
-                                        value=minimum)
+                                        value=minimum,
+                                        required=True)
     ])
 
 
@@ -40,5 +41,6 @@ def build_string_input_card(card_title: str, input_id: str) -> html.Div:
     """
     return create_card(card_title, [
         dash_bootstrap_components.Input(id=input_id,
-                                        className='full-width')
+                                        className='full-width',
+                                        required=True)
     ])

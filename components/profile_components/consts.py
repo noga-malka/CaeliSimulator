@@ -1,6 +1,6 @@
 class ProfileForm:
     ID = 'add_profile_form'
-    ADD_BUTTON = 'add_profile_button'
+    SUBMIT_FORM = 'add_profile_submit_form'
     CREATE_NEW_BUTTON = 'create_new_profile_button'
 
     class Inputs:

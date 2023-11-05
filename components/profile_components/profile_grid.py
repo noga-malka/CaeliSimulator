@@ -21,7 +21,7 @@ profiles_grid = create_grid(ProfileGrid.ID)
 
 
 @callback(Output(ProfileGrid.ID, 'children'),
-          Input(ProfileForm.ADD_BUTTON, 'n_clicks'))
+          Input(ProfileForm.SUBMIT_FORM, 'n_submit'))
 def update_profile_grid(button_clicked: int):
     cards = []
     for profile in DatabaseManager().profile_manager.get_instances():
