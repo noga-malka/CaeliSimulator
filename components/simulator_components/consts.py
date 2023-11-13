@@ -44,8 +44,7 @@ class SelectTestCaseModal:
 
 class LiveData:
     ID = 'live_data_container'
-    TEXT_FIELDS = 'live_text_fields'
-    GRAPH_FIELDS = 'live_graph_fields'
+    LIVE_DATA_GRID = 'live_data_grid'
     INTERVAL = 'live_data_interval'
     NUMERIC_VALUE_FIELDS = [SimulatorKeys.PROFILE_RUN_TIME, SimulatorKeys.TOTAL_RUN_TIME, SimulatorKeys.CURRENT_PROFILE,
                             SimulatorKeys.TOTAL_INTERVALS]
