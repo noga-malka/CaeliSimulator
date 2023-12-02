@@ -1,5 +1,4 @@
 from assets.icons import ControlButtonIcons
-from simulator_data_manager.packet_type_parsers.consts import SimulatorKeys
 
 
 class ConnectionStatus:
@@ -46,8 +45,6 @@ class LiveData:
     ID = 'live_data_container'
     LIVE_DATA_GRID = 'live_data_grid'
     INTERVAL = 'live_data_interval'
-    NUMERIC_VALUE_FIELDS = [SimulatorKeys.PROFILE_RUN_TIME, SimulatorKeys.TOTAL_RUN_TIME, SimulatorKeys.CURRENT_PROFILE,
-                            SimulatorKeys.TOTAL_INTERVALS]
     GRAPH_NUMBER_IN_ROW = 3
 
 

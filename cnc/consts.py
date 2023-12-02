@@ -10,7 +10,7 @@ class Connections:
 class ProtocolConsts:
     HEADER = bytes.fromhex('aa55aa')
     FOOTER = bytes.fromhex('0000')
-    SEPARATOR = '\t'
+    SEPARATOR = b'\t'
 
 
 class Commands(Enum):

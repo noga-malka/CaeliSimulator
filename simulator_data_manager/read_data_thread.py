@@ -21,7 +21,7 @@ class ReadDataThread(Thread):
         self._cnc = Cnc()
         # maps between the packet header and the  parser to use to save the packet's data
         self._packet_parsers: dict[str, BasePacketParser] = {
-            PacketHeaders.DATA: NumericDataframePacketParser(100),
+            PacketHeaders.DATA: NumericDataframePacketParser(1000),
             PacketHeaders.BREATH_PARAMETERS: BreathParametersPacketParser(),
             PacketHeaders.ACTIVE_BREATH_PARAMETERS: DictionaryPacketParser(),
         }
@@ -55,10 +55,13 @@ class ReadDataThread(Thread):
         :raises: DeviceDisconnectedException if CNC connection is closed
         """
         packet_type, payload = self._cnc.parse_incoming_packet()
-        if packet_type in self._packet_parsers:
-            self._packet_parsers[packet_type].save(payload)
-        else:
-            print(f'Unknown packet type: {packet_type}, payload: {payload}')
+        try:
+            if packet_type in self._packet_parsers:
+                self._packet_parsers[packet_type].save(payload)
+            else:
+                print(f'Unknown packet type: {packet_type}, payload: {payload}')
+        except AttributeError:
+            print(f'Attribute Error: {packet_type}, payload: {payload}')
 
     def run(self) -> None:
         while True:

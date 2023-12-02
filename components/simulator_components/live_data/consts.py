@@ -11,15 +11,10 @@ class DisplayOptions:
 
     SIMULATOR_RESOLVER = [
         {
-            SimulatorKeys.TOTAL_RUN_TIME: TIMER,
-            SimulatorKeys.PROFILE_RUN_TIME: TIMER,
-            SimulatorKeys.CURRENT_PROFILE: PLAIN_TEXT,
-            SimulatorKeys.TOTAL_INTERVALS: PLAIN_TEXT,
+            SimulatorKeys.PULSE_WIDTH: GRAPH,
+            SimulatorKeys.RPM: GRAPH,
         },
         {
-            SimulatorKeys.BREATH_VOLUME: GRAPH,
-            SimulatorKeys.BREATH_STATE: GRAPH},
-        {
-            SimulatorKeys.CRITICAL_FLAG: GRAPH,
-            SimulatorKeys.SIMULATOR_STATUS: GRAPH,
-        }]
+            SimulatorKeys.FREQUENCY: GRAPH,
+        },
+    ]

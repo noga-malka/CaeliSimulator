@@ -26,15 +26,13 @@ class DemoConnection(BaseConnection):
         time.sleep(0.5)
         message = [
             'Data',
-            'Profile Index',
-            '1',
-            'Profile RunTime',
-            self._random(),
-            'Total Interval',
-            self._random(),
-            'Total RunTime',
-            self._random(),
-            'Status',
-            self._random(),
+            'Breath Volume', '0',
+            'Breathing State', '46',
+            'Profile RunTime', '63',
+            'Current Profile', '0',
+            'Total RunTime', '131',
+            'Total Intervals', '0',
+            'Critical Flag', '0',
+            'Simulator Status', '2'
         ]
         return '\t'.join(message)

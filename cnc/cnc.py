@@ -4,9 +4,8 @@ from cnc.consts import ProtocolConsts, Connections
 from cnc.no_connection_open_exception import NoConnectionOpenException
 from cnc.packets.base_packet import BasePacket
 from connections.base_connection import BaseConnection
-from connections.bluetooth_connection import BluetoothConnection
-from connections.demo_connection import DemoConnection
 from connections.serial_connection import SerialConnection
+from simulator_data_manager.packet_type_parsers.consts import SimulatorKeys
 from singleton import Singleton
 from utilities import log_function, int_to_bytes
 
@@ -15,9 +14,7 @@ class Cnc(Singleton):
     def initiate(self):
         self.connection: BaseConnection = None
         self.connection_options: dict[str, BaseConnection] = {
-            Connections.BLUETOOTH: BluetoothConnection(),
             Connections.SERIAL: SerialConnection(),
-            Connections.DEMO: DemoConnection()
         }
 
     def set_connection(self, connection: BaseConnection):
@@ -77,22 +74,22 @@ class Cnc(Singleton):
         :return: the packet type string, and the packet's payload
         """
         packet = self.connection.receive()
-        packet_type, *packet_content = packet.split(ProtocolConsts.SEPARATOR)
+        packet_type, packet_content = packet.split(ProtocolConsts.SEPARATOR, maxsplit=1)
         return packet_type, self._parse_packet_content(packet_content)
 
     @staticmethod
-    def _parse_packet_content(packet_content: list[str]) -> Union[str, dict]:
+    def _parse_packet_content(packet_content: bytes) -> Union[str, dict]:
         """
         :param packet_content: list of the packet's payload
         :return: dictionary or a string representation of the payload
         """
         try:
-            content_iterator = iter(packet_content)
-            # this line convert an even list to dictionary with even index as keys and odd index as values
-            # example:
-            #   [1,2,3,4,5,6] => {1:2, 3:4, 5:6}
-            return {field_name: next(content_iterator) for field_name in content_iterator}
-        except StopIteration:
+            return {
+                SimulatorKeys.PULSE_WIDTH: packet_content[0] + packet_content[1],
+                SimulatorKeys.RPM: packet_content[2] + packet_content[3],
+                SimulatorKeys.FREQUENCY: packet_content[4] + packet_content[5],
+            }
+        except (KeyError, IndexError):
             # the payload is not even therefore cannot be converted to dictionary.
             # in this case we return the payload as string
             return ProtocolConsts.SEPARATOR.join(packet_content)

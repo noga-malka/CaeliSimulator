@@ -42,7 +42,7 @@ class SerialConnection(BaseConnection):
             # if there is no data to read, wait
             while not self._device.inWaiting():
                 time.sleep(0.01)
-            return self._device.readline().decode().strip()
+            return self._device.readline()
         except (serial.SerialException, AttributeError):
             # the serial connection is closed
             raise DeviceDisconnectedException(self.__class__.__name__)

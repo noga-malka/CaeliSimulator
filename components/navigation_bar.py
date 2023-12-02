@@ -21,8 +21,5 @@ def create_navigation_link(icon: DashIconify, title: str, navigation_link: str) 
 
 
 navigation_bar = dash_bootstrap_components.Nav([
-    create_navigation_link(NavigationBarIcons.PROFILE_MANAGER, PageTitles.PROFILE_MANAGER, PageRoutes.PROFILE_MANAGER),
-    create_navigation_link(NavigationBarIcons.TEST_CASE_MANAGER, PageTitles.TEST_CASE_MANAGER,
-                           PageRoutes.TEST_CASE_MANAGER),
     create_navigation_link(NavigationBarIcons.RUN_SIMULATOR, PageTitles.RUN_SIMULATOR, PageRoutes.RUN_SIMULATOR),
 ], vertical=True, pills=True, className='sidebar')

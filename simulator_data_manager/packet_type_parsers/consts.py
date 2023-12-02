@@ -8,3 +8,9 @@ class SimulatorKeys:
     BREATH_STATE = 'Breathing State'
     CRITICAL_FLAG = 'Critical Flag'
     SIMULATOR_STATUS = 'Simulator Status'
+
+    PULSE_WIDTH = 'Pulse Width'
+    RPM = 'RPM'
+    FREQUENCY = 'Frequency'
+
+    SABRA_ORDER = [PULSE_WIDTH, RPM, FREQUENCY]
