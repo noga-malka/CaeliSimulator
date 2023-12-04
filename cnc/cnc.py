@@ -85,11 +85,11 @@ class Cnc(Singleton):
         """
         try:
             return {
-                SimulatorKeys.PULSE_WIDTH: packet_content[0] + packet_content[1],
-                SimulatorKeys.RPM: packet_content[2] + packet_content[3],
-                SimulatorKeys.FREQUENCY: packet_content[4] + packet_content[5],
+                SimulatorKeys.PULSE_WIDTH: int.from_bytes(packet_content[0:2], 'big'),
+                SimulatorKeys.RPM: int.from_bytes(packet_content[2:4], 'big'),
+                SimulatorKeys.FREQUENCY: int.from_bytes(packet_content[4:6], 'big'),
             }
-        except (KeyError, IndexError):
+        except (KeyError, IndexError, TypeError):
             # the payload is not even therefore cannot be converted to dictionary.
             # in this case we return the payload as string
             return ProtocolConsts.SEPARATOR.join(packet_content)
