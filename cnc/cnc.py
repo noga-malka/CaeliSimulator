@@ -89,7 +89,7 @@ class Cnc(Singleton):
                 SimulatorKeys.RPM: int.from_bytes(packet_content[2:4], 'big'),
                 SimulatorKeys.FREQUENCY: int.from_bytes(packet_content[4:6], 'big'),
             }
-        except (KeyError, IndexError, TypeError):
+        except (KeyError, IndexError, TypeError, ValueError):
             # the payload is not even therefore cannot be converted to dictionary.
             # in this case we return the payload as string
             return ProtocolConsts.SEPARATOR.join(packet_content)
