@@ -3,11 +3,11 @@ from dash import Output, Input, State
 from dash import dcc
 from dash_extensions.enrich import callback, DashLogger
 
-from cnc.cnc import Cnc
 from cnc.consts import Commands
 from cnc.no_connection_open_exception import NoConnectionOpenException
 from cnc.packets.command_packet import CommandPacket
 from cnc.packets.sync_test_case_packet import SyncTestCasePacket
+from cnc.simulator_cnc import SimulatorCnc
 from components.consts import Placeholder
 from components.general_components.input_card import create_card
 from components.general_components.modal import create_modal
@@ -51,10 +51,10 @@ def send_test_case_to_simulator(test_case_name: str, send_button: int, dash_logg
         breath_packet_event.clear()
         test_case = DatabaseManager().test_case_manager.get(test_case_name)
         try:
-            Cnc().send_packet(SyncTestCasePacket(test_case))
+            SimulatorCnc().send_packet(SyncTestCasePacket(test_case))
             breath_packet_event.wait(timeout=3)
             if breath_packet_event.is_set():
-                Cnc().send_packet(CommandPacket(Commands.RUN))
+                SimulatorCnc().send_packet(CommandPacket(Commands.RUN))
                 return test_case.profile_names
         except NoConnectionOpenException as exception:
             return ui_logger(dash_logger, exception)

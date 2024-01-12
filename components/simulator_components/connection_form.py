@@ -3,7 +3,7 @@ from dash import Output, State, Input
 from dash import dcc
 from dash_extensions.enrich import callback, DashLogger
 
-from cnc.cnc import Cnc
+from cnc.simulator_cnc import SimulatorCnc
 from components.consts import Placeholder
 from components.general_components.input_card import create_card
 from components.general_components.modal import create_modal
@@ -24,7 +24,7 @@ def build_devices_dropdown():
 
 connection_modal = create_modal('Connect to Simulator', ConnectionModal.ID, [
     create_card('Select Connection Type', [
-        dcc.Dropdown(list(Cnc().connection_options.keys()),
+        dcc.Dropdown(list(SimulatorCnc().connection_options.keys()),
                      id=ConnectionModal.CONNECTION_TYPE_DROPDOWN, searchable=True,
                      style={'width': '230px', 'margin-right': '5px'}),
     ]),
@@ -38,7 +38,7 @@ connection_modal = create_modal('Connect to Simulator', ConnectionModal.ID, [
           Input(ConnectionModal.SYNC_DEVICES, 'n_clicks'),
           prevent_initial_call=True)
 def sync_devices(connection_type: str, sync_button_clicked: int):
-    connection_options = Cnc().connection_options
+    connection_options = SimulatorCnc().connection_options
     if connection_type in connection_options:
         return connection_options[connection_type].discover()
     return []
@@ -51,7 +51,7 @@ def sync_devices(connection_type: str, sync_button_clicked: int):
           prevent_initial_call=True,
           log=True)
 def connect_selected_device(device: str, connection_type: str, button_clicked: int, dash_logger: DashLogger):
-    cnc = Cnc()
+    cnc = SimulatorCnc()
     if connection_type not in cnc.connection_options:
         return ui_logger(dash_logger, 'Connection type must be selected')
     if not device:
@@ -68,6 +68,6 @@ def connect_selected_device(*button_clicks: list[int]):
     SimulatorDataManager().clear_saved_data()
     class_name = 'connection-status'
     is_connected_class_name = ''
-    if Cnc().is_connected:
+    if SimulatorCnc().is_connected:
         is_connected_class_name = 'connected'
     return f'{class_name} {is_connected_class_name}'

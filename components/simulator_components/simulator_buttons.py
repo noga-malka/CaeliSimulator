@@ -3,11 +3,11 @@ from dash import Output, Input, callback_context, State, no_update
 from dash_extensions.enrich import callback, DashLogger
 
 from assets.icons import ControlButtonIcons
-from cnc.cnc import Cnc
 from cnc.command_mapping import COMMAND_PER_BUTTON
 from cnc.consts import Commands
 from cnc.no_connection_open_exception import NoConnectionOpenException
 from cnc.packets.command_packet import CommandPacket
+from cnc.simulator_cnc import SimulatorCnc
 from components.consts import Placeholder
 from components.simulator_components.consts import ButtonGroupIds, ButtonIds
 from components.simulator_components.utilities import create_control_button
@@ -33,7 +33,7 @@ def activate_simulator_buttons(*buttons, dash_logger: DashLogger):
     validate_arguments(*buttons)
     command_packet = COMMAND_PER_BUTTON[callback_context.triggered_id]
     try:
-        Cnc().send_packet(command_packet)
+        SimulatorCnc().send_packet(command_packet)
     except NoConnectionOpenException as exception:
         return ui_logger(dash_logger, exception)
 
@@ -52,7 +52,7 @@ def activate_simulator_buttons(button_content, button_clicked, dash_logger: Dash
         command = Commands.RESUME_SESSION
         button = ButtonIds.Simulator.PauseResume.PAUSE_BUTTON
     try:
-        Cnc().send_packet(CommandPacket(command))
+        SimulatorCnc().send_packet(CommandPacket(command))
     except NoConnectionOpenException as exception:
         return ui_logger(dash_logger, exception)
     return button

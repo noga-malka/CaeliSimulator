@@ -7,11 +7,10 @@ from connections.base_connection import BaseConnection
 from connections.bluetooth_connection import BluetoothConnection
 from connections.demo_connection import DemoConnection
 from connections.serial_connection import SerialConnection
-from singleton import Singleton
 from utilities import log_function, int_to_bytes
 
 
-class Cnc(Singleton):
+class Cnc:
     def initiate(self):
         self.connection: BaseConnection = None
         self.connection_options: dict[str, BaseConnection] = {

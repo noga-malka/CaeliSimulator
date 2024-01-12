@@ -2,7 +2,7 @@ import dash_bootstrap_components
 from dash import html, callback, Output, State, Input
 
 from assets.icons import ControlButtonIcons
-from cnc.cnc import Cnc
+from cnc.simulator_cnc import SimulatorCnc
 from components.consts import Placeholder
 from components.simulator_components.connection_form import connection_modal
 from components.simulator_components.consts import ButtonIds, ButtonGroupIds, ConnectionStatus, ConnectionModal
@@ -37,5 +37,5 @@ def toggle_modal(is_open: bool, *buttons_clicked):
           prevent_initial_call=True)
 def connect_selected_device(disconnect_button: int):
     validate_arguments(disconnect_button)
-    Cnc().connection.disconnect()
+    SimulatorCnc().connection.disconnect()
     SimulatorDataManager().clear_saved_data()
