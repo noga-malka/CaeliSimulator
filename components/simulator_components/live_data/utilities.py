@@ -8,6 +8,6 @@ def build_live_data_display_grid(data: pandas.DataFrame, display_type_resolver: 
         data_columns = []
         for field_name, component in row.items():
             if field_name in data.columns:
-                data_columns.append(component.create_column(field_name, data[field_name]))
+                data_columns.append(component.create_column(field_name, data[field_name].dropna()))
         data_grid.append(html.Div(data_columns, className='flex-row'))
     return data_grid
