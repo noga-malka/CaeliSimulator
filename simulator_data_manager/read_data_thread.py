@@ -3,6 +3,7 @@ from threading import Thread, Event
 from typing import Any
 
 from cnc.cnc import Cnc
+from cnc.simulator_cnc import SimulatorCnc
 from connections.device_disconnected_exception import DeviceDisconnectedException
 from simulator_data_manager.consts import PacketHeaders
 from simulator_data_manager.packet_type_parsers.base_packet_parser import BasePacketParser
@@ -18,7 +19,7 @@ class ReadDataThread(Thread):
 
     def __init__(self):
         super().__init__()
-        self._cnc = Cnc()
+        self._cnc_modules = [SimulatorCnc()]
         # maps between the packet header and the  parser to use to save the packet's data
         self._packet_parsers: dict[str, BasePacketParser] = {
             PacketHeaders.DATA: NumericDataframePacketParser(100),
@@ -48,13 +49,13 @@ class ReadDataThread(Thread):
         """
         return self._packet_parsers[packet_type].get_event()
 
-    def _save_incoming_packet(self):
+    def _save_incoming_packet(self, cnc: Cnc):
         """
         extract the next packet from CNC
         if there is a valid packet parser, save the new packet, else log the unknown packet
         :raises: DeviceDisconnectedException if CNC connection is closed
         """
-        packet_type, payload = self._cnc.parse_incoming_packet()
+        packet_type, payload = cnc.parse_incoming_packet()
         if packet_type in self._packet_parsers:
             self._packet_parsers[packet_type].save(payload)
         else:
@@ -63,8 +64,9 @@ class ReadDataThread(Thread):
     def run(self) -> None:
         while True:
             time.sleep(0.001)
-            if self._cnc.is_connected:
-                try:
-                    self._save_incoming_packet()
-                except DeviceDisconnectedException:
-                    self._cnc.connection.disconnect()
+            for cnc in self._cnc_modules:
+                if cnc.is_connected:
+                    try:
+                        self._save_incoming_packet(cnc)
+                    except DeviceDisconnectedException:
+                        cnc.connection.disconnect()
