@@ -1,42 +1,29 @@
-import dash_bootstrap_components
 from dash import Output, State, Input
-from dash import dcc
 from dash_extensions.enrich import callback, DashLogger
 
 from cnc.simulator_cnc import SimulatorCnc
 from components.consts import Placeholder
-from components.general_components.input_card import create_card
 from components.general_components.modal import create_modal
-from components.simulator_components.consts import ConnectionModal, ConnectionStatus
-from simulator_data_manager.simulator_data_manager import SimulatorDataManager
+from components.simulator_components.connect_devices.utilities import build_connection_devices_dropdown, \
+    connection_status_change
+from components.simulator_components.consts import SimulatorModal, ConnectionStatus
 from utilities import ui_logger
 
-
-def build_devices_dropdown():
-    return create_card('Select Device', [
-        dcc.Loading(
-            dcc.Dropdown([], id=ConnectionModal.DEVICE_DROPDOWN, searchable=True,
-                         style={'width': '230px', 'margin-right': '5px'}),
-        ),
-        dash_bootstrap_components.Button('Sync Devices', id=ConnectionModal.SYNC_DEVICES)
-    ])
+simulator_connection_modal = create_modal('Connect to Simulator', SimulatorModal.ID,
+                                          build_connection_devices_dropdown(SimulatorModal.DEVICE_DROPDOWN,
+                                                                            SimulatorModal.SYNC_DEVICES,
+                                                                            SimulatorModal.CONNECT_DEVICE))
 
 
-connection_modal = create_modal('Connect to Simulator', ConnectionModal.ID, [
-    build_devices_dropdown(),
-    dash_bootstrap_components.Button('Connect', id=ConnectionModal.CONNECT_DEVICE)
-])
-
-
-@callback(Output(ConnectionModal.DEVICE_DROPDOWN, 'options'),
-          Input(ConnectionModal.SYNC_DEVICES, 'n_clicks'))
+@callback(Output(SimulatorModal.DEVICE_DROPDOWN, 'options'),
+          Input(SimulatorModal.SYNC_DEVICES, 'n_clicks'))
 def sync_devices(sync_button_clicked: int):
     return SimulatorCnc().connection.discover()
 
 
 @callback(Output(Placeholder.ID, Placeholder.Fields.CLICKS_TIMESTAMP),
-          State(ConnectionModal.DEVICE_DROPDOWN, 'value'),
-          Input(ConnectionModal.CONNECT_DEVICE, 'n_clicks'),
+          State(SimulatorModal.DEVICE_DROPDOWN, 'value'),
+          Input(SimulatorModal.CONNECT_DEVICE, 'n_clicks'),
           prevent_initial_call=True,
           log=True)
 def connect_selected_device(device: str, button_clicked: int, dash_logger: DashLogger):
@@ -50,9 +37,4 @@ def connect_selected_device(device: str, button_clicked: int, dash_logger: DashL
           Input(Placeholder.ID, Placeholder.Fields.CLICKS_TIMESTAMP),
           Input(Placeholder.ID, Placeholder.Fields.KEY))
 def connect_selected_device(*button_clicks: list[int]):
-    SimulatorDataManager().clear_saved_data()
-    class_name = 'connection-status'
-    is_connected_class_name = ''
-    if SimulatorCnc().is_connected:
-        is_connected_class_name = 'connected'
-    return f'{class_name} {is_connected_class_name}'
+    return connection_status_change(SimulatorCnc())
