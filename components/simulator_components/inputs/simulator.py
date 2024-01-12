@@ -69,5 +69,5 @@ def disconnect_device(disconnect_button: int):
           Input(Placeholder.ID, Placeholder.Fields.CLICKS_TIMESTAMP),
           Input(Placeholder.ID, Placeholder.Fields.KEY))
 def update_status_bar(*button_clicks: list[int]):
-    SimulatorDataManager().clear_saved_data()
+    SimulatorDataManager().simulator_thread.clear_saved_data()
     return connection_status_change(SimulatorCnc())
