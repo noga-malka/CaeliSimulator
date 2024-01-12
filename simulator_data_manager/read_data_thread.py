@@ -22,6 +22,7 @@ class ReadDataThread(Thread):
         self._cnc_modules = [SimulatorCnc()]
         # maps between the packet header and the  parser to use to save the packet's data
         self._packet_parsers: dict[str, BasePacketParser] = {
+            PacketHeaders.CRUESO: NumericDataframePacketParser(100),
             PacketHeaders.DATA: NumericDataframePacketParser(100),
             PacketHeaders.BREATH_PARAMETERS: BreathParametersPacketParser(),
             PacketHeaders.ACTIVE_BREATH_PARAMETERS: DictionaryPacketParser(),
