@@ -17,6 +17,10 @@ control_buttons = html.Div([
                               ControlButtonIcons.CONNECT_TO_SIMULATOR),
         create_control_button('Disconnect From Simulator', ButtonIds.DISCONNECT_FROM_SIMULATOR,
                               ControlButtonIcons.DISCONNECT_FROM_SIMULATOR),
+        create_control_button('Connect To Crueso', ButtonIds.CONNECT_TO_CRUESO,
+                              ControlButtonIcons.CONNECT_TO_SIMULATOR),
+        create_control_button('Disconnect From Crueso', ButtonIds.DISCONNECT_FROM_CRUESO,
+                              ControlButtonIcons.DISCONNECT_FROM_SIMULATOR),
     ], id=ButtonGroupIds.SETUP_SIMULATOR),
     connection_modal,
 ], className='bg-secondary flex-center flex-column')

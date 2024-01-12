@@ -9,6 +9,8 @@ class ConnectionStatus:
 class ButtonIds:
     CONNECT_TO_SIMULATOR = 'connect_to_simulator_modal'
     DISCONNECT_FROM_SIMULATOR = 'disconnect_connection_button'
+    CONNECT_TO_CRUESO = 'connect_to_crueso_modal'
+    DISCONNECT_FROM_CRUESO = 'disconnect_crueso_connection_button'
 
     class Simulator:
         ON = 'simulator_on'
