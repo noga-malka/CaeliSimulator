@@ -10,6 +10,7 @@ from simulator_data_manager.consts import PacketHeaders
 from simulator_data_manager.packet_type_parsers.base_packet_parser import BasePacketParser
 from simulator_data_manager.packet_type_parsers.breath_parameters_packet_parser import BreathParametersPacketParser
 from simulator_data_manager.packet_type_parsers.dictionary_packet_parser import DictionaryPacketParser
+from simulator_data_manager.packet_type_parsers.float_dataframe_packet_parser import FloatDataframePacketParser
 from simulator_data_manager.packet_type_parsers.integer_dataframe_packet_parser import IntegerDataframePacketParser
 
 
@@ -23,7 +24,7 @@ class ReadDataThread(Thread):
         self._cnc_modules = [SimulatorCnc(), CruesoCnc()]
         # maps between the packet header and the  parser to use to save the packet's data
         self._packet_parsers: dict[str, BasePacketParser] = {
-            PacketHeaders.CRUESO: IntegerDataframePacketParser(100),
+            PacketHeaders.CRUESO: FloatDataframePacketParser(100),
             PacketHeaders.DATA: IntegerDataframePacketParser(100),
             PacketHeaders.BREATH_PARAMETERS: BreathParametersPacketParser(),
             PacketHeaders.ACTIVE_BREATH_PARAMETERS: DictionaryPacketParser(),
