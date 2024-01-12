@@ -1,11 +1,11 @@
-from dash import State, Output, Input
+import dash_bootstrap_components
+from dash import State, Output, Input, html
 from dash_extensions.enrich import DashLogger, callback
 
 from assets.icons import ControlButtonIcons
 from cnc.simulator_cnc import SimulatorCnc
 from components.consts import Placeholder
 from components.general_components.modal import create_modal
-from components.simulator_components.consts import ConnectionStatus
 from components.simulator_components.inputs.consts import SimulatorConsts
 from components.simulator_components.inputs.utilities import build_connection_devices_dropdown, connection_status_change
 from components.simulator_components.utilities import create_control_button
@@ -17,12 +17,16 @@ simulator_connection_modal = create_modal('Connect to Simulator',
                                           build_connection_devices_dropdown(SimulatorConsts.OPTIONS_DROPDOWN,
                                                                             SimulatorConsts.SYNC_OPTIONS,
                                                                             SimulatorConsts.CONNECT_DEVICE))
-simulator_connect_button = create_control_button('Connect To Simulator',
-                                                 SimulatorConsts.OPEN_CONNECT_MODAL,
-                                                 ControlButtonIcons.CONNECT_TO_SIMULATOR)
-simulator_disconnect_button = create_control_button('Disconnect From Simulator',
-                                                    SimulatorConsts.DISCONNECT_CONNECTION,
-                                                    ControlButtonIcons.DISCONNECT_FROM_SIMULATOR)
+
+simulator_connection_buttons = [html.Div('', className='connection-status', id=SimulatorConsts.STATUS_BAR),
+                                dash_bootstrap_components.ButtonGroup([
+                                    create_control_button('Connect To Simulator',
+                                                          SimulatorConsts.OPEN_CONNECT_MODAL,
+                                                          ControlButtonIcons.CONNECT_TO_SIMULATOR),
+                                    create_control_button('Disconnect From Simulator',
+                                                          SimulatorConsts.DISCONNECT_CONNECTION,
+                                                          ControlButtonIcons.DISCONNECT_FROM_SIMULATOR),
+                                ], className='flex')]
 
 
 @callback(
@@ -61,7 +65,7 @@ def disconnect_device(disconnect_button: int):
     SimulatorCnc().connection.disconnect()
 
 
-@callback(Output(ConnectionStatus.ID, 'className'),
+@callback(Output(SimulatorConsts.STATUS_BAR, 'className'),
           Input(Placeholder.ID, Placeholder.Fields.CLICKS_TIMESTAMP),
           Input(Placeholder.ID, Placeholder.Fields.KEY))
 def update_status_bar(*button_clicks: list[int]):
