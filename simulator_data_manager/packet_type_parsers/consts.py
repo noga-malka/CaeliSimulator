@@ -8,3 +8,7 @@ class SimulatorKeys:
     BREATH_STATE = 'Breathing State'
     CRITICAL_FLAG = 'Critical Flag'
     SIMULATOR_STATUS = 'Simulator Status'
+
+
+class CruesoKeys:
+    PRESSURE = 'Pressure'

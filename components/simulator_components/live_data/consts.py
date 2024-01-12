@@ -1,7 +1,7 @@
 from components.simulator_components.live_data.graph_live_data import GraphLiveData
 from components.simulator_components.live_data.text_live_data import TextLiveData
 from components.simulator_components.live_data.timer_live_data import TimerLiveData
-from simulator_data_manager.packet_type_parsers.consts import SimulatorKeys
+from simulator_data_manager.packet_type_parsers.consts import SimulatorKeys, CruesoKeys
 
 
 class DisplayOptions:
@@ -23,3 +23,9 @@ class DisplayOptions:
             SimulatorKeys.CRITICAL_FLAG: GRAPH,
             SimulatorKeys.SIMULATOR_STATUS: GRAPH,
         }]
+
+    CRUESO_RESOLVER = [
+        {
+            CruesoKeys.PRESSURE: GRAPH
+        },
+    ]

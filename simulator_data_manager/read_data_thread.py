@@ -3,6 +3,7 @@ from threading import Thread, Event
 from typing import Any
 
 from cnc.cnc import Cnc
+from cnc.crueso_cnc import CruesoCnc
 from cnc.simulator_cnc import SimulatorCnc
 from connections.device_disconnected_exception import DeviceDisconnectedException
 from simulator_data_manager.consts import PacketHeaders
@@ -19,7 +20,7 @@ class ReadDataThread(Thread):
 
     def __init__(self):
         super().__init__()
-        self._cnc_modules = [SimulatorCnc()]
+        self._cnc_modules = [SimulatorCnc(), CruesoCnc()]
         # maps between the packet header and the  parser to use to save the packet's data
         self._packet_parsers: dict[str, BasePacketParser] = {
             PacketHeaders.CRUESO: NumericDataframePacketParser(100),
