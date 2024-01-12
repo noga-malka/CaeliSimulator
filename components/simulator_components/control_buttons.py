@@ -4,8 +4,8 @@ from dash import html, callback, Output, State, Input
 from assets.icons import ControlButtonIcons
 from cnc.simulator_cnc import SimulatorCnc
 from components.consts import Placeholder
-from components.simulator_components.connection_form import connection_modal
-from components.simulator_components.consts import ButtonIds, ButtonGroupIds, ConnectionStatus, ConnectionModal
+from components.simulator_components.connection_form import simulator_connection_modal
+from components.simulator_components.consts import ButtonIds, ButtonGroupIds, ConnectionStatus, SimulatorModal
 from components.simulator_components.utilities import create_control_button
 from simulator_data_manager.simulator_data_manager import SimulatorDataManager
 from utilities import validate_arguments
@@ -22,13 +22,13 @@ control_buttons = html.Div([
         create_control_button('Disconnect From Crueso', ButtonIds.DISCONNECT_FROM_CRUESO,
                               ControlButtonIcons.DISCONNECT_FROM_SIMULATOR),
     ], id=ButtonGroupIds.SETUP_SIMULATOR),
-    connection_modal,
+    simulator_connection_modal,
 ], className='bg-secondary flex-center flex-column')
 
 
 @callback(
-    Output(ConnectionModal.ID, 'is_open'),
-    State(ConnectionModal.ID, 'is_open'),
+    Output(SimulatorModal.ID, 'is_open'),
+    State(SimulatorModal.ID, 'is_open'),
     Input(Placeholder.ID, Placeholder.Fields.CLICKS_TIMESTAMP),
     Input(ButtonIds.CONNECT_TO_SIMULATOR, 'n_clicks'),
     prevent_initial_call=True)

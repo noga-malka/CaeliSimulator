@@ -30,7 +30,7 @@ class ButtonGroupIds:
     SIMULATOR_CONTROLS = 'simulator_controls'
 
 
-class ConnectionModal:
+class SimulatorModal:
     ID = 'connection_modal'
     DEVICE_DROPDOWN = 'device_dropdown'
     SYNC_DEVICES = 'sync_devices'
