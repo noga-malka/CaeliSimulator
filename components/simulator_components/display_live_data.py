@@ -1,8 +1,9 @@
+import pandas
 from dash import html, dcc, callback, Output, Input
 
 from components.simulator_components.consts import LiveData
 from components.simulator_components.live_data.consts import DisplayOptions
-from components.simulator_components.live_data.utilities import build_simulator_display_grid
+from components.simulator_components.live_data.utilities import build_live_data_display_grid
 from simulator_data_manager.consts import PacketHeaders
 from simulator_data_manager.simulator_data_manager import SimulatorDataManager
 
@@ -16,10 +17,9 @@ live_data = html.Div([
           Input(LiveData.INTERVAL, 'n_intervals'))
 def update_live_data(interval):
     layout = []
-    data = SimulatorDataManager().get_data(PacketHeaders.CRUESO)
+    crueso_data = SimulatorDataManager().get_data(PacketHeaders.CRUESO)
+    simulator_data = SimulatorDataManager().get_data(PacketHeaders.DATA)
+    data = pandas.concat([crueso_data, simulator_data], axis=1)
     if not data.empty:
-        layout += build_simulator_display_grid(data, DisplayOptions.CRUESO_RESOLVER)
-    data = SimulatorDataManager().get_data(PacketHeaders.DATA)
-    if not data.empty:
-        layout += build_simulator_display_grid(data, DisplayOptions.SIMULATOR_RESOLVER)
+        layout += build_live_data_display_grid(data, DisplayOptions.DISPLAY_TYPE_RESOLVER)
     return layout

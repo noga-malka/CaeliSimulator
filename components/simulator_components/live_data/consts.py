@@ -9,7 +9,7 @@ class DisplayOptions:
     GRAPH = GraphLiveData()
     PLAIN_TEXT = TextLiveData()
 
-    SIMULATOR_RESOLVER = [
+    DISPLAY_TYPE_RESOLVER = [
         {
             SimulatorKeys.TOTAL_RUN_TIME: TIMER,
             SimulatorKeys.PROFILE_RUN_TIME: TIMER,
@@ -17,15 +17,10 @@ class DisplayOptions:
             SimulatorKeys.TOTAL_INTERVALS: PLAIN_TEXT,
         },
         {
+            CruesoKeys.PRESSURE: GRAPH,
             SimulatorKeys.BREATH_VOLUME: GRAPH,
             SimulatorKeys.BREATH_STATE: GRAPH},
         {
             SimulatorKeys.CRITICAL_FLAG: GRAPH,
             SimulatorKeys.SIMULATOR_STATUS: GRAPH,
         }]
-
-    CRUESO_RESOLVER = [
-        {
-            CruesoKeys.PRESSURE: GRAPH
-        },
-    ]
