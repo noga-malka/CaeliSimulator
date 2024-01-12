@@ -3,7 +3,6 @@ from dash import dcc
 
 from cnc.cnc import Cnc
 from components.general_components.input_card import create_card
-from simulator_data_manager.simulator_data_manager import SimulatorDataManager
 
 
 def build_connection_devices_dropdown(devices_id: str, sync_button_id: str, connect_button_id: str):
@@ -20,7 +19,6 @@ def build_connection_devices_dropdown(devices_id: str, sync_button_id: str, conn
 
 
 def connection_status_change(cnc: Cnc) -> str:
-    SimulatorDataManager().clear_saved_data()
     if cnc.is_connected:
         return 'connection-status connected'
     return 'connection-status'
