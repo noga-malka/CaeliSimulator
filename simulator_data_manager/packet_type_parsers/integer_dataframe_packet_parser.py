@@ -3,9 +3,9 @@ import pandas
 from simulator_data_manager.packet_type_parsers.base_packet_parser import BasePacketParser
 
 
-class NumericDataframePacketParser(BasePacketParser):
+class IntegerDataframePacketParser(BasePacketParser):
     def __init__(self, maximum_row_number: int):
-        super(NumericDataframePacketParser, self).__init__(pandas.DataFrame())
+        super(IntegerDataframePacketParser, self).__init__(pandas.DataFrame())
         self.maximum_row_number = maximum_row_number
 
     def _validate_length(self, dataframe: pandas.DataFrame) -> pandas.DataFrame:
