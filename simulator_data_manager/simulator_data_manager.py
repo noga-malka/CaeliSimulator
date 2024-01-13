@@ -27,7 +27,7 @@ class SimulatorDataManager(Singleton):
         self.simulator_thread.start()
         self.crueso_thread = ReadDataThread(CruesoCnc(),
                                             {
-                                                PacketHeaders.CRUESO: FloatDataframePacketParser(100),
+                                                PacketHeaders.CRUESO: FloatDataframePacketParser(500),
                                             })
         self.crueso_thread.start()
 
