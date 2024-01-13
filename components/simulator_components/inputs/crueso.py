@@ -8,7 +8,7 @@ from components.consts import Placeholder
 from components.general_components.modal import create_modal
 from components.simulator_components.inputs.consts import CruesoConsts
 from components.simulator_components.inputs.utilities import build_connection_devices_dropdown, connection_status_change
-from components.simulator_components.utilities import create_control_button
+from components.simulator_components.utilities import create_icon_button
 from simulator_data_manager.simulator_data_manager import SimulatorDataManager
 from utilities import ui_logger, validate_arguments
 
@@ -20,12 +20,12 @@ crueso_connection_modal = create_modal('Connect to Crueso',
 
 crueso_connection_buttons = [html.Div('', className='connection-status', id=CruesoConsts.STATUS_BAR),
                              dash_bootstrap_components.ButtonGroup([
-                                 create_control_button('Connect To Crueso',
-                                                       CruesoConsts.OPEN_CONNECT_MODAL,
-                                                       ControlButtonIcons.CONNECT_TO_SIMULATOR),
-                                 create_control_button('Disconnect From Crueso',
-                                                       CruesoConsts.DISCONNECT_CONNECTION,
-                                                       ControlButtonIcons.DISCONNECT_FROM_SIMULATOR),
+                                 create_icon_button('Connect To Crueso',
+                                                    CruesoConsts.OPEN_CONNECT_MODAL,
+                                                    ControlButtonIcons.CONNECT_TO_SIMULATOR),
+                                 create_icon_button('Disconnect From Crueso',
+                                                    CruesoConsts.DISCONNECT_CONNECTION,
+                                                    ControlButtonIcons.DISCONNECT_FROM_SIMULATOR),
                              ], className='flex')]
 
 

@@ -10,16 +10,16 @@ from cnc.packets.command_packet import CommandPacket
 from cnc.simulator_cnc import SimulatorCnc
 from components.consts import Placeholder
 from components.simulator_components.consts import ButtonGroupIds, ButtonIds
-from components.simulator_components.utilities import create_control_button
+from components.simulator_components.utilities import create_icon_button
 from utilities import validate_arguments, ui_logger
 
 simulator_buttons = dash_bootstrap_components.ButtonGroup([
-    create_control_button('On', ButtonIds.Simulator.ON, ControlButtonIcons.ON),
-    create_control_button('Run', ButtonIds.Simulator.RUN, ControlButtonIcons.RUN),
-    create_control_button('Pause', ButtonIds.Simulator.PauseResume.ID, ControlButtonIcons.PAUSE),
-    create_control_button('Homing', ButtonIds.Simulator.HOMING, ControlButtonIcons.HOMING),
-    create_control_button('Off', ButtonIds.Simulator.OFF, ControlButtonIcons.OFF),
-    create_control_button('Emergency Stop', ButtonIds.Simulator.STOP, ControlButtonIcons.STOP, 'danger'),
+    create_icon_button('On', ButtonIds.Simulator.ON, ControlButtonIcons.ON),
+    create_icon_button('Run', ButtonIds.Simulator.RUN, ControlButtonIcons.RUN),
+    create_icon_button('Pause', ButtonIds.Simulator.PauseResume.ID, ControlButtonIcons.PAUSE),
+    create_icon_button('Homing', ButtonIds.Simulator.HOMING, ControlButtonIcons.HOMING),
+    create_icon_button('Off', ButtonIds.Simulator.OFF, ControlButtonIcons.OFF),
+    create_icon_button('Emergency Stop', ButtonIds.Simulator.STOP, ControlButtonIcons.STOP, 'danger'),
 ], id=ButtonGroupIds.SIMULATOR_CONTROLS)
 
 
