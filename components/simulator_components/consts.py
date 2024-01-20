@@ -12,6 +12,9 @@ class ButtonIds:
     CONNECT_TO_CRUESO = 'connect_to_crueso_modal'
     DISCONNECT_FROM_CRUESO = 'disconnect_crueso_connection_button'
 
+    class Crueso:
+        BLOWER_SPEED_VALUE = 'blower_speed_value'
+
     class Simulator:
         ON = 'simulator_on'
         RUN = 'simulator_run'
