@@ -20,7 +20,7 @@ simulator_buttons = dash_bootstrap_components.ButtonGroup([
     create_icon_button('Homing', ButtonIds.Simulator.HOMING, ControlButtonIcons.HOMING),
     create_icon_button('Off', ButtonIds.Simulator.OFF, ControlButtonIcons.OFF),
     create_icon_button('Emergency Stop', ButtonIds.Simulator.STOP, ControlButtonIcons.STOP, 'danger'),
-], id=ButtonGroupIds.SIMULATOR_CONTROLS)
+], id=ButtonGroupIds.SIMULATOR_CONTROLS, className='flex')
 
 
 @callback(Output(Placeholder.ID, Placeholder.Fields.ACCESS_KEY),

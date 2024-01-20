@@ -12,8 +12,9 @@ dash.register_page(__name__, path=PageRoutes.RUN_SIMULATOR, title=PageTitles.RUN
 layout = html.Div([
     html.Div([
         test_case_modal,
-        simulator_buttons,
-    ], className='bg-secondary flex-center flex-column'),
+        html.Div(simulator_buttons, style=dict(width='50%')),
+        html.Div([], style=dict(width='50%')),
+    ], className='bg-secondary flex-center flex-row'),
     test_case_progress_bar,
     live_data,
 ])
