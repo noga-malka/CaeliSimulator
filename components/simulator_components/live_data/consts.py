@@ -14,6 +14,9 @@ class DisplayOptions:
             CruesoKeys.PRESSURE: GRAPH,
         },
         {
+            CruesoKeys.TACH_B: GRAPH,
+        },
+        {
             SimulatorKeys.BREATH_VOLUME: GRAPH,
         },
         {
