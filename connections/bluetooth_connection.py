@@ -62,7 +62,11 @@ class BluetoothConnection(BaseConnection):
         :raises DeviceDisconnectedException if there is no data to read from device, and it disconnected
         """
         while BluetoothConsts.LINE_SEPARATOR not in self._received_data_buffer:
-            data = self._device.recv(BluetoothConsts.RECEIVE_BUFFER_SIZE)
+            try:
+                data = self._device.recv(BluetoothConsts.RECEIVE_BUFFER_SIZE)
+            except ConnectionAbortedError:
+                # bluetooth connection was closed
+                raise DeviceDisconnectedException(self.__class__.__name__)
             if data == BluetoothConsts.NO_DATA_RECEIVED:
                 # no data found, the bluetooth connection is closed
                 raise DeviceDisconnectedException(self.__class__.__name__)
