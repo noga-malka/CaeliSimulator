@@ -6,8 +6,10 @@ from components.simulator_components.live_data.base_live_data import BaseLiveDat
 from simulator_data_manager.packet_type_parsers.consts import CruesoKeys
 
 TYPING = {
-    CruesoKeys.PRESSURE: 'mBar',
-    CruesoKeys.TACH_B: 'RPM',
+    CruesoKeys.PRESSURE_1: 'mBar',
+    CruesoKeys.PRESSURE_2: 'mBar',
+    CruesoKeys.TACH_B_1: 'RPM',
+    CruesoKeys.TACH_B_2: 'RPM',
 }
 
 

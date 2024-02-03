@@ -11,5 +11,7 @@ class SimulatorKeys:
 
 
 class CruesoKeys:
-    PRESSURE = 'Pressure'
-    TACH_B = 'TachB'
+    PRESSURE_1 = 'Pressure1'
+    TACH_B_1 = 'TachB1'
+    PRESSURE_2 = 'Pressure2'
+    TACH_B_2 = 'TachB2'
