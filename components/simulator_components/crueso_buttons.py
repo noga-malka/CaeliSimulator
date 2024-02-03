@@ -13,7 +13,7 @@ from utilities import validate_arguments, ui_logger
 
 crueso_buttons = dash_bootstrap_components.ButtonGroup([
     html.Div([
-        html.Label('Blower Speed', style={'width': '15%'}, className='margin'),
+        html.Label('Blower 1 Speed', style={'width': '15%'}, className='margin'),
         dash_daq.Slider(id=ButtonIds.Crueso.BLOWER_SPEED_VALUE, min=0, max=255, value=0,
                         handleLabel={"showCurrentValue": True, "label": " "}),
     ]
@@ -27,6 +27,6 @@ crueso_buttons = dash_bootstrap_components.ButtonGroup([
 def set_blower_speed(blower_speed: int, dash_logger: DashLogger):
     validate_arguments(blower_speed)
     try:
-        CruesoCnc().send_packet(SetSingleValuePacket(Commands.SET_BLOWER_SPEED, blower_speed))
+        CruesoCnc().send_packet(SetSingleValuePacket(Commands.SET_BLOWER_1_SPEED, blower_speed))
     except NoConnectionOpenException as exception:
         return ui_logger(dash_logger, exception)
