@@ -15,7 +15,7 @@ TYPING = {
 
 class GraphLiveData(BaseLiveData):
     def create_component(self, title: str, value: pandas.Series):
-        figure = express.line(value, y=title)
+        figure = express.line(value)
         yaxis_title = f'{title} [{TYPING[title]}]' if TYPING.get(title) else title
         figure.update_layout(showlegend=False, yaxis_title=yaxis_title)
         return dcc.Graph(figure=figure,
