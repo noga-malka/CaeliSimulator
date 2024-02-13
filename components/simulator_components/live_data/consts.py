@@ -15,8 +15,7 @@ class DisplayOptions:
             CruesoKeys.PRESSURE_2: GRAPH,
         },
         {
-            CruesoKeys.TACH_B_1: GRAPH,
-            CruesoKeys.TACH_B_2: GRAPH,
+            frozenset([CruesoKeys.TACH_B_1, CruesoKeys.TACH_B_2]): GRAPH,
         },
         {
             SimulatorKeys.BREATH_VOLUME: GRAPH,
