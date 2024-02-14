@@ -11,14 +11,16 @@ class DisplayOptions:
 
     DISPLAY_TYPE_RESOLVER = [
         {
-            CruesoKeys.PRESSURE_1: GRAPH,
-            CruesoKeys.PRESSURE_2: GRAPH,
+            SimulatorKeys.BREATH_VOLUME: GRAPH,
         },
         {
             frozenset([CruesoKeys.TACH_B_1, CruesoKeys.TACH_B_2]): GRAPH,
         },
         {
-            SimulatorKeys.BREATH_VOLUME: GRAPH,
+            CruesoKeys.PRESSURE_1: GRAPH,
+        },
+        {
+            CruesoKeys.PRESSURE_2: GRAPH,
         },
         {
             SimulatorKeys.TOTAL_RUN_TIME: TIMER,
