@@ -3,9 +3,6 @@ from models.test_case import TestCase
 
 
 class TestCaseManager(BaseManager):
-    def __init__(self, save_function: callable):
-        super().__init__(save_function)
-
     def get(self, test_case_name: str) -> TestCase:
         """
         get TestCase object by name
