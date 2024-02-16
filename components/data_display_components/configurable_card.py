@@ -23,12 +23,12 @@ def generate_configurable_card(card_id: str):
                              clearable=False, searchable=False, style={'width': '72px'}),
                 dcc.Dropdown(Display.ALL, Display.GRAPH, id=generate_id(card_id, CardIdType.DISPLAY),
                              clearable=False, searchable=False, style={'width': '77px'}),
+                dcc.Dropdown([], id=generate_id(card_id, CardIdType.INPUTS),
+                             multi=True, clearable=False, searchable=False, style={'width': '130px'}),
 
-                dcc.Input(placeholder=CardIdType.INPUTS, id=generate_id(card_id, CardIdType.INPUTS),
-                          className='input', style={'width': '120px'}),
                 dcc.Input(placeholder=CardIdType.TYPING, id=generate_id(card_id, CardIdType.TYPING),
                           className='input', style={'width': '72px'}),
-            ], className='align'),
+            ], className='align', style={'padding': '0'}),
             html.Div(id=generate_id(card_id, CardIdType.CONTENT))
         ]),
     ], id=generate_id(card_id, CardIdType.CARD), style={'flex': '0 0 100%'})
