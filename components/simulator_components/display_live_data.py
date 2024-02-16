@@ -47,12 +47,20 @@ def update_live_data(cards_display, cards_input, interval):
 @callback(Output({'index': ALL, 'type': CardIdType.INPUTS}, 'options'),
           State({'index': ALL, 'type': CardIdType.INPUTS}, 'options'),
           Input(LiveData.INTERVAL, 'n_intervals'))
-def update_input_dropdown(options: list, interval: int):
+def update_input_dropdown(dropdown_options: list, interval: int):
     crueso_data = SimulatorDataManager().get_data(PacketHeaders.CRUESO)
     simulator_data = SimulatorDataManager().get_data(PacketHeaders.DATA)
     data = pandas.concat([crueso_data, simulator_data], axis=1)
-    if len(options) == 0 or options[0] != list(data.columns):
-        return [data.columns] * len(options)
+    if dropdown_options:
+        options = dropdown_options[0]
+        enabled_labels = {option['value'] for option in options if not option['disabled']}
+        if set(data.columns) != enabled_labels:
+            target_labels = set.union({option['value'] for option in options}, set(data.columns))
+            updated_options = []
+            for label in target_labels:
+                disabled = label not in data.columns
+                updated_options.append({'label': label, 'value': label, 'disabled': disabled})
+            return [updated_options] * len(dropdown_options)
     return dash.no_update
 
 

@@ -3,7 +3,7 @@ from dash import html, dcc, callback, Output, Input, ALL
 
 from assets.icons import ControlButtonIcons
 from components.consts import Placeholder
-from components.data_display_components.consts import Size, CardIdType, Display
+from components.data_display_components.consts import Size, CardIdType, Display, Inputs
 from database.database_manager import DatabaseManager
 from models.display import DisplayCard
 
@@ -41,7 +41,8 @@ def generate_configurable_card(card_id: str,
                          clearable=False, searchable=False, style={'width': '72px'}),
             dcc.Dropdown(Display.ALL, display_type, id=generate_id(card_id, CardIdType.DISPLAY),
                          clearable=False, searchable=False, style={'width': '77px'}),
-            dcc.Dropdown([], id=generate_id(card_id, CardIdType.INPUTS), value=inputs,
+            dcc.Dropdown([{'label': option, 'value': option, 'disabled': True} for option in Inputs.STATIC_OPTIONS],
+                         id=generate_id(card_id, CardIdType.INPUTS), value=inputs,
                          multi=True, clearable=False, searchable=False, style={'width': '150px'}),
 
             dcc.Input(placeholder=CardIdType.TYPING, value=typing, id=generate_id(card_id, CardIdType.TYPING),
