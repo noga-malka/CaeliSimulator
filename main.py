@@ -1,5 +1,4 @@
 import dash
-import dash_bootstrap_components
 from dash import dcc
 from dash_extensions.enrich import html, DashProxy, LogTransform
 
@@ -12,7 +11,6 @@ from database.database_manager import DatabaseManager
 from simulator_data_manager.simulator_data_manager import SimulatorDataManager
 
 app = DashProxy(__name__,
-                external_stylesheets=[dash_bootstrap_components.themes.FLATLY],
                 suppress_callback_exceptions=True,
                 use_pages=True,
                 transforms=[LogTransform()],
