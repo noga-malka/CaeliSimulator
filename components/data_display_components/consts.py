@@ -21,6 +21,7 @@ class Display:
 
 
 class CardIdType:
+    TITLE = 'title'
     CONTENT = 'content'
     INPUTS = 'inputs'
     CARD = 'card'

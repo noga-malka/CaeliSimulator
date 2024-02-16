@@ -12,7 +12,7 @@ test_case_progress_bar = html.Div(
         dash_bootstrap_components.Progress(id=ProgressBar.ID, color='success',
                                            className='progress-container progress-timer'),
         html.Div([], id=ProgressBar.STEPS, className='flex-center align progress-container',
-                 style={'justify-content': 'space-between', 'height': '100px'})],
+                 style={'justifyContent': 'space-between', 'height': '100px'})],
     className='flex-center align')
 
 
