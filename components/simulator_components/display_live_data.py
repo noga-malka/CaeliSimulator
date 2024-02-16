@@ -30,7 +30,7 @@ def update_live_data(cards_display, cards_input, interval):
     for index in range(len(cards_input)):
         card_content = []
         if cards_input[index]:
-            card_content = DISPLAY_TYPES[cards_display[index]](','.join(cards_input[index]), data[cards_input[index]])
+            card_content = DISPLAY_TYPES[cards_display[index]](cards_input[index], data[cards_input[index]])
         layout.append(card_content)
     return layout
 
