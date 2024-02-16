@@ -1,25 +1,35 @@
 import pandas
-from dash import html, dcc, callback, Output, Input
+from dash import html, dcc, callback, Output, Input, State, ALL
 
+from components.data_display_components.configurable_card import generate_configurable_card
+from components.data_display_components.display_content import DISPLAY_TYPES
+from components.data_display_components.drag_container import generate_draggable_children_div
 from components.simulator_components.consts import LiveData
-from components.simulator_components.live_data.consts import DisplayOptions
-from components.simulator_components.live_data.utilities import build_live_data_display_grid
 from simulator_data_manager.consts import PacketHeaders
 from simulator_data_manager.simulator_data_manager import SimulatorDataManager
 
 live_data = html.Div([
-    html.Div(id=LiveData.LIVE_DATA_GRID),
+    generate_draggable_children_div("drag_container", [
+        generate_configurable_card("1"),
+    ]),
     dcc.Interval(id=LiveData.INTERVAL, interval=1000)
 ])
 
 
-@callback(Output(LiveData.LIVE_DATA_GRID, 'children'),
+@callback(Output({'index': ALL, 'type': 'content'}, 'children'),
+          State({'index': ALL, 'type': 'display'}, 'value'),
+          State({'index': ALL, 'type': 'input'}, 'value'),
           Input(LiveData.INTERVAL, 'n_intervals'))
-def update_live_data(interval):
+def update_live_data(cards_display, cards_input, interval):
     layout = []
     crueso_data = SimulatorDataManager().get_data(PacketHeaders.CRUESO)
     simulator_data = SimulatorDataManager().get_data(PacketHeaders.DATA)
     data = pandas.concat([crueso_data, simulator_data], axis=1)
-    if not data.empty:
-        layout += build_live_data_display_grid(data, DisplayOptions.DISPLAY_TYPE_RESOLVER)
+    for index in range(len(cards_input)):
+        title = cards_input[index] or ''
+        input_columns = list(set(filter(lambda column: column in data.columns, title.split(','))))
+        card_content = []
+        if input_columns:
+            card_content = DISPLAY_TYPES[cards_display[index]](title, data[input_columns])
+        layout.append(card_content)
     return layout
