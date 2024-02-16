@@ -30,6 +30,7 @@ class ControlButtonIcons:
     PAUSE = create_icon('ic:round-pause', width=32, style={'margin-right': '3px'})
     RESUME = create_icon('material-symbols:resume-rounded', width=32, style={'margin-right': '3px'})
     OFF = create_icon('iconoir:off-tag', width=32, style={'margin-right': '3px'})
+    CLOSE = create_icon('ic:round-close', width=32)
 
 
 class NavigationBarIcons:

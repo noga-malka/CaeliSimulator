@@ -27,3 +27,4 @@ class CardIdType:
     DISPLAY = 'display'
     SIZE = 'size'
     TYPING = 'typing'
+    DELETE = 'delete'

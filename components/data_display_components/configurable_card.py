@@ -1,6 +1,7 @@
 import dash_bootstrap_components
 from dash import html, dcc
 
+from assets.icons import ControlButtonIcons
 from components.data_display_components.consts import Size, CardIdType, Display
 
 
@@ -16,7 +17,10 @@ def generate_configurable_card(card_id: str):
     :return: Card component with default values
     """
     return dash_bootstrap_components.Card([
-        dash_bootstrap_components.CardHeader(html.H4('display title', contentEditable="true")),
+        dash_bootstrap_components.CardHeader([
+            html.H4('display title', contentEditable="true"),
+            html.Div(ControlButtonIcons.CLOSE, id=generate_id(card_id, CardIdType.DELETE)),
+        ], className='flex', style={'justify-content': 'space-between'}),
         html.Div([
             dcc.Dropdown(Size.ALL, Size.FULL, id=generate_id(card_id, CardIdType.SIZE),
                          clearable=False, searchable=False, style={'width': '72px'}),
