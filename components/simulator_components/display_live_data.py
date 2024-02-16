@@ -2,6 +2,7 @@ import pandas
 from dash import html, dcc, callback, Output, Input, State, ALL
 
 from components.data_display_components.configurable_card import generate_configurable_card
+from components.data_display_components.consts import CardIdType
 from components.data_display_components.display_content import DISPLAY_TYPES
 from components.data_display_components.drag_container import generate_draggable_children_div
 from components.simulator_components.consts import LiveData
@@ -16,9 +17,9 @@ live_data = html.Div([
 ])
 
 
-@callback(Output({'index': ALL, 'type': 'content'}, 'children'),
-          State({'index': ALL, 'type': 'display'}, 'value'),
-          State({'index': ALL, 'type': 'input'}, 'value'),
+@callback(Output({'index': ALL, 'type': CardIdType.CONTENT}, 'children'),
+          State({'index': ALL, 'type': CardIdType.DISPLAY}, 'value'),
+          State({'index': ALL, 'type': CardIdType.INPUTS}, 'value'),
           Input(LiveData.INTERVAL, 'n_intervals'))
 def update_live_data(cards_display, cards_input, interval):
     layout = []
