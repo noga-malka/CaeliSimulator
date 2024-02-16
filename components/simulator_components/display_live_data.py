@@ -30,7 +30,10 @@ def update_live_data(cards_display, cards_input, interval):
     for index in range(len(cards_input)):
         card_content = []
         if cards_input[index]:
-            card_content = DISPLAY_TYPES[cards_display[index]](cards_input[index], data[cards_input[index]])
+            try:
+                card_content = DISPLAY_TYPES[cards_display[index]](cards_input[index], data[cards_input[index]])
+            except KeyError:
+                pass
         layout.append(card_content)
     return layout
 
@@ -42,7 +45,7 @@ def update_input_dropdown(options: list, interval: int):
     crueso_data = SimulatorDataManager().get_data(PacketHeaders.CRUESO)
     simulator_data = SimulatorDataManager().get_data(PacketHeaders.DATA)
     data = pandas.concat([crueso_data, simulator_data], axis=1)
-    if options[0] != list(data.columns):
+    if len(options) == 0 or options[0] != list(data.columns):
         return [data.columns] * len(options)
     return dash.no_update
 
