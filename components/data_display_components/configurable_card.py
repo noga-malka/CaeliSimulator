@@ -17,18 +17,16 @@ def generate_configurable_card(card_id: str):
     """
     return dash_bootstrap_components.Card([
         dash_bootstrap_components.CardHeader(html.H4('display title', contentEditable="true")),
-        dash_bootstrap_components.CardBody([
-            html.Div([
-                dcc.Dropdown(Size.ALL, Size.FULL, id=generate_id(card_id, CardIdType.SIZE),
-                             clearable=False, searchable=False, style={'width': '72px'}),
-                dcc.Dropdown(Display.ALL, Display.GRAPH, id=generate_id(card_id, CardIdType.DISPLAY),
-                             clearable=False, searchable=False, style={'width': '77px'}),
-                dcc.Dropdown([], id=generate_id(card_id, CardIdType.INPUTS),
-                             multi=True, clearable=False, searchable=False, style={'width': '130px'}),
+        html.Div([
+            dcc.Dropdown(Size.ALL, Size.FULL, id=generate_id(card_id, CardIdType.SIZE),
+                         clearable=False, searchable=False, style={'width': '72px'}),
+            dcc.Dropdown(Display.ALL, Display.GRAPH, id=generate_id(card_id, CardIdType.DISPLAY),
+                         clearable=False, searchable=False, style={'width': '77px'}),
+            dcc.Dropdown([], id=generate_id(card_id, CardIdType.INPUTS),
+                         multi=True, clearable=False, searchable=False, style={'width': '130px'}),
 
-                dcc.Input(placeholder=CardIdType.TYPING, id=generate_id(card_id, CardIdType.TYPING),
-                          className='input', style={'width': '72px'}),
-            ], className='align', style={'padding': '0'}),
-            html.Div(id=generate_id(card_id, CardIdType.CONTENT))
-        ]),
+            dcc.Input(placeholder=CardIdType.TYPING, id=generate_id(card_id, CardIdType.TYPING),
+                      className='input', style={'width': '72px'}),
+        ], className='align flex-wrap'),
+        dash_bootstrap_components.CardBody([], id=generate_id(card_id, CardIdType.CONTENT)),
     ], id=generate_id(card_id, CardIdType.CARD), style={'flex': '0 0 100%'})
