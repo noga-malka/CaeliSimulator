@@ -2,6 +2,8 @@ import pandas
 from dash import dcc, html
 from plotly import express
 
+from components.data_display_components.consts import Display
+
 
 def display_graph(yaxis: str, dataframe: pandas.DataFrame):
     figure = express.line(dataframe)
@@ -26,7 +28,7 @@ def display_timer(title: str, dataframe: pandas.DataFrame):
 
 
 DISPLAY_TYPES = {
-    'Graph': display_graph,
-    'Text': display_text,
-    'Timer': display_timer,
+    Display.GRAPH: display_graph,
+    Display.TEXT: display_text,
+    Display.TIMER: display_timer,
 }
