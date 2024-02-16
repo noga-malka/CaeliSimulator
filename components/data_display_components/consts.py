@@ -1,3 +1,8 @@
+class DisplayDataContainer:
+    ID = 'live_data'
+    NEW_CARD = 'add_new_card_button'
+
+
 class Size:
     FULL = '100%'
     HALF = '50%'
