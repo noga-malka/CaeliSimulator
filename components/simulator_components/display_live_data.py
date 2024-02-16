@@ -1,6 +1,6 @@
 import dash
 import pandas
-from dash import html, dcc, callback, Output, Input, State, ALL
+from dash import html, dcc, callback, Output, Input, State, ALL, MATCH
 
 from components.data_display_components.configurable_card import generate_configurable_card
 from components.data_display_components.consts import CardIdType, DisplayDataContainer
@@ -45,3 +45,10 @@ def update_input_dropdown(options: list, interval: int):
     if options[0] != list(data.columns):
         return [data.columns] * len(options)
     return dash.no_update
+
+
+@callback(Output({'index': MATCH, 'type': CardIdType.CARD}, 'style'),
+          Input({'index': MATCH, 'type': CardIdType.SIZE}, 'value'),
+          prevent_initial_call=True)
+def update_card_size(target_size: str):
+    return {'flex': f'0 0 {target_size}'}
