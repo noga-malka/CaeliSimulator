@@ -2,20 +2,26 @@ import dash
 import pandas
 from dash import html, dcc, callback, Output, Input, State, ALL, MATCH
 
+from components.consts import Placeholder
 from components.data_display_components.configurable_card import generate_configurable_card
 from components.data_display_components.consts import CardIdType, DisplayDataContainer
 from components.data_display_components.display_content import DISPLAY_TYPES
 from components.data_display_components.drag_container import generate_draggable_children_div
 from components.simulator_components.consts import LiveData
+from database.database_manager import DatabaseManager
 from simulator_data_manager.consts import PacketHeaders
 from simulator_data_manager.simulator_data_manager import SimulatorDataManager
 
 live_data = html.Div([
-    generate_draggable_children_div(DisplayDataContainer.ID, [
-        generate_configurable_card("1"),
-    ]),
+    generate_draggable_children_div(DisplayDataContainer.ID, []),
     dcc.Interval(id=LiveData.INTERVAL, interval=1000)
 ])
+
+
+@callback(Output(DisplayDataContainer.ID, 'children'),
+          Input(Placeholder.ID, Placeholder.Fields.CHILDREN))
+def update_select_profile_dropdown_options(setup):
+    return [generate_configurable_card(**card.__dict__) for card in DatabaseManager().display_manager.get_instances()]
 
 
 @callback(Output({'index': ALL, 'type': CardIdType.CONTENT}, 'children'),
