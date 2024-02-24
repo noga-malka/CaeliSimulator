@@ -9,7 +9,7 @@ from cnc.no_connection_open_exception import NoConnectionOpenException
 from cnc.packets.command_packet import CommandPacket
 from cnc.simulator_cnc import SimulatorCnc
 from components.consts import Placeholder
-from components.simulator_components.consts import ButtonGroupIds, ButtonIds
+from components.simulator_components.consts import ButtonIds
 from components.simulator_components.utilities import create_icon_button
 from utilities import validate_arguments, ui_logger
 
@@ -20,7 +20,7 @@ simulator_buttons = dash_bootstrap_components.ButtonGroup([
     create_icon_button('Homing', ButtonIds.Simulator.HOMING, ControlButtonIcons.HOMING),
     create_icon_button('Off', ButtonIds.Simulator.OFF, ControlButtonIcons.OFF),
     create_icon_button('Emergency Stop', ButtonIds.Simulator.STOP, ControlButtonIcons.STOP, 'danger'),
-], id=ButtonGroupIds.SIMULATOR_CONTROLS, className='flex')
+], className='flex')
 
 
 @callback(Output(Placeholder.ID, Placeholder.Fields.ACCESS_KEY),

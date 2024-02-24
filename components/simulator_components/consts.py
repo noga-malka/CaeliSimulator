@@ -1,5 +1,4 @@
 from assets.icons import ControlButtonIcons
-from simulator_data_manager.packet_type_parsers.consts import SimulatorKeys
 
 
 class ConnectionStatus:
@@ -7,11 +6,6 @@ class ConnectionStatus:
 
 
 class ButtonIds:
-    CONNECT_TO_SIMULATOR = 'connect_to_simulator_modal'
-    DISCONNECT_FROM_SIMULATOR = 'disconnect_connection_button'
-    CONNECT_TO_CRUESO = 'connect_to_crueso_modal'
-    DISCONNECT_FROM_CRUESO = 'disconnect_crueso_connection_button'
-
     class Crueso:
         FIRST_BLOWER_SPEED_VALUE = 'first_blower_speed_value'
         SECOND_BLOWER_SPEED_VALUE = 'second_blower_speed_value'
@@ -29,11 +23,6 @@ class ButtonIds:
             RESUME_BUTTON = [ControlButtonIcons.RESUME, 'Resume']
 
 
-class ButtonGroupIds:
-    SETUP_SIMULATOR = 'setup_simulator'
-    SIMULATOR_CONTROLS = 'simulator_controls'
-
-
 class SimulatorModal:
     ID = 'connection_modal'
     DEVICE_DROPDOWN = 'device_dropdown'
@@ -48,12 +37,7 @@ class SelectTestCaseModal:
 
 
 class LiveData:
-    ID = 'live_data_container'
-    LIVE_DATA_GRID = 'live_data_grid'
     INTERVAL = 'live_data_interval'
-    NUMERIC_VALUE_FIELDS = [SimulatorKeys.PROFILE_RUN_TIME, SimulatorKeys.TOTAL_RUN_TIME, SimulatorKeys.CURRENT_PROFILE,
-                            SimulatorKeys.TOTAL_INTERVALS]
-    GRAPH_NUMBER_IN_ROW = 3
 
 
 class ProgressBar:
