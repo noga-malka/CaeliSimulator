@@ -1,5 +1,7 @@
 from typing import Any
 
+import pandas
+
 from cnc.crueso_cnc import CruesoCnc
 from cnc.simulator_cnc import SimulatorCnc
 from simulator_data_manager.consts import PacketHeaders
@@ -18,31 +20,34 @@ class SimulatorDataManager(Singleton):
     """
 
     def initiate(self):
-        self.simulator_thread = ReadDataThread(SimulatorCnc(),
-                                               {
-                                                   PacketHeaders.DATA: IntegerDataframePacketParser(100),
-                                                   PacketHeaders.BREATH_PARAMETERS: BreathParametersPacketParser(),
-                                                   PacketHeaders.ACTIVE_BREATH_PARAMETERS: DictionaryPacketParser(),
-                                               })
+        self.packet_parsers = {
+            PacketHeaders.DATA: IntegerDataframePacketParser(100),
+            PacketHeaders.BREATH_PARAMETERS: BreathParametersPacketParser(),
+            PacketHeaders.ACTIVE_BREATH_PARAMETERS: DictionaryPacketParser(),
+            PacketHeaders.CRUESO: FloatDataframePacketParser(500),
+            PacketHeaders.PRESSURE: FloatDataframePacketParser(1000),
+        }
+        self.simulator_thread = ReadDataThread(SimulatorCnc(), self.packet_parsers)
         self.simulator_thread.start()
-        self.crueso_thread = ReadDataThread(CruesoCnc(),
-                                            {
-                                                PacketHeaders.CRUESO: FloatDataframePacketParser(500),
-                                            })
+        self.crueso_thread = ReadDataThread(CruesoCnc(), self.packet_parsers)
         self.crueso_thread.start()
-
-        self._all_packet_parsers = self.simulator_thread.packet_parsers | self.crueso_thread.packet_parsers
 
     def get_data(self, packet_type: str) -> Any:
         """
         :param packet_type: key inside self._packet_parsers
         :return: saved data of the right packet parser
         """
-        return self._all_packet_parsers[packet_type].get_saved_data()
+        return self.packet_parsers[packet_type].get_saved_data()
+
+    def get_live_dataframe(self) -> pandas.DataFrame:
+        crueso_data = self.get_data(PacketHeaders.CRUESO)
+        pressure_data = self.get_data(PacketHeaders.PRESSURE)
+        simulator_data = self.get_data(PacketHeaders.DATA)
+        return pandas.concat([crueso_data, simulator_data, pressure_data], axis=1)
 
     def get_event(self, packet_type: str):
         """
         :param packet_type: key inside self._packet_parsers
         :return: Event object of the right packet parser
         """
-        return self._all_packet_parsers[packet_type].get_event()
+        return self.packet_parsers[packet_type].get_event()

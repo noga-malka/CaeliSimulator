@@ -1,5 +1,4 @@
 import dash
-import pandas
 from dash import html, dcc, callback, Output, Input, State, ALL, MATCH
 
 from components.consts import Placeholder
@@ -9,7 +8,6 @@ from components.data_display_components.display_content import DISPLAY_TYPES
 from components.data_display_components.drag_container import generate_draggable_children_div
 from components.simulator_components.consts import LiveData
 from database.database_manager import DatabaseManager
-from simulator_data_manager.consts import PacketHeaders
 from simulator_data_manager.simulator_data_manager import SimulatorDataManager
 
 live_data = html.Div([
@@ -30,9 +28,7 @@ def update_select_profile_dropdown_options(setup):
           Input(LiveData.INTERVAL, 'n_intervals'))
 def update_live_data(cards_display, cards_input, interval):
     layout = []
-    crueso_data = SimulatorDataManager().get_data(PacketHeaders.CRUESO)
-    simulator_data = SimulatorDataManager().get_data(PacketHeaders.DATA)
-    data = pandas.concat([crueso_data, simulator_data], axis=1)
+    data = SimulatorDataManager().get_live_dataframe()
     for index in range(len(cards_input)):
         card_content = []
         if cards_input[index]:
@@ -48,9 +44,7 @@ def update_live_data(cards_display, cards_input, interval):
           State({'index': ALL, 'type': CardIdType.INPUTS}, 'options'),
           Input(LiveData.INTERVAL, 'n_intervals'))
 def update_input_dropdown(dropdown_options: list, interval: int):
-    crueso_data = SimulatorDataManager().get_data(PacketHeaders.CRUESO)
-    simulator_data = SimulatorDataManager().get_data(PacketHeaders.DATA)
-    data = pandas.concat([crueso_data, simulator_data], axis=1)
+    data = SimulatorDataManager().get_live_dataframe()
     if dropdown_options:
         options = dropdown_options[0]
         enabled_labels = {option['value'] for option in options if not option['disabled']}
