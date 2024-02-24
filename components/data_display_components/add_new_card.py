@@ -3,11 +3,11 @@ from dash import callback, Output, Input, State, callback_context, ALL
 
 from components.data_display_components.configurable_card import generate_configurable_card
 from components.data_display_components.consts import DisplayDataContainer, CardIdType
-from components.general_components.add_button import create_add_button
+from components.general_components.add_button import create_bottom_grid_button
 from database.database_manager import DatabaseManager
 from utilities import validate_arguments
 
-add_new_card = create_add_button(DisplayDataContainer.NEW_CARD)
+add_new_card = create_bottom_grid_button(DisplayDataContainer.NEW_CARD)
 
 
 @callback(
