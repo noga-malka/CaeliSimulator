@@ -3,7 +3,7 @@ from dash import html, dcc, callback, Output, Input, ALL
 
 from assets.icons import ControlButtonIcons
 from components.consts import Placeholder
-from components.data_display_components.consts import Size, CardIdType, Display, Inputs
+from components.data_display_components.consts import Size, CardIdType, Display
 from database.database_manager import DatabaseManager
 from models.display import DisplayCard
 
@@ -32,7 +32,7 @@ def generate_configurable_card(card_id: str,
     return dash_bootstrap_components.Card([
         dash_bootstrap_components.CardHeader([
             dcc.Input(placeholder='Card Title', value=title, id=generate_id(card_id, CardIdType.TITLE),
-                      style={'width': '200px', 'border': 'none', 'font-size': 'xx-large',
+                      style={'width': '300px', 'border': 'none', 'font-size': 'xx-large',
                              'background-color': 'inherit'}),
             html.Div(ControlButtonIcons.CLOSE, id=generate_id(card_id, CardIdType.DELETE)),
         ], className='flex', style={'justifyContent': 'space-between'}),
@@ -41,9 +41,9 @@ def generate_configurable_card(card_id: str,
                          clearable=False, searchable=False, style={'width': '72px'}),
             dcc.Dropdown(Display.ALL, display_type, id=generate_id(card_id, CardIdType.DISPLAY),
                          clearable=False, searchable=False, style={'width': '77px'}),
-            dcc.Dropdown([{'label': option, 'value': option, 'disabled': True} for option in Inputs.STATIC_OPTIONS],
+            dcc.Dropdown([{'label': option, 'value': option, 'disabled': True} for option in inputs or []],
                          id=generate_id(card_id, CardIdType.INPUTS), value=inputs,
-                         multi=True, clearable=False, searchable=False, style={'width': '150px'}),
+                         multi=True, clearable=False, searchable=False, style={'width': '170px'}),
 
             dcc.Input(placeholder=CardIdType.TYPING, value=typing, id=generate_id(card_id, CardIdType.TYPING),
                       className='input', style={'width': '72px'}),
