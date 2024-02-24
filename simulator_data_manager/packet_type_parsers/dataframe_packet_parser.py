@@ -10,17 +10,6 @@ class DataframePacketParser(BasePacketParser, ABC):
         super(DataframePacketParser, self).__init__(pandas.DataFrame())
         self.maximum_row_number = maximum_row_number
 
-    def _validate_length(self, dataframe: pandas.DataFrame) -> pandas.DataFrame:
-        """
-        if the given dataframe is longer than self.maximum_row_number, remove the first row from dataframe
-
-        :param dataframe: DataFrame object
-        :return: the dataframe after length validation
-        """
-        if len(dataframe) > self.maximum_row_number:
-            return dataframe.iloc[1:, :]
-        return dataframe
-
     @abstractmethod
     def parse_received_content(self, content: dict) -> dict:
         ...
@@ -32,5 +21,7 @@ class DataframePacketParser(BasePacketParser, ABC):
         :param content: dictionary to add to dataframe
         """
         content = self.parse_received_content(content)
-        new_data = pandas.concat([self._saved_data, pandas.DataFrame(content, index=[0])], ignore_index=True)
-        self._saved_data = self._validate_length(new_data)
+        self._saved_data = pandas.concat([self._saved_data, pandas.DataFrame(content, index=[0])], ignore_index=True)
+
+    def get_saved_data(self) -> pandas.DataFrame:
+        return self._saved_data[-self.maximum_row_number:]
