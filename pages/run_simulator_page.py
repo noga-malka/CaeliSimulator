@@ -2,6 +2,7 @@ import dash
 from dash import html
 
 from components.data_display_components.add_new_card import add_new_card
+from components.data_display_components.download_button import download_data_button
 from components.simulator_components.crueso_buttons import crueso_buttons
 from components.simulator_components.display_live_data import live_data
 from components.simulator_components.progress_bar import test_case_progress_bar
@@ -19,5 +20,8 @@ layout = html.Div([
     ], className='bg-secondary flex-center flex-row'),
     test_case_progress_bar,
     live_data,
-    add_new_card,
+    html.Div([
+        add_new_card,
+        download_data_button
+    ], className='flex-center')
 ])
