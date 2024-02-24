@@ -4,6 +4,7 @@ from dash import callback, Output, Input, State, callback_context, ALL
 from components.data_display_components.configurable_card import generate_configurable_card
 from components.data_display_components.consts import DisplayDataContainer, CardIdType
 from components.general_components.add_button import create_add_button
+from database.database_manager import DatabaseManager
 from utilities import validate_arguments
 
 add_new_card = create_add_button(DisplayDataContainer.NEW_CARD)
@@ -33,5 +34,6 @@ def delete_card(current_cards: list, buttons_clicked: list[int]):
     for index in range(len(current_cards)):
         if current_cards[index]['props']['id']['index'] == card_id_to_remove:
             current_cards.pop(index)
+            DatabaseManager().display_manager.remove(card_id_to_remove)
             return current_cards
     return dash.no_update
