@@ -10,13 +10,13 @@ class SimulatorConsts:
     DISCONNECT_CONNECTION = 'simulator_disconnect_connection_button'
 
 
-class CruesoConsts:
-    STATUS_BAR = 'crueso_status_bar'
+class BluetoothConsts:
+    STATUS_BAR = 'bluetooth_status_bar'
 
-    MODAL_ID = 'crueso_modal'
-    OPTIONS_DROPDOWN = 'crueso_options_dropdown'
-    SYNC_OPTIONS = 'crueso_sync_options'
-    CONNECT_DEVICE = 'crueso_connect_device'
+    MODAL_ID = 'bluetooth_modal'
+    OPTIONS_DROPDOWN = 'bluetooth_options_dropdown'
+    SYNC_OPTIONS = 'bluetooth_sync_options'
+    CONNECT_DEVICE = 'bluetooth_connect_device'
 
-    OPEN_CONNECT_MODAL = 'crueso_open_connect_modal_button'
-    DISCONNECT_CONNECTION = 'crueso_disconnect_connection_button'
+    OPEN_CONNECT_MODAL = 'bluetooth_open_connect_modal_button'
+    DISCONNECT_CONNECTION = 'bluetooth_disconnect_connection_button'

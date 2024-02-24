@@ -6,8 +6,8 @@ from assets.icons import ControlButtonIcons
 from cnc.simulator_cnc import SimulatorCnc
 from components.consts import Placeholder
 from components.general_components.modal import create_modal
-from components.simulator_components.inputs.consts import SimulatorConsts
-from components.simulator_components.inputs.utilities import build_connection_devices_dropdown, connection_status_change
+from components.io_components.consts import SimulatorConsts
+from components.io_components.utilities import build_connection_devices_dropdown, connection_status_change
 from components.simulator_components.utilities import create_icon_button
 from simulator_data_manager.simulator_data_manager import SimulatorDataManager
 from utilities import ui_logger, validate_arguments

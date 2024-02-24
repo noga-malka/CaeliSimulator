@@ -23,13 +23,6 @@ class ButtonIds:
             RESUME_BUTTON = [ControlButtonIcons.RESUME, 'Resume']
 
 
-class SimulatorModal:
-    ID = 'connection_modal'
-    DEVICE_DROPDOWN = 'device_dropdown'
-    SYNC_DEVICES = 'sync_devices'
-    CONNECT_DEVICE = 'connect_device'
-
-
 class SelectTestCaseModal:
     ID = 'select_test_case_modal'
     SEND_TEST_CASE = 'send_test_case'
