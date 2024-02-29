@@ -24,4 +24,4 @@ class DataframePacketParser(BasePacketParser, ABC):
         self._saved_data = pandas.concat([self._saved_data, pandas.DataFrame(content, index=[0])], ignore_index=True)
 
     def get_saved_data(self) -> pandas.DataFrame:
-        return self._saved_data[-self.maximum_row_number:].reset_index()
+        return self._saved_data[-self.maximum_row_number:].reset_index(drop=True)

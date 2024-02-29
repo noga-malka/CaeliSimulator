@@ -41,9 +41,11 @@ def generate_configurable_card(card_id: str,
                          clearable=False, searchable=False, style={'width': '72px'}),
             dcc.Dropdown(Display.ALL, display_type, id=generate_id(card_id, CardIdType.DISPLAY),
                          clearable=False, searchable=False, style={'width': '77px'}),
-            dcc.Dropdown([{'label': option, 'value': option, 'disabled': True} for option in inputs or []],
-                         id=generate_id(card_id, CardIdType.INPUTS), value=inputs,
-                         multi=True, clearable=False, searchable=False, style={'width': '170px'}),
+            html.Div(
+                dcc.Dropdown(id=generate_id(card_id, CardIdType.INPUTS), value=inputs,
+                             multi=True, clearable=False, searchable=False, style={'width': '170px'}),
+                id=generate_id(card_id, CardIdType.UPDATE_INPUTS)
+            ),
 
             dcc.Input(placeholder=CardIdType.TYPING, value=typing, id=generate_id(card_id, CardIdType.TYPING),
                       className='input', style={'width': '72px'}),

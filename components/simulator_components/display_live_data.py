@@ -1,5 +1,5 @@
 import dash
-from dash import html, dcc, callback, Output, Input, State, ALL, MATCH
+from dash import html, dcc, callback, Output, Input, State, MATCH
 
 from components.consts import Placeholder
 from components.data_display_components.configurable_card import generate_configurable_card
@@ -35,22 +35,13 @@ def update_live_data(cards_display, cards_inputs, interval):
     return dash.no_update
 
 
-@callback(Output({'index': ALL, 'type': CardIdType.INPUTS}, 'options'),
-          State({'index': ALL, 'type': CardIdType.INPUTS}, 'options'),
-          Input(LiveData.INTERVAL, 'n_intervals'))
-def update_input_dropdown(dropdown_options: list, interval: int):
+@callback(Output({'index': MATCH, 'type': CardIdType.INPUTS}, 'options'),
+          State({'index': MATCH, 'type': CardIdType.INPUTS}, 'value'),
+          Input({'index': MATCH, 'type': CardIdType.UPDATE_INPUTS}, 'n_clicks'))
+def update_input_dropdown(card_inputs: list, click: int):
     data = SimulatorDataManager().get_live_dataframe()
-    if dropdown_options:
-        options = dropdown_options[0]
-        enabled_labels = {option['value'] for option in options if not option['disabled']}
-        if set(data.columns) != enabled_labels:
-            target_labels = set.union({option['value'] for option in options}, set(data.columns))
-            updated_options = []
-            for label in target_labels:
-                disabled = label not in data.columns
-                updated_options.append({'label': label, 'value': label, 'disabled': disabled})
-            return [updated_options] * len(dropdown_options)
-    return dash.no_update
+    options = set.union(set(card_inputs), data.columns)
+    return [dict(label=option, value=option, disabled=option not in data.columns) for option in options]
 
 
 @callback(Output({'index': MATCH, 'type': CardIdType.CARD}, 'style'),

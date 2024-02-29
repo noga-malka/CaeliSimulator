@@ -24,6 +24,7 @@ class CardIdType:
     TITLE = 'title'
     CONTENT = 'content'
     INPUTS = 'inputs'
+    UPDATE_INPUTS = 'update_inputs'
     CARD = 'card'
     DISPLAY = 'display'
     SIZE = 'size'
