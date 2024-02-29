@@ -23,7 +23,7 @@ class SimulatorDataManager(Singleton):
         self.packet_parsers = {
             PacketHeaders.BREATH_PARAMETERS: BreathParametersPacketParser(),
             PacketHeaders.ACTIVE_BREATH_PARAMETERS: DictionaryPacketParser(),
-            PacketHeaders.DATA: IntegerDataframePacketParser(300),
+            PacketHeaders.SIMULATOR: IntegerDataframePacketParser(300),
             PacketHeaders.CRUESO: FloatDataframePacketParser(300),
             PacketHeaders.PRESSURE: FloatDataframePacketParser(300),
         }
@@ -42,7 +42,7 @@ class SimulatorDataManager(Singleton):
     def get_live_dataframe(self) -> pandas.DataFrame:
         crueso_data = self.get_data(PacketHeaders.CRUESO)
         pressure_data = self.get_data(PacketHeaders.PRESSURE)
-        simulator_data = self.get_data(PacketHeaders.DATA)
+        simulator_data = self.get_data(PacketHeaders.SIMULATOR)
         return pandas.concat([crueso_data, simulator_data, pressure_data], axis=1)
 
     def get_event(self, packet_type: str):

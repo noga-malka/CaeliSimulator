@@ -24,7 +24,7 @@ def build_test_case_progress(profiles: list):
 
 
 def calculate_progress(profiles: list) -> int:
-    data = SimulatorDataManager().get_data(PacketHeaders.DATA).iloc[-1]
+    data = SimulatorDataManager().get_data(PacketHeaders.SIMULATOR).iloc[-1]
     current_profile = data[SimulatorKeys.CURRENT_PROFILE]
     if current_profile == len(profiles):
         return 100
