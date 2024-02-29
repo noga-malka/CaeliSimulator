@@ -21,11 +21,11 @@ class SimulatorDataManager(Singleton):
 
     def initiate(self):
         self.packet_parsers = {
-            PacketHeaders.DATA: IntegerDataframePacketParser(100),
             PacketHeaders.BREATH_PARAMETERS: BreathParametersPacketParser(),
             PacketHeaders.ACTIVE_BREATH_PARAMETERS: DictionaryPacketParser(),
-            PacketHeaders.CRUESO: FloatDataframePacketParser(500),
-            PacketHeaders.PRESSURE: FloatDataframePacketParser(1000),
+            PacketHeaders.DATA: IntegerDataframePacketParser(300),
+            PacketHeaders.CRUESO: FloatDataframePacketParser(300),
+            PacketHeaders.PRESSURE: FloatDataframePacketParser(300),
         }
         self.simulator_thread = ReadDataThread(SimulatorCnc(), self.packet_parsers)
         self.simulator_thread.start()

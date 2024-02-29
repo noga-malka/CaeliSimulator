@@ -12,6 +12,9 @@ class Size:
     ALL = [FULL, HALF, ONE_THIRD, QUARTER]
 
 
+TICKS_TO_SECOND = 5
+
+
 class Display:
     GRAPH = 'Graph'
     TEXT = 'Text'
