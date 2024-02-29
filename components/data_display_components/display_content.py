@@ -9,7 +9,7 @@ from components.data_display_components.consts import Display
 
 def display_graph(columns: list[str], dataframe: pandas.DataFrame):
     figure = express.line(dataframe)
-    figure.update_layout(showlegend=False, yaxis_title=','.join(columns))
+    figure.update_layout(showlegend=False, yaxis_title=','.join(columns), uirevision="Don't change")
     return dcc.Graph(figure=figure,
                      style={'height': '300px'},
                      config={

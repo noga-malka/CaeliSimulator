@@ -21,22 +21,18 @@ def update_select_profile_dropdown_options(setup):
     return [generate_configurable_card(**card.__dict__) for card in DatabaseManager().display_manager.get_instances()]
 
 
-@callback(Output({'index': ALL, 'type': CardIdType.CONTENT}, 'children'),
-          State({'index': ALL, 'type': CardIdType.DISPLAY}, 'value'),
-          State({'index': ALL, 'type': CardIdType.INPUTS}, 'value'),
+@callback(Output({'index': MATCH, 'type': CardIdType.CONTENT}, 'children'),
+          State({'index': MATCH, 'type': CardIdType.DISPLAY}, 'value'),
+          State({'index': MATCH, 'type': CardIdType.INPUTS}, 'value'),
           Input(LiveData.INTERVAL, 'n_intervals'))
-def update_live_data(cards_display, cards_input, interval):
-    layout = []
-    data = SimulatorDataManager().get_live_dataframe()
-    for index in range(len(cards_input)):
-        card_content = []
-        if cards_input[index]:
-            try:
-                card_content = DISPLAY_TYPES[cards_display[index]](cards_input[index], data[cards_input[index]])
-            except KeyError:
-                pass
-        layout.append(card_content)
-    return layout
+def update_live_data(cards_display, cards_inputs, interval):
+    if cards_inputs:
+        data = SimulatorDataManager().get_live_dataframe()
+        try:
+            return DISPLAY_TYPES[cards_display](cards_inputs, data[cards_inputs])
+        except KeyError:
+            pass
+    return dash.no_update
 
 
 @callback(Output({'index': ALL, 'type': CardIdType.INPUTS}, 'options'),
