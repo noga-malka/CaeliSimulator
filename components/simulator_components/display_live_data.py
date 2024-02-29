@@ -40,7 +40,7 @@ def update_live_data(cards_display, cards_inputs, interval):
           Input({'index': MATCH, 'type': CardIdType.UPDATE_INPUTS}, 'n_clicks'))
 def update_input_dropdown(card_inputs: list, click: int):
     data = SimulatorDataManager().get_live_dataframe()
-    options = set.union(set(card_inputs), data.columns)
+    options = set.union(set(card_inputs or []), data.columns)
     return [dict(label=option, value=option, disabled=option not in data.columns) for option in options]
 
 
