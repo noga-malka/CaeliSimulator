@@ -1,19 +1,30 @@
 import dash_bootstrap_components
 from dash import html, Input, Output, callback, State
 
+from components.data_display_components.add_new_card import add_new_card
+from components.data_display_components.download_button import download_data_button
+from components.data_display_components.reset_data_button import reset_data_button
 from components.simulator_components.consts import LiveData, ProgressBar
 from simulator_data_manager.consts import PacketHeaders
 from simulator_data_manager.packet_type_parsers.consts import SimulatorKeys
 from simulator_data_manager.simulator_data_manager import SimulatorDataManager
 from utilities import validate_arguments
 
-test_case_progress_bar = html.Div(
-    [
-        dash_bootstrap_components.Progress(id=ProgressBar.ID, color='success',
-                                           className='progress-container progress-timer'),
-        html.Div([], id=ProgressBar.STEPS, className='flex-center align progress-container',
-                 style={'justifyContent': 'space-between', 'height': '100px'})],
-    className='flex-center align')
+test_case_progress_bar = html.Div([
+    html.Div([
+        add_new_card,
+        download_data_button,
+        reset_data_button,
+    ], className='flex-center child-margin'),
+    html.Div(
+        [
+            dash_bootstrap_components.Progress(id=ProgressBar.ID, color='success',
+                                               className='progress-container progress-timer'),
+            html.Div([], id=ProgressBar.STEPS, className='flex-center align progress-container',
+                     style={'justifyContent': 'space-between', 'height': '100px'}),
+        ],
+        className='flex-center align'),
+])
 
 
 def build_test_case_progress(profiles: list):
