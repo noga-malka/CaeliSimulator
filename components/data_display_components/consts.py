@@ -23,6 +23,16 @@ class Display:
     ALL = [GRAPH, TEXT, TIMER]
 
 
+class LengthInMinutes:
+    HALF = 0.5
+    ONE = 1
+    TWO = 2
+    THREE = 3
+    FIVE = 5
+
+    ALL = [dict(label=f'{minutes}m', value=minutes) for minutes in [HALF, ONE, TWO, THREE, FIVE]]
+
+
 class CardIdType:
     TITLE = 'title'
     CONTENT = 'content'
@@ -33,3 +43,4 @@ class CardIdType:
     SIZE = 'size'
     TYPING = 'typing'
     DELETE = 'delete'
+    LENGTH = 'length'

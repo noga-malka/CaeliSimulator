@@ -3,7 +3,7 @@ from dash import html, dcc, callback, Output, Input, State, MATCH
 
 from components.consts import Placeholder
 from components.data_display_components.configurable_card import generate_configurable_card
-from components.data_display_components.consts import CardIdType, DisplayDataContainer
+from components.data_display_components.consts import CardIdType, DisplayDataContainer, TICKS_TO_SECOND
 from components.data_display_components.display_content import DISPLAY_TYPES
 from components.simulator_components.consts import LiveData
 from database.database_manager import DatabaseManager
@@ -24,12 +24,16 @@ def update_select_profile_dropdown_options(setup):
 @callback(Output({'index': MATCH, 'type': CardIdType.CONTENT}, 'children'),
           State({'index': MATCH, 'type': CardIdType.DISPLAY}, 'value'),
           State({'index': MATCH, 'type': CardIdType.INPUTS}, 'value'),
+          State({'index': MATCH, 'type': CardIdType.LENGTH}, 'value'),
           Input(LiveData.INTERVAL, 'n_intervals'))
-def update_live_data(cards_display, cards_inputs, interval):
+def update_live_data(cards_display, cards_inputs, length_in_minutes, interval):
     if cards_inputs:
         data = SimulatorDataManager().get_live_dataframe()
+        length_in_minutes = length_in_minutes or 1
         try:
-            return DISPLAY_TYPES[cards_display](cards_inputs, data[cards_inputs])
+            rows_count = int(length_in_minutes * 60 * TICKS_TO_SECOND)
+            data = data[cards_inputs].dropna()[-rows_count:]
+            return DISPLAY_TYPES[cards_display](cards_inputs, data)
         except KeyError:
             pass
     return dash.no_update

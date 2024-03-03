@@ -3,7 +3,7 @@ from dash import html, dcc, callback, Output, Input, ALL
 
 from assets.icons import ControlButtonIcons
 from components.consts import Placeholder
-from components.data_display_components.consts import Size, CardIdType, Display
+from components.data_display_components.consts import Size, CardIdType, Display, LengthInMinutes
 from database.database_manager import DatabaseManager
 from models.display import DisplayCard
 
@@ -16,6 +16,7 @@ def generate_configurable_card(card_id: str,
                                title: str = None,
                                size: str = Size.FULL,
                                display_type: str = Display.GRAPH,
+                               length_in_minutes: float = LengthInMinutes.ONE,
                                inputs: list[str] = None,
                                typing: str = None):
     """
@@ -25,6 +26,7 @@ def generate_configurable_card(card_id: str,
     :param title: title to display
     :param size: percentage of the card
     :param display_type: type of visualization
+    :param length_in_minutes: number of minutes to show data
     :param inputs: column names to extract data from
     :param typing: type of input
     :return: Card component with default values
@@ -46,7 +48,8 @@ def generate_configurable_card(card_id: str,
                              multi=True, clearable=False, searchable=False, style={'width': '170px'}),
                 id=generate_id(card_id, CardIdType.UPDATE_INPUTS)
             ),
-
+            dcc.Dropdown(LengthInMinutes.ALL, length_in_minutes, id=generate_id(card_id, CardIdType.LENGTH),
+                         clearable=False, searchable=False, style={'width': '75px'}),
             dcc.Input(placeholder=CardIdType.TYPING, value=typing, id=generate_id(card_id, CardIdType.TYPING),
                       className='input', style={'width': '72px'}),
         ], className='align flex-wrap'),
@@ -60,6 +63,7 @@ def generate_configurable_card(card_id: str,
     Input({'index': ALL, 'type': CardIdType.TITLE}, 'value'),
     Input({'index': ALL, 'type': CardIdType.SIZE}, 'value'),
     Input({'index': ALL, 'type': CardIdType.DISPLAY}, 'value'),
+    Input({'index': ALL, 'type': CardIdType.LENGTH}, 'value'),
     Input({'index': ALL, 'type': CardIdType.INPUTS}, 'value'),
     Input({'index': ALL, 'type': CardIdType.TYPING}, 'value'),
     prevent_initial_call=True

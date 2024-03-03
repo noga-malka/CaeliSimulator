@@ -8,7 +8,6 @@ from components.data_display_components.consts import Display, TICKS_TO_SECOND
 
 
 def display_graph(columns: list[str], dataframe: pandas.DataFrame):
-    dataframe = dataframe.dropna()
     figure = express.line(dataframe, y=columns, x=dataframe.index / TICKS_TO_SECOND)
     figure.update_layout(showlegend=False,
                          yaxis_title=','.join(columns),

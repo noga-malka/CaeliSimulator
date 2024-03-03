@@ -7,5 +7,6 @@ class DisplayCard:
     title: str
     size: str
     display_type: str
+    length_in_minutes: float
     inputs: list[str]
     typing: str
