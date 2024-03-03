@@ -23,9 +23,9 @@ class SimulatorDataManager(Singleton):
         self.packet_parsers = {
             PacketHeaders.BREATH_PARAMETERS: BreathParametersPacketParser(),
             PacketHeaders.ACTIVE_BREATH_PARAMETERS: DictionaryPacketParser(),
-            PacketHeaders.SIMULATOR: IntegerDataframePacketParser(300),
-            PacketHeaders.CRUESO: FloatDataframePacketParser(300),
-            PacketHeaders.PRESSURE: FloatDataframePacketParser(300),
+            PacketHeaders.SIMULATOR: IntegerDataframePacketParser(),
+            PacketHeaders.CRUESO: FloatDataframePacketParser(),
+            PacketHeaders.PRESSURE: FloatDataframePacketParser(),
         }
         self.simulator_thread = ReadDataThread(SimulatorCnc(), self.packet_parsers)
         self.simulator_thread.start()

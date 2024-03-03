@@ -6,9 +6,8 @@ from simulator_data_manager.packet_type_parsers.base_packet_parser import BasePa
 
 
 class DataframePacketParser(BasePacketParser, ABC):
-    def __init__(self, maximum_row_number: int):
+    def __init__(self):
         super(DataframePacketParser, self).__init__(pandas.DataFrame())
-        self.maximum_row_number = maximum_row_number
 
     @abstractmethod
     def parse_received_content(self, content: dict) -> dict:
@@ -22,6 +21,3 @@ class DataframePacketParser(BasePacketParser, ABC):
         """
         content = self.parse_received_content(content)
         self._saved_data = pandas.concat([self._saved_data, pandas.DataFrame(content, index=[0])], ignore_index=True)
-
-    def get_saved_data(self) -> pandas.DataFrame:
-        return self._saved_data[-self.maximum_row_number:].reset_index(drop=True)
