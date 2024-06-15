@@ -43,6 +43,6 @@ class SerialConnection(BaseConnection):
             while not self._device.inWaiting():
                 time.sleep(0.01)
             return self._device.readline().decode().strip()
-        except (serial.SerialException, AttributeError):
+        except (serial.SerialException, AttributeError, TypeError):
             # the serial connection is closed
             raise DeviceDisconnectedException(self.__class__.__name__)

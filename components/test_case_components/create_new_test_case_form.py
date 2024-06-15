@@ -17,7 +17,7 @@ add_test_case_form = create_modal('Add Test Case', TestCaseForm.ID, [
         build_string_input_card('Test Case Name', TestCaseForm.Inputs.TEST_CASE_NAME),
         build_profile_dropdown(),
         html.Div([], id=TestCaseForm.SELECTED_PROFILES,
-                 style={'margin-bottom': '10px', 'justify-content': 'center'},
+                 style={'margin-bottom': '10px', 'justifyContent': 'center'},
                  className='flex'),
         html.Div([
             dash_bootstrap_components.Button('Save', className='margin'),

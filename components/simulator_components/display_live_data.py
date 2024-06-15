@@ -1,20 +1,55 @@
-from dash import html, dcc, callback, Output, Input
+import dash
+from dash import html, dcc, callback, Output, Input, State, MATCH
 
+from components.consts import Placeholder
+from components.data_display_components.configurable_card import generate_configurable_card
+from components.data_display_components.consts import CardIdType, DisplayDataContainer, TICKS_TO_SECOND
+from components.data_display_components.display_content import DISPLAY_TYPES
 from components.simulator_components.consts import LiveData
-from components.simulator_components.live_data.utilities import build_simulator_display_grid
-from simulator_data_manager.consts import PacketHeaders
+from database.database_manager import DatabaseManager
 from simulator_data_manager.simulator_data_manager import SimulatorDataManager
 
 live_data = html.Div([
-    html.Div(id=LiveData.LIVE_DATA_GRID),
+    html.Div([], DisplayDataContainer.ID, className='flex-wrap'),
     dcc.Interval(id=LiveData.INTERVAL, interval=1000)
 ])
 
 
-@callback(Output(LiveData.LIVE_DATA_GRID, 'children'),
+@callback(Output(DisplayDataContainer.ID, 'children'),
+          Input(Placeholder.ID, Placeholder.Fields.CHILDREN))
+def update_select_profile_dropdown_options(setup):
+    return [generate_configurable_card(**card.__dict__) for card in DatabaseManager().display_manager.get_instances()]
+
+
+@callback(Output({'index': MATCH, 'type': CardIdType.CONTENT}, 'children'),
+          State({'index': MATCH, 'type': CardIdType.DISPLAY}, 'value'),
+          State({'index': MATCH, 'type': CardIdType.INPUTS}, 'value'),
+          State({'index': MATCH, 'type': CardIdType.LENGTH}, 'value'),
           Input(LiveData.INTERVAL, 'n_intervals'))
-def update_live_data(interval):
-    data = SimulatorDataManager().get_data(PacketHeaders.DATA)
-    if data.empty:
-        return [], []
-    return build_simulator_display_grid(data)
+def update_live_data(cards_display, cards_inputs, length_in_minutes, interval):
+    if cards_inputs:
+        data = SimulatorDataManager().get_live_dataframe()
+        length_in_minutes = length_in_minutes or 1
+        try:
+            rows_count = int(length_in_minutes * 60 * TICKS_TO_SECOND)
+            data = data[cards_inputs].dropna()[-rows_count:]
+            return DISPLAY_TYPES[cards_display](cards_inputs, data)
+        except KeyError:
+            pass
+    return dash.no_update
+
+
+@callback(Output({'index': MATCH, 'type': CardIdType.INPUTS}, 'options'),
+          State({'index': MATCH, 'type': CardIdType.INPUTS}, 'value'),
+          Input({'index': MATCH, 'type': CardIdType.UPDATE_INPUTS}, 'n_clicks'))
+def update_input_dropdown(card_inputs: list, click: int):
+    data = SimulatorDataManager().get_live_dataframe()
+    options = set.union(set(card_inputs or []), data.columns)
+    return [dict(label=option, value=option, disabled=option not in data.columns) for option in options]
+
+
+@callback(Output({'index': MATCH, 'type': CardIdType.CARD}, 'style'),
+          Input({'index': MATCH, 'type': CardIdType.SIZE}, 'value'),
+          prevent_initial_call=True)
+def update_card_size(target_size: str):
+    return {'flex': f'0 0 {target_size}'}

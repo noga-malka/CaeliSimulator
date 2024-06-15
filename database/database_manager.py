@@ -2,8 +2,9 @@ import os.path
 import pickle
 
 from database.consts import FileNames
-from database.profile_manager import ProfileManager
-from database.test_case_manager import TestCaseManager
+from database.managers.display_manager import DisplayManager
+from database.managers.profile_manager import ProfileManager
+from database.managers.test_case_manager import TestCaseManager
 from singleton import Singleton
 
 
@@ -12,6 +13,7 @@ class DatabaseManager(Singleton):
         self._saved_database = self._load_saved_database()
         self.test_case_manager = self._get_test_case_manager()
         self.profile_manager = self._get_profile_manager()
+        self.display_manager = self._get_display_card_manager()
 
     @property
     def has_saved_database(self) -> bool:
@@ -37,6 +39,15 @@ class DatabaseManager(Singleton):
         if self.has_saved_database:
             return self._saved_database.profile_manager
         return ProfileManager(self.save_database)
+
+    def _get_display_card_manager(self) -> DisplayManager:
+        """
+        If there is a saved database, return its DisplayManager object, else create a new one
+        :return: DisplayManager object
+        """
+        if self.has_saved_database:
+            return self._saved_database.display_manager
+        return DisplayManager(self.save_database)
 
     def save_database(self):
         """
@@ -75,7 +86,10 @@ class DatabaseManager(Singleton):
 
         :return: DatabaseManager object if found, else None
         """
-        if os.path.isfile(FileNames.DATABASE):
-            return self._fetch_saved_database(FileNames.DATABASE)
-        elif os.path.isfile(FileNames.BACKUP):
-            return self._fetch_saved_database(FileNames.BACKUP)
+        try:
+            if os.path.isfile(FileNames.DATABASE):
+                return self._fetch_saved_database(FileNames.DATABASE)
+            elif os.path.isfile(FileNames.BACKUP):
+                return self._fetch_saved_database(FileNames.BACKUP)
+        except Exception:
+            print('Failed to load database. Ignore previous data')

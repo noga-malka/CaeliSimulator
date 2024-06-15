@@ -1,9 +1,9 @@
 from dash import callback, Output, Input, State
 
-from components.general_components.add_button import create_add_button
+from components.general_components.add_button import create_bottom_grid_button
 from components.profile_components.consts import ProfileForm
 
-create_new_profile_button = create_add_button(button_id=ProfileForm.CREATE_NEW_BUTTON)
+create_new_profile_button = create_bottom_grid_button(button_id=ProfileForm.CREATE_NEW_BUTTON)
 
 
 @callback(

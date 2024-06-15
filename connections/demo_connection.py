@@ -23,18 +23,16 @@ class DemoConnection(BaseConnection):
         return str(random.randint(0, 10))
 
     def receive(self) -> str:
-        time.sleep(0.5)
+        time.sleep(0.2)
         message = [
-            'Data',
-            'Profile Index',
-            '1',
-            'Profile RunTime',
+            'Crueso_data',
+            'TachB1',
             self._random(),
-            'Total Interval',
+            'TachB2',
             self._random(),
-            'Total RunTime',
+            'Pressure1',
             self._random(),
-            'Status',
+            'Pressure2',
             self._random(),
         ]
         return '\t'.join(message)

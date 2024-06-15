@@ -22,3 +22,6 @@ class Commands(Enum):
     SEND_TEST_CASE: bytes = b'\x46'
     PAUSE_SESSION: bytes = b'\x47'
     RESUME_SESSION: bytes = b'\x48'
+    SET_BLOWER_1_SPEED: bytes = b'\x31'
+    SET_BLOWER_2_SPEED: bytes = b'\x32'
+    CALIBRATE: bytes = b'\x24'

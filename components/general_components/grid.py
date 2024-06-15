@@ -1,21 +1,30 @@
+import dash_bootstrap_components
 from dash import html
 
+from assets.icons import ControlButtonIcons
 
-def create_grid_card(title: str, content: list, should_center: bool = False) -> html.Div:
+
+def create_grid_card(title: str,
+                     content: list,
+                     delete_button: str,
+                     should_center: bool = False) -> dash_bootstrap_components.Card:
     """
     create card inside a grid component
 
     :param title: title to display at top
     :param content: the cards content
+    :param delete_button: id of the delete button
     :param should_center: boolean value. if True center the content, else leave it spaced out
     :return: card component
     """
     content_style = 'align' if should_center else ''
-    return html.Div([
-        html.Label(title, className='flex-center', style={'font-size': '20px', 'font-weight': 'bold'}),
-        html.Hr(className='margin full-width'),
-        html.Div(content, className=f'flex-column {content_style}'),
-    ], className='grid-card')
+    return dash_bootstrap_components.Card([
+        dash_bootstrap_components.CardHeader(
+            [html.H3(title, style={'margin': 0}),
+             html.Div(ControlButtonIcons.CLOSE, id={'index': title, 'type': delete_button})],
+            className='align', style={'justifyContent': 'space-between'}),
+        dash_bootstrap_components.CardBody(content, className=f'flex-column {content_style}'),
+    ], id=title)
 
 
 def create_grid(grid_id: str) -> html.Div:

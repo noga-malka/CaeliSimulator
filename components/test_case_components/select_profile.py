@@ -28,7 +28,7 @@ def build_profile_dropdown():
 @callback(Output(TestCaseForm.Inputs.PROFILE_DROPDOWN, 'options'),
           Input(Placeholder.ID, Placeholder.Fields.CHILDREN))
 def update_select_profile_dropdown_options(profile_added):
-    return [profile_name for profile_name in DatabaseManager().profile_manager.get_names()]
+    return DatabaseManager().profile_manager.get_names()
 
 
 @callback(Output(TestCaseForm.PROFILE_STORE, 'data'),
