@@ -2,9 +2,9 @@ import os.path
 import pickle
 
 from database.consts import FileNames
-from database.display_manager import DisplayManager
-from database.profile_manager import ProfileManager
-from database.test_case_manager import TestCaseManager
+from database.managers.display_manager import DisplayManager
+from database.managers.profile_manager import ProfileManager
+from database.managers.test_case_manager import TestCaseManager
 from singleton import Singleton
 
 
