@@ -11,11 +11,7 @@ class ButtonIds:
         SECOND_BLOWER_SPEED_VALUE = 'second_blower_speed_value'
 
     class Simulator:
-        ON = 'simulator_on'
         RUN = 'simulator_run'
-        HOMING = 'simulator_homing'
-        STOP = 'simulator_emergency_stop'
-        OFF = 'simulator_off'
 
         class PauseResume:
             ID = 'simulator_pause_resume'

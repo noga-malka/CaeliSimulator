@@ -1,7 +1,7 @@
 from cnc.cnc import Cnc
-from connections.serial_connection import SerialConnection
+from connections.demo_connection import DemoConnection
 
 
 class SimulatorCnc(Cnc):
     def initiate(self):
-        self.connection = SerialConnection()
+        self.connection = DemoConnection()
