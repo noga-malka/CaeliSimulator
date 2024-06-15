@@ -7,7 +7,7 @@ from cnc.simulator_cnc import SimulatorCnc
 from components.consts import Placeholder
 from components.general_components.modal import create_modal
 from components.io_components.consts import SimulatorConsts
-from components.io_components.utilities import build_connection_devices_dropdown, connection_status_change
+from components.io_components.utilities import build_connection_devices_dropdown
 from components.simulator_components.utilities import create_icon_button
 from simulator_data_manager.simulator_data_manager import SimulatorDataManager
 from utilities import ui_logger, validate_arguments
@@ -70,4 +70,6 @@ def disconnect_device(disconnect_button: int):
           Input(Placeholder.ID, Placeholder.Fields.KEY))
 def update_status_bar(*button_clicks: list[int]):
     SimulatorDataManager().simulator_thread.clear_saved_data()
-    return connection_status_change(SimulatorCnc())
+    if SimulatorCnc().is_connected:
+        return 'connection-status connected'
+    return 'connection-status'

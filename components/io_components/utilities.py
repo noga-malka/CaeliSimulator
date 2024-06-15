@@ -1,7 +1,6 @@
 import dash_bootstrap_components
 from dash import dcc
 
-from cnc.cnc import Cnc
 from components.general_components.input_card import create_card
 
 
@@ -16,9 +15,3 @@ def build_connection_devices_dropdown(devices_id: str, sync_button_id: str, conn
         ]),
         dash_bootstrap_components.Button('Connect', id=connect_button_id)
     ]
-
-
-def connection_status_change(cnc: Cnc) -> str:
-    if cnc.is_connected:
-        return 'connection-status connected'
-    return 'connection-status'
