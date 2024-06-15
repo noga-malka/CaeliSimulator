@@ -65,4 +65,4 @@ def send_test_case_to_simulator(test_case_name: str, send_button: int, dash_logg
 @callback(Output(SelectTestCaseModal.TEST_CASE_DROPDOWN, 'options'),
           Input(Placeholder.ID, Placeholder.Fields.CLICKS))
 def update_test_cases_dropdown(*args):
-    return [test_case_name for test_case_name in DatabaseManager().test_case_manager.get_names()]
+    return DatabaseManager().test_case_manager.get_names()
