@@ -1,6 +1,6 @@
 import dash_bootstrap_components
 import dash_daq
-from dash import html, Output, Input, callback_context
+from dash import html, Output, Input, callback_context, State
 from dash_extensions.enrich import callback, DashLogger
 
 from assets.icons import ControlButtonIcons
@@ -16,6 +16,13 @@ from utilities import validate_arguments, ui_logger
 
 crueso_buttons = dash_bootstrap_components.ButtonGroup([
     create_icon_button('Calibrate', Commands.CALIBRATE.name, ControlButtonIcons.CALIBRATE),
+    html.Div([
+        html.Label('RPM', className='margin'),
+        dash_bootstrap_components.Input(id=ButtonIds.Crueso.RPM_BLOWER,
+                                        className='full-width', placeholder='Target RPM',
+                                        type='number', min=0, max=55000),
+        dash_bootstrap_components.Button('Send', id=ButtonIds.Crueso.SEND_RPM_VALUE)
+    ], className='flex-center align control-buttons'),
     dash_bootstrap_components.Button([
         html.Label('Blower 1 Speed', className='margin'),
         dash_daq.Slider(id=ButtonIds.Crueso.FIRST_BLOWER_SPEED_VALUE, min=0, max=255, value=0, size=100,
@@ -36,6 +43,19 @@ def command_button_clicked(*buttons, dash_logger: DashLogger):
     validate_arguments(*buttons)
     try:
         packet = NoPayloadPacket(Commands[callback_context.triggered_id])
+        BluetoothCnc().send_packet(packet)
+    except NoConnectionOpenException as exception:
+        return ui_logger(dash_logger, exception)
+
+
+@callback(Output(Placeholder.ID, Placeholder.Fields.ACCESS_KEY),
+          Input(ButtonIds.Crueso.SEND_RPM_VALUE, 'n_clicks'),
+          State(ButtonIds.Crueso.RPM_BLOWER, 'value'),
+          prevent_initial_call=True, log=True)
+def set_rpm(trigger, rpm_speed, dash_logger: DashLogger):
+    validate_arguments(trigger)
+    try:
+        packet = IntegerValuePacket(Commands.SET_RPM, rpm_speed, 2)
         BluetoothCnc().send_packet(packet)
     except NoConnectionOpenException as exception:
         return ui_logger(dash_logger, exception)

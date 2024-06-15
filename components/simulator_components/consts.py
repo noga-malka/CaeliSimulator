@@ -4,6 +4,8 @@ class ConnectionStatus:
 
 class ButtonIds:
     class Crueso:
+        RPM_BLOWER = 'rpm_blower_speed_value'
+        SEND_RPM_VALUE = 'send_rpm_value'
         FIRST_BLOWER_SPEED_VALUE = 'first_blower_speed_value'
         SECOND_BLOWER_SPEED_VALUE = 'second_blower_speed_value'
 
