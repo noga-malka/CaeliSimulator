@@ -86,7 +86,10 @@ class DatabaseManager(Singleton):
 
         :return: DatabaseManager object if found, else None
         """
-        if os.path.isfile(FileNames.DATABASE):
-            return self._fetch_saved_database(FileNames.DATABASE)
-        elif os.path.isfile(FileNames.BACKUP):
-            return self._fetch_saved_database(FileNames.BACKUP)
+        try:
+            if os.path.isfile(FileNames.DATABASE):
+                return self._fetch_saved_database(FileNames.DATABASE)
+            elif os.path.isfile(FileNames.BACKUP):
+                return self._fetch_saved_database(FileNames.BACKUP)
+        except Exception:
+            print('Failed to load database. Ignore previous data')
