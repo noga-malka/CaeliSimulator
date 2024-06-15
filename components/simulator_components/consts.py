@@ -1,6 +1,3 @@
-from assets.icons import ControlButtonIcons
-
-
 class ConnectionStatus:
     ID = 'connection_status_bar'
 
@@ -12,11 +9,7 @@ class ButtonIds:
 
     class Simulator:
         RUN = 'simulator_run'
-
-        class PauseResume:
-            ID = 'simulator_pause_resume'
-            PAUSE_BUTTON = [ControlButtonIcons.PAUSE, 'Pause']
-            RESUME_BUTTON = [ControlButtonIcons.RESUME, 'Resume']
+        PAUSE_RESUME = 'simulator_pause_resume'
 
 
 class SelectTestCaseModal:
