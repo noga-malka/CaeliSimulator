@@ -44,7 +44,6 @@ class BluetoothConnection(BaseConnection):
         :return: the bluetooth connection
         """
         new_device = socket.socket(socket.AF_BLUETOOTH, socket.SOCK_STREAM, socket.BTPROTO_RFCOMM)
-        new_device.settimeout(5)
         new_device.connect((mac_address, 1))
         return new_device
 
@@ -65,7 +64,7 @@ class BluetoothConnection(BaseConnection):
         while BluetoothConsts.LINE_SEPARATOR not in self._received_data_buffer:
             try:
                 data = self._device.recv(BluetoothConsts.RECEIVE_BUFFER_SIZE)
-            except (ConnectionAbortedError, TimeoutError):
+            except ConnectionAbortedError:
                 # bluetooth connection was closed
                 raise DeviceDisconnectedException(self.__class__.__name__)
             if data == BluetoothConsts.NO_DATA_RECEIVED:
