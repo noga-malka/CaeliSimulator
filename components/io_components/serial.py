@@ -51,10 +51,9 @@ def sync_devices(sync_button_clicked: int):
           prevent_initial_call=True,
           log=True)
 def connect_selected_device(device: str, button_clicked: int, dash_logger: DashLogger):
-    cnc = SerialCnc()
     if not device:
         return ui_logger(dash_logger, 'Device must be selected')
-    cnc.connection.connect(device)
+    SerialCnc().connection.connect(device)
 
 
 @callback(Output(Placeholder.ID, Placeholder.Fields.KEY),
