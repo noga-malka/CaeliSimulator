@@ -1,12 +1,9 @@
 from typing import Union
 
-from cnc.consts import ProtocolConsts, Connections
+from cnc.consts import ProtocolConsts
 from cnc.no_connection_open_exception import NoConnectionOpenException
 from cnc.packets.base_packet import BasePacket
 from connections.base_connection import BaseConnection
-from connections.bluetooth_connection import BluetoothConnection
-from connections.demo_connection import DemoConnection
-from connections.serial_connection import SerialConnection
 from singleton import Singleton
 from utilities import log_function, int_to_bytes
 
@@ -14,11 +11,6 @@ from utilities import log_function, int_to_bytes
 class Cnc(Singleton):
     def initiate(self):
         self.connection: BaseConnection = None
-        self.connection_options: dict[str, BaseConnection] = {
-            Connections.BLUETOOTH: BluetoothConnection(),
-            Connections.SERIAL: SerialConnection(),
-            Connections.DEMO: DemoConnection()
-        }
 
     def set_connection(self, connection: BaseConnection):
         self.connection = connection

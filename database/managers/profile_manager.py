@@ -3,8 +3,6 @@ from models.profile import Profile
 
 
 class ProfileManager(BaseManager):
-    def __init__(self, save_function: callable):
-        super().__init__(save_function)
 
     def get(self, profile_name: str) -> Profile:
         """

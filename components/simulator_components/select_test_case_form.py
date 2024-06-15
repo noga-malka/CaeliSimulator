@@ -3,11 +3,11 @@ from dash import Output, Input, State
 from dash import dcc
 from dash_extensions.enrich import callback, DashLogger
 
-from cnc.cnc import Cnc
 from cnc.consts import Commands
 from cnc.no_connection_open_exception import NoConnectionOpenException
-from cnc.packets.command_packet import CommandPacket
+from cnc.packets.no_payload_packet import NoPayloadPacket
 from cnc.packets.sync_test_case_packet import SyncTestCasePacket
+from cnc.serial_cnc import SerialCnc
 from components.consts import Placeholder
 from components.general_components.input_card import create_card
 from components.general_components.modal import create_modal
@@ -51,11 +51,13 @@ def send_test_case_to_simulator(test_case_name: str, send_button: int, dash_logg
         breath_packet_event.clear()
         test_case = DatabaseManager().test_case_manager.get(test_case_name)
         try:
-            Cnc().send_packet(SyncTestCasePacket(test_case))
+            SerialCnc().send_packet(SyncTestCasePacket(test_case))
             breath_packet_event.wait(timeout=3)
             if breath_packet_event.is_set():
-                Cnc().send_packet(CommandPacket(Commands.RUN))
+                SerialCnc().send_packet(NoPayloadPacket(Commands.RUN))
                 return test_case.profile_names
+            else:
+                return ui_logger(dash_logger, 'Can not load test case. No BreathParams command received from device')
         except NoConnectionOpenException as exception:
             return ui_logger(dash_logger, exception)
 
@@ -63,4 +65,4 @@ def send_test_case_to_simulator(test_case_name: str, send_button: int, dash_logg
 @callback(Output(SelectTestCaseModal.TEST_CASE_DROPDOWN, 'options'),
           Input(Placeholder.ID, Placeholder.Fields.CLICKS))
 def update_test_cases_dropdown(*args):
-    return [test_case_name for test_case_name in DatabaseManager().test_case_manager.get_names()]
+    return DatabaseManager().test_case_manager.get_names()

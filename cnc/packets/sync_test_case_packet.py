@@ -8,8 +8,8 @@ from utilities import int_to_bytes
 
 
 class SyncTestCasePacket(BasePacket):
-    def __init__(self, test_case: TestCase, command_type: Commands = Commands.SEND_TEST_CASE):
-        super().__init__(command_type)
+    def __init__(self, test_case: TestCase):
+        super().__init__(Commands.SEND_TEST_CASE)
         self.test_case = test_case
 
     def build_payload(self):

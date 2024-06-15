@@ -41,4 +41,4 @@ class ProfileField:
                 value,
                 html.Sub(self.unit_parser.unit_type)
             ]),
-        ], className='flex', style={'align-items': 'center', 'justify-content': 'space-between'})
+        ], className='flex', style={'align-items': 'center', 'justifyContent': 'space-between'})

@@ -1,39 +1,15 @@
-from assets.icons import ControlButtonIcons
-from simulator_data_manager.packet_type_parsers.consts import SimulatorKeys
-
-
 class ConnectionStatus:
     ID = 'connection_status_bar'
 
 
 class ButtonIds:
-    CONNECT_TO_SIMULATOR = 'connect_to_simulator_modal'
-    DISCONNECT_FROM_SIMULATOR = 'disconnect_connection_button'
+    class Crueso:
+        FIRST_BLOWER_SPEED_VALUE = 'first_blower_speed_value'
+        SECOND_BLOWER_SPEED_VALUE = 'second_blower_speed_value'
 
     class Simulator:
-        ON = 'simulator_on'
         RUN = 'simulator_run'
-        HOMING = 'simulator_homing'
-        STOP = 'simulator_emergency_stop'
-        OFF = 'simulator_off'
-
-        class PauseResume:
-            ID = 'simulator_pause_resume'
-            PAUSE_BUTTON = [ControlButtonIcons.PAUSE, 'Pause']
-            RESUME_BUTTON = [ControlButtonIcons.RESUME, 'Resume']
-
-
-class ButtonGroupIds:
-    SETUP_SIMULATOR = 'setup_simulator'
-    SIMULATOR_CONTROLS = 'simulator_controls'
-
-
-class ConnectionModal:
-    ID = 'connection_modal'
-    CONNECTION_TYPE_DROPDOWN = 'connection_type_dropdown'
-    DEVICE_DROPDOWN = 'device_dropdown'
-    SYNC_DEVICES = 'sync_devices'
-    CONNECT_DEVICE = 'connect_device'
+        PAUSE_RESUME = 'simulator_pause_resume'
 
 
 class SelectTestCaseModal:
@@ -43,12 +19,7 @@ class SelectTestCaseModal:
 
 
 class LiveData:
-    ID = 'live_data_container'
-    LIVE_DATA_GRID = 'live_data_grid'
     INTERVAL = 'live_data_interval'
-    NUMERIC_VALUE_FIELDS = [SimulatorKeys.PROFILE_RUN_TIME, SimulatorKeys.TOTAL_RUN_TIME, SimulatorKeys.CURRENT_PROFILE,
-                            SimulatorKeys.TOTAL_INTERVALS]
-    GRAPH_NUMBER_IN_ROW = 3
 
 
 class ProgressBar:
