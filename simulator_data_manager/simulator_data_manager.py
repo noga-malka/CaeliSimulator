@@ -3,7 +3,7 @@ from typing import Any
 import pandas
 
 from cnc.bluetooth_cnc import BluetoothCnc
-from cnc.simulator_cnc import SimulatorCnc
+from cnc.serial_cnc import SerialCnc
 from simulator_data_manager.consts import PacketHeaders
 from simulator_data_manager.packet_type_parsers.breath_parameters_packet_parser import BreathParametersPacketParser
 from simulator_data_manager.packet_type_parsers.dictionary_packet_parser import DictionaryPacketParser
@@ -27,7 +27,7 @@ class SimulatorDataManager(Singleton):
             PacketHeaders.CRUESO: FloatDataframePacketParser(),
             PacketHeaders.PRESSURE: FloatDataframePacketParser(),
         }
-        self.simulator_thread = ReadDataThread(SimulatorCnc(), self.packet_parsers)
+        self.simulator_thread = ReadDataThread(SerialCnc(), self.packet_parsers)
         self.simulator_thread.start()
         self.crueso_thread = ReadDataThread(BluetoothCnc(), self.packet_parsers)
         self.crueso_thread.start()

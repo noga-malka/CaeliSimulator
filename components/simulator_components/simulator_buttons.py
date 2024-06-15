@@ -6,7 +6,7 @@ from assets.icons import ControlButtonIcons
 from cnc.consts import Commands
 from cnc.no_connection_open_exception import NoConnectionOpenException
 from cnc.packets.no_payload_packet import NoPayloadPacket
-from cnc.simulator_cnc import SimulatorCnc
+from cnc.serial_cnc import SerialCnc
 from components.consts import Placeholder
 from components.simulator_components.consts import ButtonIds
 from components.simulator_components.utilities import create_icon_button
@@ -32,7 +32,7 @@ def activate_simulator_buttons(*buttons, dash_logger: DashLogger):
     validate_arguments(*buttons)
     try:
         packet = NoPayloadPacket(Commands[callback_context.triggered_id])
-        SimulatorCnc().send_packet(packet)
+        SerialCnc().send_packet(packet)
     except NoConnectionOpenException as exception:
         return ui_logger(dash_logger, exception)
 
@@ -51,7 +51,7 @@ def activate_simulator_buttons(button_content, button_clicked, dash_logger: Dash
         command = Commands.RESUME_SESSION
         button = ButtonIds.Simulator.PauseResume.PAUSE_BUTTON
     try:
-        SimulatorCnc().send_packet(NoPayloadPacket(command))
+        SerialCnc().send_packet(NoPayloadPacket(command))
     except NoConnectionOpenException as exception:
         return ui_logger(dash_logger, exception)
     return button

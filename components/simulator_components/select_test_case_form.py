@@ -7,7 +7,7 @@ from cnc.consts import Commands
 from cnc.no_connection_open_exception import NoConnectionOpenException
 from cnc.packets.no_payload_packet import NoPayloadPacket
 from cnc.packets.sync_test_case_packet import SyncTestCasePacket
-from cnc.simulator_cnc import SimulatorCnc
+from cnc.serial_cnc import SerialCnc
 from components.consts import Placeholder
 from components.general_components.input_card import create_card
 from components.general_components.modal import create_modal
@@ -51,10 +51,10 @@ def send_test_case_to_simulator(test_case_name: str, send_button: int, dash_logg
         breath_packet_event.clear()
         test_case = DatabaseManager().test_case_manager.get(test_case_name)
         try:
-            SimulatorCnc().send_packet(SyncTestCasePacket(test_case))
+            SerialCnc().send_packet(SyncTestCasePacket(test_case))
             breath_packet_event.wait(timeout=3)
             if breath_packet_event.is_set():
-                SimulatorCnc().send_packet(NoPayloadPacket(Commands.RUN))
+                SerialCnc().send_packet(NoPayloadPacket(Commands.RUN))
                 return test_case.profile_names
         except NoConnectionOpenException as exception:
             return ui_logger(dash_logger, exception)

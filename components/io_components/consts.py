@@ -1,4 +1,4 @@
-class SimulatorConsts:
+class SerialConsts:
     STATUS_BAR = 'simulator_status_bar'
 
     MODAL_ID = 'simulator_modal'
