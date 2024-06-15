@@ -4,10 +4,11 @@ from cnc.consts import ProtocolConsts
 from cnc.no_connection_open_exception import NoConnectionOpenException
 from cnc.packets.base_packet import BasePacket
 from connections.base_connection import BaseConnection
+from singleton import Singleton
 from utilities import log_function, int_to_bytes
 
 
-class Cnc:
+class Cnc(Singleton):
     def initiate(self):
         self.connection: BaseConnection = None
 
