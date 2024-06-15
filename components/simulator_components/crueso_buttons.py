@@ -7,8 +7,8 @@ from assets.icons import ControlButtonIcons
 from cnc.bluetooth_cnc import BluetoothCnc
 from cnc.consts import Commands
 from cnc.no_connection_open_exception import NoConnectionOpenException
+from cnc.packets.integer_value_packet import IntegerValuePacket
 from cnc.packets.no_payload_packet import NoPayloadPacket
-from cnc.packets.single_byte_packet import SingleBytePacket
 from components.consts import Placeholder
 from components.simulator_components.consts import ButtonIds
 from components.simulator_components.utilities import create_icon_button
@@ -47,7 +47,7 @@ def command_button_clicked(*buttons, dash_logger: DashLogger):
 def set_first_blower_speed(blower_speed: int, dash_logger: DashLogger):
     validate_arguments(blower_speed)
     try:
-        BluetoothCnc().send_packet(SingleBytePacket(Commands.SET_BLOWER_1_SPEED, blower_speed))
+        BluetoothCnc().send_packet(IntegerValuePacket(Commands.SET_BLOWER_1_SPEED, blower_speed))
     except NoConnectionOpenException as exception:
         return ui_logger(dash_logger, exception)
 
@@ -58,6 +58,6 @@ def set_first_blower_speed(blower_speed: int, dash_logger: DashLogger):
 def set_second_blower_speed(blower_speed: int, dash_logger: DashLogger):
     validate_arguments(blower_speed)
     try:
-        BluetoothCnc().send_packet(SingleBytePacket(Commands.SET_BLOWER_2_SPEED, blower_speed))
+        BluetoothCnc().send_packet(IntegerValuePacket(Commands.SET_BLOWER_2_SPEED, blower_speed))
     except NoConnectionOpenException as exception:
         return ui_logger(dash_logger, exception)
