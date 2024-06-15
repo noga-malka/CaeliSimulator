@@ -1,3 +1,5 @@
+import uuid
+
 import dash
 from dash import callback, Output, Input, State, callback_context, ALL
 
@@ -17,9 +19,7 @@ add_new_card = create_bottom_grid_button(DisplayDataContainer.NEW_CARD)
     prevent_initial_call=True
 )
 def add_new_card_to_layout(current_cards: list, button_clicked: int):
-    card_id = str(len(current_cards) + 1)
-    current_cards.append(generate_configurable_card(card_id)),
-    return current_cards
+    return current_cards + [generate_configurable_card(str(uuid.uuid1()))]
 
 
 @callback(
