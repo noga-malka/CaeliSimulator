@@ -58,6 +58,7 @@ class Cnc(Singleton):
         if not self.is_connected:
             raise NoConnectionOpenException(packet.command_type.name)
         packet = self._convert_packet_to_bytes(packet)
+        print(f'send packet: {packet.hex()}')
         self.connection.send(packet)
 
     def parse_incoming_packet(self) -> tuple[str, Union[str, dict]]:
