@@ -3,7 +3,7 @@ from cnc.packets.base_packet import BasePacket
 from utilities import int_to_bytes
 
 
-class SetSingleValuePacket(BasePacket):
+class SingleBytePacket(BasePacket):
     def __init__(self, command_type: Commands, target_value: int):
         super().__init__(command_type)
         self.target_value = target_value

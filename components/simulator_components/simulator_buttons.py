@@ -6,7 +6,7 @@ from assets.icons import ControlButtonIcons
 from cnc.command_mapping import COMMAND_PER_BUTTON
 from cnc.consts import Commands
 from cnc.no_connection_open_exception import NoConnectionOpenException
-from cnc.packets.command_packet import CommandPacket
+from cnc.packets.no_payload_packet import NoPayloadPacket
 from cnc.simulator_cnc import SimulatorCnc
 from components.consts import Placeholder
 from components.simulator_components.consts import ButtonIds
@@ -52,7 +52,7 @@ def activate_simulator_buttons(button_content, button_clicked, dash_logger: Dash
         command = Commands.RESUME_SESSION
         button = ButtonIds.Simulator.PauseResume.PAUSE_BUTTON
     try:
-        SimulatorCnc().send_packet(CommandPacket(command))
+        SimulatorCnc().send_packet(NoPayloadPacket(command))
     except NoConnectionOpenException as exception:
         return ui_logger(dash_logger, exception)
     return button

@@ -1,10 +1,10 @@
 from cnc.consts import Commands
-from cnc.packets.command_packet import CommandPacket
+from cnc.packets.no_payload_packet import NoPayloadPacket
 from components.simulator_components.consts import ButtonIds
 
 COMMAND_PER_BUTTON = {
-    ButtonIds.Simulator.ON: CommandPacket(Commands.ON),
-    ButtonIds.Simulator.HOMING: CommandPacket(Commands.HOMING),
-    ButtonIds.Simulator.STOP: CommandPacket(Commands.STOP),
-    ButtonIds.Simulator.OFF: CommandPacket(Commands.OFF),
+    ButtonIds.Simulator.ON: NoPayloadPacket(Commands.ON),
+    ButtonIds.Simulator.HOMING: NoPayloadPacket(Commands.HOMING),
+    ButtonIds.Simulator.STOP: NoPayloadPacket(Commands.STOP),
+    ButtonIds.Simulator.OFF: NoPayloadPacket(Commands.OFF),
 }
