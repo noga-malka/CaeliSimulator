@@ -23,6 +23,7 @@ class ControlButtonIcons:
     CONNECT_TO_SIMULATOR = create_icon('wpf:connected', width=32, style={'marginRight': '3px'})
     DISCONNECT_FROM_SIMULATOR = create_icon('wpf:disconnected', width=32, style={'marginRight': '3px'})
     SELECT_TEST_CASE = create_icon('fluent-mdl2:test-case', width=32, style={'marginRight': '3px'})
+    CALIBRATE = create_icon('mynaui:config', width=32, style={'marginRight': '3px'})
     ON = create_icon('iconoir:on-tag', width=32, style={'marginRight': '3px'})
     RUN = create_icon('carbon:play-filled', width=32, style={'marginRight': '3px'})
     HOMING = create_icon('ant-design:home-filled', width=32, style={'marginRight': '3px'})
