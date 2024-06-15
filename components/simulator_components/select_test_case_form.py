@@ -56,6 +56,8 @@ def send_test_case_to_simulator(test_case_name: str, send_button: int, dash_logg
             if breath_packet_event.is_set():
                 SerialCnc().send_packet(NoPayloadPacket(Commands.RUN))
                 return test_case.profile_names
+            else:
+                return ui_logger(dash_logger, 'Can not load test case. No BreathParams command received from device')
         except NoConnectionOpenException as exception:
             return ui_logger(dash_logger, exception)
 
