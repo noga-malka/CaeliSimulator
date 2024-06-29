@@ -50,9 +50,10 @@ def command_button_clicked(*buttons, dash_logger: DashLogger):
 
 @callback(Output(Placeholder.ID, Placeholder.Fields.ACCESS_KEY),
           Input(ButtonIds.Crueso.SEND_RPM_VALUE, 'n_clicks'),
+          Input(ButtonIds.Crueso.RPM_BLOWER, "n_submit"),
           State(ButtonIds.Crueso.RPM_BLOWER, 'value'),
           prevent_initial_call=True, log=True)
-def set_rpm(trigger, rpm_speed, dash_logger: DashLogger):
+def set_rpm(trigger, submit, rpm_speed, dash_logger: DashLogger):
     validate_arguments(trigger)
     try:
         packet = IntegerValuePacket(Commands.SET_RPM, rpm_speed, 2)

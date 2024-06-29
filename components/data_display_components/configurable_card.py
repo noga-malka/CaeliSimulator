@@ -45,7 +45,7 @@ def generate_configurable_card(card_id: str,
                          clearable=False, searchable=False, style={'width': '77px'}),
             html.Div(
                 dcc.Dropdown(id=generate_id(card_id, CardIdType.INPUTS), value=inputs,
-                             multi=True, clearable=False, searchable=False, style={'width': '170px'}),
+                             multi=True, clearable=False, searchable=False, style={'width': '250px'}),
                 id=generate_id(card_id, CardIdType.UPDATE_INPUTS)
             ),
             dcc.Dropdown(LengthInMinutes.ALL, length_in_minutes, id=generate_id(card_id, CardIdType.LENGTH),
